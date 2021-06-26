@@ -8,6 +8,7 @@ public class Doctor {
     @Id
     @Column(name = "Id")
  private int doctorId;
+    // third change
 
 
     @OneToOne(cascade = CascadeType.ALL)
