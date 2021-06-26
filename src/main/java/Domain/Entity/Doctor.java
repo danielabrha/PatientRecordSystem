@@ -5,6 +5,7 @@ import javax.persistence.*;
 //@Component
 @Entity(name="Doctors")
 public class Doctor {
+    // kidi
     @Id
     @Column(name = "Id")
  private int doctorId;
