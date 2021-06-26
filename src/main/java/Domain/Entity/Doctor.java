@@ -1,7 +1,7 @@
 package Domain.Entity;
 
 import javax.persistence.*;
-
+//
 //@Component
 @Entity(name="Doctors")
 public class Doctor {
