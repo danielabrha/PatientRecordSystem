@@ -1,8 +1,8 @@
 package Services.Implementation;
 
-import Domain.Entity.Visit;
 import Domain.ViewModel.VisitViewModel;
 import Services.Interface.IVisitService;
+import Domain.Entity.Visit;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,11 +1,11 @@
 package Services.Implementation;
 
+import Services.Interface.IDoctorService;
+import Services.Interface.IReceptionsService;
 import Domain.Entity.Doctor;
 import Domain.Entity.Receptionst;
 import Domain.ViewModel.DoctorViewModel;
 import Domain.ViewModel.ReceptionstViewModel;
-import Services.Interface.IDoctorService;
-import Services.Interface.IReceptionsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
