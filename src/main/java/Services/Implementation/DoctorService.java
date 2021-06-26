@@ -1,11 +1,11 @@
 package Services.Implementation;
 
+import Services.Interface.IDoctorService;
+import Services.Interface.IReceptionsService;
 import Domain.Entity.Doctor;
 import Domain.Entity.Receptionst;
 import Domain.ViewModel.DoctorViewModel;
 import Domain.ViewModel.ReceptionstViewModel;
-import Services.Interface.IDoctorService;
-import Services.Interface.IReceptionsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +13,9 @@ import java.util.List;
 public class DoctorService implements IDoctorService {
     @Override
     public List<Doctor> findAll() {
+        // DoctorService displays list of doctors
         return null;
+
     }
 
     @Override

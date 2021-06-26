@@ -2,12 +2,22 @@ package Services.Implementation;
 
 import Domain.Entity.Role;
 import Domain.ViewModel.RoleViewModel;
+import Repository.IRoleRepository;
 import Services.Interface.IRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class RoleService implements IRoleService {
+    @Autowired
+    private IRoleRepository _roleRepository;
+    @Autowired
+    private List<Role> listRole;
+    public RoleService(){
+        listRole=new ArrayList<>();
+    }
     @Override
     public List<Role> findAll() {
         return null;
@@ -15,12 +25,12 @@ public class RoleService implements IRoleService {
 
     @Override
     public List<Role> findAll(String status) {
-        return null;
+        return _roleRepository.findAll();
     }
 
     @Override
     public Role findById(int id) {
-        return null;
+        return _roleRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -30,7 +40,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public void deleteById(int id) {
-
+        _roleRepository.deleteById(id);
     }
 
     @Override
@@ -45,16 +55,26 @@ public class RoleService implements IRoleService {
 
     @Override
     public void deleteAll() {
-
+        _roleRepository.deleteAll();
     }
 
     @Override
     public Role create(RoleViewModel roleViewModel) {
-        return null;
+        return _roleRepository.save(toRole(roleViewModel));
     }
 
     @Override
     public List<Role> createAll(List<RoleViewModel> listRoleViewModel) {
-        return null;
+
+        listRoleViewModel.forEach(roleVM -> {
+            this.listRole.add(toRole(roleVM));
+        });
+        return _roleRepository.saveAll(this.listRole);
+
+    }
+    public Role toRole(RoleViewModel roleViewModel) {
+        Role role = new Role();
+        role.setRoleName(roleViewModel.getRoleViewModelName());
+        return role;
     }
 }
