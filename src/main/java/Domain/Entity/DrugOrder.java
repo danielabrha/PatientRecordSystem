@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.stereotype.Component;
 
-//
+//drug order entitiy
 
 @Component
 @Entity(name = "drugOrders")
