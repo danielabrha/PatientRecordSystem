@@ -15,10 +15,14 @@ public class Drug {
 
     private String drugName;
     private String drugCode;
-    
-    @ManyToOne
-    @JoinColumn(name="systemAdminId")
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
     private SystemAdmin systemAdmin;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "drugList", referencedColumnName = "Id")
+    private DrugOrder drugOrder;
 
     public Drug(Long drugId, String drugName, String drugCode, SystemAdmin systemAdmin) {
         this.drugId = drugId;
@@ -35,4 +39,38 @@ public class Drug {
 
     public Drug() {
     }
+
+    public Long getDrugId() {
+        return drugId;
+    }
+
+    public void setDrugId(Long drugId) {
+        this.drugId = drugId;
+    }
+
+    public String getDrugName() {
+        return drugName;
+    }
+
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
+    }
+
+    public String getDrugCode() {
+        return drugCode;
+    }
+
+    public void setDrugCode(String drugCode) {
+        this.drugCode = drugCode;
+    }
+
+    public SystemAdmin getSystemAdmin() {
+        return systemAdmin;
+    }
+
+    public void setSystemAdmin(SystemAdmin systemAdmin) {
+        this.systemAdmin = systemAdmin;
+    }
+
+
 }

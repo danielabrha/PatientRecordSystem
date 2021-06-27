@@ -2,9 +2,9 @@ package Domain.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
+
 
 @Component
 @Entity(name="SystemAdmins")
