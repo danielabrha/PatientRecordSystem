@@ -17,27 +17,27 @@ public class LabTestType {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="systemAdminId", referencedColumnName = "Id")
-    private SystemAdmin systemAdminId;
+    private SystemAdmin systemAdmin;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="labOrderId", referencedColumnName  ="Id")
     private LabOrder labOrder;
 
-    public LabTestType(int labTestTypeId, String labTestName, String labTestCode, SystemAdmin systemAdminId, LabOrder labOrder) {
+    public LabTestType(int labTestTypeId, String labTestName, String labTestCode, SystemAdmin systemAdmin, LabOrder labOrder) {
         this.labTestTypeId = labTestTypeId;
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
-        this.systemAdminId = systemAdminId;
+        this.systemAdmin = systemAdmin;
         this.labOrder = labOrder;
     }
 
     public LabTestType() {
     }
 
-    public LabTestType(String labTestName, String labTestCode, SystemAdmin systemAdminId, LabOrder labOrder) {
+    public LabTestType(String labTestName, String labTestCode, SystemAdmin systemAdmin, LabOrder labOrder) {
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
-        this.systemAdminId = systemAdminId;
+        this.systemAdmin = systemAdmin;
         this.labOrder = labOrder;
     }
 
@@ -63,12 +63,12 @@ public class LabTestType {
         this.labTestCode = labTestCode;
     }
 
-    public SystemAdmin getSystemAdminId() {
-        return systemAdminId;
+    public SystemAdmin getSystemAdmin() {
+        return systemAdmin;
     }
 
     public void setSystemAdminId(SystemAdmin systemAdminId) {
-        this.systemAdminId = systemAdminId;
+        this.systemAdmin = systemAdmin;
     }
 
     public LabOrder getLabOrder() {

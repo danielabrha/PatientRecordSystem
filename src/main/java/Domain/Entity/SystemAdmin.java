@@ -1,5 +1,6 @@
 package Domain.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -17,20 +18,19 @@ public class SystemAdmin {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="userId",referencedColumnName = "Id")
     private User user;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="labTestTypeId", referencedColumnName = "Id")
+    @JsonIgnore
+    @OneToMany(mappedBy = "systemAdmin")
     private List <LabTestType> labTestTypeList;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="drugId", referencedColumnName = "Id")
+    @JsonIgnore
+    @OneToMany(mappedBy = "systemAdmin")
     private List<Drug> drugList;
 
-    public SystemAdmin(int systemAdminId, User user, List<LabTestType> labTestType, List<Drug> drug) {
+    public SystemAdmin(int systemAdminId, User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
         this.systemAdminId = systemAdminId;
         this.user = user;
-        this.labTestTypeList = labTestType;
-        this.drugList = drug;
+        this.labTestTypeList = labTestTypeList;
+        this.drugList = drugList;
     }
 
     public SystemAdmin(User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
