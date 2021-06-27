@@ -25,7 +25,22 @@ public class Patient extends  Person{
     // relations
     @JsonIgnore
     @OneToMany(mappedBy = "patient")
-    private List<Visit> listVisits=new ArrayList<>();
-    // contructors
-   // setter and getter
+    private List<Visit> visitList=new ArrayList<>();
+
+    public Patient(String fName, String lName, String mName, String gender, String email, String phoneNumber, String address, Date dateOfBirth, int patientId, int cardRecordNumber, List<Visit> visitList) {
+        super(fName, lName, mName, gender, email, phoneNumber, address, dateOfBirth);
+        this.patientId = patientId;
+        this.cardRecordNumber = cardRecordNumber;
+        this.visitList = visitList;
+    }
+
+    public Patient(int patientId, int cardRecordNumber, List<Visit> visitList) {
+        this.patientId = patientId;
+        this.cardRecordNumber = cardRecordNumber;
+        this.visitList = visitList;
+    }
+
+    public Patient(){
+
+    }
 }
