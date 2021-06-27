@@ -16,43 +16,60 @@ import org.springframework.stereotype.Component;
 public class LabResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
+    @Column(name = "Id")
     private int labResultId;
 
     @Column(name = "result")
     private String result;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "laboratoristId",referencedColumnName = "Id")
+    @JoinColumn(name = "laboratoristId", referencedColumnName = "Id")
     private Laboratorist laboratorist;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "labOrderId",referencedColumnName = "Id")
+    @JoinColumn(name = "labOrderId", referencedColumnName = "Id")
     private LabOrder labOrder;
-
 
     public LabResult() {
     }
+
+    public LabResult(String result, Laboratorist laboratorist, LabOrder labOrder) {
+        this.result = result;
+        this.laboratorist = laboratorist;
+        this.labOrder = labOrder;
+    }
+
+    public LabResult(int labResultId, String result, Laboratorist laboratorist, LabOrder labOrder) {
+        this.labResultId = labResultId;
+        this.result = result;
+        this.laboratorist = laboratorist;
+        this.labOrder = labOrder;
+    }
+
     public LabResult(int id, String result) {
         labResultId = id;
         this.result = result;
     }
+
     public LabResult(String result) {
         this.result = result;
- 
-   }
+
+    }
+
     public int getId() {
         return labResultId;
     }
+
     public void setId(int id) {
         labResultId = id;
     }
+
     public String getResult() {
         return result;
     }
+
     public void setResult(String result) {
         this.result = result;
     }
-    
 
 }
