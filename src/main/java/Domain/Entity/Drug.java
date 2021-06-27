@@ -15,10 +15,14 @@ public class Drug {
 
     private String drugName;
     private String drugCode;
-    
-    @ManyToOne
-    @JoinColumn(name="systemAdminId", referencedColumnName = "Id"))
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
     private SystemAdmin systemAdmin;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
+    private DrugOrder drugOrder;
 
     public Drug(Long drugId, String drugName, String drugCode, SystemAdmin systemAdmin) {
         this.drugId = drugId;
