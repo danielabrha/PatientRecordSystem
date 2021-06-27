@@ -15,6 +15,7 @@ public class Laboratorist {
 
     @Id
     @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int laboratoristId;
 
     @OneToOne(cascade = CascadeType.ALL)
