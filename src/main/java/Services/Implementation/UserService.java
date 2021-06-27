@@ -65,7 +65,7 @@ public class UserService implements IUserService {
 
     @Override
     public User create(UserViewModel userViewModel) {
-        List<Role> listRole=new ArrayList<>();
+       // List<Role> listRole=new ArrayList<>();
        // Role role=_roleService.findById(roleId);
         List<Role> listRoles=new ArrayList<>();
         userViewModel.getListOfRole().forEach(role->{
@@ -73,7 +73,7 @@ public class UserService implements IUserService {
         });
        // listRole.add(role);
         User user=toUser(userViewModel);
-        user.setListOfRole(listRoles);
+        user.setRoleList(listRoles);
 
         user= _userRepository.save(user);
 //if(role.getRoleName().equals("Doctor")){

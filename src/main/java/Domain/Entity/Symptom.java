@@ -25,4 +25,20 @@ public class Symptom {
     @JoinColumn(name = "doctorId", referencedColumnName = "Id")
     private Doctor doctor;
 
+    public Symptom(int symptomId, String symptom, Visit visit, Doctor doctor) {
+        this.symptomId = symptomId;
+        this.symptom = symptom;
+        this.visit = visit;
+        this.doctor = doctor;
+    }
+
+    public Symptom(String symptom, Visit visit, Doctor doctor) {
+        this.symptom = symptom;
+        this.visit = visit;
+        this.doctor = doctor;
+    }
+
+    public  Symptom(){
+
+    }
 }
