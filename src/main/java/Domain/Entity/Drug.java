@@ -13,7 +13,7 @@ public class Drug {
     private Long drugId;
 
     private String drugName;
-    @JsonIgnore
+    
     @ManyToOne
     @JoinColumn(name="systemAdmin_id")
     private SystemAdmin systemAdmin;
