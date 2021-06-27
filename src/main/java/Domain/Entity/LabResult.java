@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Entity;
+
 @Component
 @Entity
 @Table(name = "labResult")

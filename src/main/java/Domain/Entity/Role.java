@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,28 +13,28 @@ import java.util.List;
 public class Role {
     @Column(name="Id")
     @Id
-    private int Role_Id;
-    @Column(name = "Role_Name")
+    private int roleId;
+    @Column(name = "roleName")
     private String roleName;
 
-    @ManyToMany(mappedBy ="listOfRole" )
-    private List<User> listOfUser=new LinkedList<>();
+    @ManyToMany(mappedBy ="userList" )
+    private List<User> userList =new ArrayList<>();
 
     public Role() {
     }
 
-    public Role(int role_Id, String roleName, List<User> listOfUser) {
-        Role_Id = role_Id;
+    public Role(int roleId, String roleName, List<User> userList) {
+        roleId = roleId;
         this.roleName = roleName;
-        this.listOfUser = listOfUser;
+        this.userList = userList;
     }
 
-    public int getRole_Id() {
-        return Role_Id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole_Id(int role_Id) {
-        Role_Id = role_Id;
+    public void setRoleId(int roleId) {
+        roleId = roleId;
     }
 
     public String getRoleName() {
@@ -44,11 +45,11 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public List<User> getListOfUser() {
-        return listOfUser;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setListOfUser(List<User> listOfUser) {
-        this.listOfUser = listOfUser;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }
