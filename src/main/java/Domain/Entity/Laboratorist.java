@@ -19,7 +19,7 @@ public class Laboratorist {
     private int laboratoristId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+    @JoinColumn(name = "userId", referencedColumnName = "Id")
     private User user;
 
     @JsonIgnore
