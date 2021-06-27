@@ -21,4 +21,18 @@ public class LabOrder {
     @JoinColumn(name = "doctorId", referencedColumnName = "Id")
     private Doctor doctor;
 
+    public LabOrder(int labOrderId, Visit visit, Doctor doctor) {
+        this.labOrderId = labOrderId;
+        this.visit = visit;
+        this.doctor = doctor;
+    }
+
+    public LabOrder(Visit visit, Doctor doctor) {
+        this.visit = visit;
+        this.doctor = doctor;
+    }
+
+    public LabOrder(){
+
+    }
 }

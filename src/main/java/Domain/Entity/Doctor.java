@@ -19,7 +19,7 @@ public class Doctor {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+    @JoinColumn(name = "userId", referencedColumnName = "Id")
     private User user;
 
     @JsonIgnore
@@ -30,10 +30,17 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private  List<Symptom> symptomList = new ArrayList<>();
 
-
-    public Doctor(int doctorId, User user) {
+    public Doctor(int doctorId, User user, List<LabOrder> labOrderList, List<Symptom> symptomList) {
         this.doctorId = doctorId;
         this.user = user;
+        this.labOrderList = labOrderList;
+        this.symptomList = symptomList;
+    }
+
+    public Doctor(User user, List<LabOrder> labOrderList, List<Symptom> symptomList) {
+        this.user = user;
+        this.labOrderList = labOrderList;
+        this.symptomList = symptomList;
     }
 
     public Doctor() {
@@ -52,5 +59,21 @@ public class Doctor {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<LabOrder> getLabOrderList() {
+        return labOrderList;
+    }
+
+    public void setLabOrderList(List<LabOrder> labOrderList) {
+        this.labOrderList = labOrderList;
+    }
+
+    public List<Symptom> getSymptomList() {
+        return symptomList;
+    }
+
+    public void setSymptomList(List<Symptom> symptomList) {
+        this.symptomList = symptomList;
     }
 }
