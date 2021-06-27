@@ -21,7 +21,7 @@ public class Drug {
     private SystemAdmin systemAdmin;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "drugList", referencedColumnName = "Id")
+    @JoinColumn(name = "drugListId", referencedColumnName = "Id")
     private DrugOrder drugOrder;
 
     public Drug(Long drugId, String drugName, String drugCode, SystemAdmin systemAdmin) {
