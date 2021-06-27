@@ -14,9 +14,9 @@ public class RoleService implements IRoleService {
     @Autowired
     private IRoleRepository _roleRepository;
     @Autowired
-    private List<Role> listRole;
+    private List<Role> roleList;
     public RoleService(){
-        listRole=new ArrayList<>();
+        roleList=new ArrayList<>();
     }
     @Override
     public List<Role> findAll() {
@@ -64,12 +64,12 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public List<Role> createAll(List<RoleViewModel> listRoleViewModel) {
+    public List<Role> createAll(List<RoleViewModel> roleListViewModel) {
 
-        listRoleViewModel.forEach(roleVM -> {
-            this.listRole.add(toRole(roleVM));
+        roleListViewModel.forEach(roleVM -> {
+            this.roleList.add(toRole(roleVM));
         });
-        return _roleRepository.saveAll(this.listRole);
+        return _roleRepository.saveAll(this.roleList);
 
     }
     public Role toRole(RoleViewModel roleViewModel) {

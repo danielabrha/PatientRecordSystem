@@ -24,7 +24,7 @@ public class User extends Person {
     @JoinTable(name="userRoles",
             joinColumns=@JoinColumn(name="userId"),
             inverseJoinColumns = @JoinColumn(name="roleId"))
-            private List<Role> userList = new ArrayList<>();
+            private List<Role> roleList = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
@@ -36,10 +36,23 @@ public class User extends Person {
     @OneToOne(mappedBy = "user")
     private Laboratorist laboratorist;
 
-
-    public User(String fName, String lName, String mName, String gender, String email, String phoneNumber, String address, Date dateOfBirth,String userName) {
+    public User(String fName, String lName, String mName, String gender, String email, String phoneNumber, String address, Date dateOfBirth, int userId, String userName, List<Role> roleList, Doctor doctor, Receptionst receptionst, Laboratorist laboratorist) {
         super(fName, lName, mName, gender, email, phoneNumber, address, dateOfBirth);
-        this.userName=userName;
+        this.userId = userId;
+        this.userName = userName;
+        this.roleList = roleList;
+        this.doctor = doctor;
+        this.receptionst = receptionst;
+        this.laboratorist = laboratorist;
+    }
+
+    public User(int userId, String userName, List<Role> roleList, Doctor doctor, Receptionst receptionst, Laboratorist laboratorist) {
+        this.userId = userId;
+        this.userName = userName;
+        this.roleList = roleList;
+        this.doctor = doctor;
+        this.receptionst = receptionst;
+        this.laboratorist = laboratorist;
     }
 
     public User() {
@@ -61,12 +74,12 @@ public class User extends Person {
         this.userName = userName;
     }
 
-    public List<Role> getUserList() {
-        return userList;
+    public List<Role> getRoleList() {
+        return roleList;
     }
 
-    public void setUserList(List<Role> userList) {
-        this.userList = userList;
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
     public Doctor getDoctor() {
