@@ -13,23 +13,25 @@ public class Drug {
     private Long drugId;
 
     private String drugName;
+    private String drugCode;
     
     @ManyToOne
     @JoinColumn(name="systemAdminId")
     private SystemAdmin systemAdmin;
 
-    public Drug(Long drugId, String drugName, SystemAdmin systemAdmin) {
+    public Drug(Long drugId, String drugName, String drugCode, SystemAdmin systemAdmin) {
         this.drugId = drugId;
         this.drugName = drugName;
+        this.drugCode = drugCode;
         this.systemAdmin = systemAdmin;
     }
 
-    public Drug(String drugName, SystemAdmin systemAdmin) {
+    public Drug(String drugName, String drugCode, SystemAdmin systemAdmin) {
         this.drugName = drugName;
+        this.drugCode = drugCode;
         this.systemAdmin = systemAdmin;
     }
 
     public Drug() {
     }
-
 }
