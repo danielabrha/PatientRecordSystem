@@ -2,12 +2,28 @@ package Services.Implementation;
 
 import Domain.Entity.Drug;
 import Domain.ViewModel.DrugViewModel;
+import Repository.IDrugRepository;
 import Services.Interface.IDrugService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class DrugService implements IDrugService {
+
+    @Autowired
+    IDrugRepository _iDrugRepository;
+
+    @Autowired
+    List<Drug> drugList;
+
+    public DrugService() {
+        drugList = new ArrayList<>();
+    }
+
+
+
     @Override
     public List<Drug> findAll() {
         return null;
@@ -15,12 +31,12 @@ public class DrugService implements IDrugService {
 
     @Override
     public List<Drug> findAll(String status) {
-        return null;
+        return _iDrugRepository.findAll();
     }
 
     @Override
     public Drug findById(int id) {
-        return null;
+        return _iDrugRepository.findById(id).orElse(null);
     }
 
     @Override

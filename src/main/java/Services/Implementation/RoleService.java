@@ -34,7 +34,14 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public RoleViewModel update(RoleViewModel roleViewModel) {
+    public Role update(RoleViewModel roleViewModel) {
+
+        Role previousRole=_roleRepository.findById(roleViewModel.getRoleViewModel_Id()).orElse(null);
+        if(previousRole !=null) {
+             previousRole.setRoleName(roleViewModel.getRoleViewModelName());
+            return _roleRepository.save(previousRole);
+        }
+
         return null;
     }
 
