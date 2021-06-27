@@ -1,6 +1,5 @@
 package Domain.Entity;
 
-import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
