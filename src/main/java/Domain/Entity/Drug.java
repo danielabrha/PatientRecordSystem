@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Entity(name="Drugs")
 public class Drug {
     @Id
-    @Column(name="Id")
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long drugId;
 
     private String drugName;
