@@ -14,16 +14,17 @@ public class User extends Person {
 
     @Column(name = "Id")
     @Id
-    private  int User_Id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private  int userId;
 
-    @Column(name = "User_Name")
+    @Column(name = "userName")
     private  String userName;
 
     @ManyToMany
-    @JoinTable(name="UserRoles",
-            joinColumns=@JoinColumn(name="User_Id"),
-            inverseJoinColumns = @JoinColumn(name="Role_Id"))
-            private List<Role> listOfRole = new ArrayList<>();
+    @JoinTable(name="userRoles",
+            joinColumns=@JoinColumn(name="userId"),
+            inverseJoinColumns = @JoinColumn(name="roleId"))
+            private List<Role> userList = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
@@ -44,12 +45,12 @@ public class User extends Person {
     public User() {
     }
 
-    public int getUser_Id() {
-        return User_Id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_Id(int user_Id) {
-        User_Id = user_Id;
+    public void setUserId(int userId) {
+        userId = userId;
     }
 
     public String getUserName() {
@@ -60,12 +61,12 @@ public class User extends Person {
         this.userName = userName;
     }
 
-    public List<Role> getListOfRole() {
-        return listOfRole;
+    public List<Role> getUserList() {
+        return userList;
     }
 
-    public void setListOfRole(List<Role> listOfRole) {
-        this.listOfRole = listOfRole;
+    public void setUserList(List<Role> userList) {
+        this.userList = userList;
     }
 
     public Doctor getDoctor() {

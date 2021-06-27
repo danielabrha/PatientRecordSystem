@@ -82,7 +82,7 @@ public class RoleController {
         // TODO Auto-generated method stub
 
         this.RoleVM = new RoleViewModel();
-        this.RoleVM.setRoleViewModel_Id(Role2.getRole_Id());
+        this.RoleVM.setRoleViewModel_Id(Role2.getRoleId());
         this.RoleVM.setRoleViewModelName(Role2.getRoleName());
         return this.RoleVM;
     }
