@@ -40,5 +40,27 @@ public class Laboratorist {
     public Laboratorist() {
     }
 
+    public int getLaboratoristId() {
+        return laboratoristId;
+    }
 
+    public void setLaboratoristId(int laboratoristId) {
+        this.laboratoristId = laboratoristId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<LabResult> getLabResultList() {
+        return labResultList;
+    }
+
+    public void setLabResultList(List<LabResult> labResultList) {
+        this.labResultList = labResultList;
+    }
 }

@@ -17,7 +17,7 @@ public class Drug {
     private String drugCode;
     
     @ManyToOne
-    @JoinColumn(name="systemAdminId")
+    @JoinColumn(name="systemAdminId", referencedColumnName = "Id"))
     private SystemAdmin systemAdmin;
 
     public Drug(Long drugId, String drugName, String drugCode, SystemAdmin systemAdmin) {
@@ -35,4 +35,38 @@ public class Drug {
 
     public Drug() {
     }
+
+    public Long getDrugId() {
+        return drugId;
+    }
+
+    public void setDrugId(Long drugId) {
+        this.drugId = drugId;
+    }
+
+    public String getDrugName() {
+        return drugName;
+    }
+
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
+    }
+
+    public String getDrugCode() {
+        return drugCode;
+    }
+
+    public void setDrugCode(String drugCode) {
+        this.drugCode = drugCode;
+    }
+
+    public SystemAdmin getSystemAdmin() {
+        return systemAdmin;
+    }
+
+    public void setSystemAdmin(SystemAdmin systemAdmin) {
+        this.systemAdmin = systemAdmin;
+    }
+
+
 }
