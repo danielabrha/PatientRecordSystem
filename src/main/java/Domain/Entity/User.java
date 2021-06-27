@@ -24,12 +24,17 @@ public class User extends Person {
             joinColumns=@JoinColumn(name="User_Id"),
             inverseJoinColumns = @JoinColumn(name="Role_Id"))
             private List<Role> listOfRole = new ArrayList<>();
-    @JsonIgnore
+
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
-    @JsonIgnore
+
     @OneToOne(mappedBy = "user")
     private Receptionst receptionst;
+
+
+    @OneToOne(mappedBy = "user")
+    private Laboratorist laboratorist;
+
 
     public User(String fName, String lName, String mName, String gender, String email, String phoneNumber, String address, Date dateOfBirth,String userName) {
         super(fName, lName, mName, gender, email, phoneNumber, address, dateOfBirth);
