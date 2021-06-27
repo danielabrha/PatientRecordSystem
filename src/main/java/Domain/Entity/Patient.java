@@ -18,10 +18,11 @@ public class Patient extends  Person{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int patientId;
 
-    // relations
+
     @Column(name = "cardRecordNumber")
     private int cardRecordNumber;
 
+    // relations
     @JsonIgnore
     @OneToMany(mappedBy = "patient")
     private List<Visit> listVisits=new ArrayList<>();
