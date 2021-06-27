@@ -36,10 +36,29 @@ public class User extends Person {
     @OneToOne(mappedBy = "user")
     private Laboratorist laboratorist;
 
+    @OneToOne(mappedBy = "user")
+    private SystemAdmin systemAdmin;
 
-    public User(String fName, String lName, String mName, String gender, String email, String phoneNumber, String address, Date dateOfBirth,String userName) {
+
+    public User(String fName, String lName, String mName, String gender, String email, String phoneNumber, String address, Date dateOfBirth, int userId, String userName, List<Role> userList, Doctor doctor, Receptionst receptionst, Laboratorist laboratorist, SystemAdmin systemAdmin) {
         super(fName, lName, mName, gender, email, phoneNumber, address, dateOfBirth);
-        this.userName=userName;
+        this.userId = userId;
+        this.userName = userName;
+        this.userList = userList;
+        this.doctor = doctor;
+        this.receptionst = receptionst;
+        this.laboratorist = laboratorist;
+        this.systemAdmin = systemAdmin;
+    }
+
+    public User(int userId, String userName, List<Role> userList, Doctor doctor, Receptionst receptionst, Laboratorist laboratorist, SystemAdmin systemAdmin) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userList = userList;
+        this.doctor = doctor;
+        this.receptionst = receptionst;
+        this.laboratorist = laboratorist;
+        this.systemAdmin = systemAdmin;
     }
 
     public User() {
