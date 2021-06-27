@@ -24,7 +24,7 @@ public class Laboratorist {
 
     @JsonIgnore
     @OneToMany(mappedBy = "laboratorist") // to be copied from LabResult class
-    private List<LabResult> labResultList = new LinkedList<>();
+    private List<LabResult> labResultList = new ArrayList<>();
 
     public Laboratorist(int laboratoristId, User user, List<LabResult> labResultList) {
         this.laboratoristId = laboratoristId;

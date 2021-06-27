@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Role {
     private String roleName;
 
     @ManyToMany(mappedBy ="listOfRole" )
-    private List<User> listOfUser=new LinkedList<>();
+    private List<User> listOfUser=new ArrayList<>();
 
     public Role() {
     }

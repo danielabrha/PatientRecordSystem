@@ -3,6 +3,7 @@ package Domain.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class User extends Person {
     @JoinTable(name="UserRoles",
             joinColumns=@JoinColumn(name="User_Id"),
             inverseJoinColumns = @JoinColumn(name="Role_Id"))
-            private List<Role> listOfRole = new LinkedList<>();
+            private List<Role> listOfRole = new ArrayList<>();
     @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
