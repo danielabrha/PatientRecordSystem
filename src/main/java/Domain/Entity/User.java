@@ -10,17 +10,19 @@ import java.util.List;
 //@Component
 @Entity(name = "Users")
 public class User extends Person {
+
     @Column(name = "Id")
     @Id
     private  int User_Id;
 
     @Column(name = "User_Name")
     private  String userName;
+
     @ManyToMany
     @JoinTable(name="UserRoles",
             joinColumns=@JoinColumn(name="User_Id"),
             inverseJoinColumns = @JoinColumn(name="Role_Id"))
-    private List<Role> listOfRole = new LinkedList<>();
+            private List<Role> listOfRole = new LinkedList<>();
     @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
