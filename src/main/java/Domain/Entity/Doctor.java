@@ -30,6 +30,10 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private  List<Symptom> symptomList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "doctor")
+    private List<DrugOrder> drugOrderList = new ArrayList<>();
+
 
     public Doctor(int doctorId, User user) {
         this.doctorId = doctorId;

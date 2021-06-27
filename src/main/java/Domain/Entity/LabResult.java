@@ -8,20 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import javax.persistence.OneToOne;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-
 @Component
-@Entity
-@Table(name = "labResult")
+@Entity(name = "labResults")
 public class LabResult {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="Id")
-    private int Id;
+    private int labResultId;
 
     @Column(name = "result")
     private String result;
@@ -30,11 +26,15 @@ public class LabResult {
     @JoinColumn(name = "laboratoristId",referencedColumnName = "Id")
     private Laboratorist laboratorist;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "labOrderId",referencedColumnName = "Id")
+    private LabOrder labOrder;
+
 
     public LabResult() {
     }
     public LabResult(int id, String result) {
-        Id = id;
+        labResultId = id;
         this.result = result;
     }
     public LabResult(String result) {
@@ -42,10 +42,10 @@ public class LabResult {
  
    }
     public int getId() {
-        return Id;
+        return labResultId;
     }
     public void setId(int id) {
-        Id = id;
+        labResultId = id;
     }
     public String getResult() {
         return result;
