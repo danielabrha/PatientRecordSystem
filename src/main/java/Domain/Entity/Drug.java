@@ -15,7 +15,7 @@ public class Drug {
     private String drugName;
     
     @ManyToOne
-    @JoinColumn(name="systemAdmin_id")
+    @JoinColumn(name="systemAdminId")
     private SystemAdmin systemAdmin;
 
     public Drug(Long drugId, String drugName, SystemAdmin systemAdmin) {
