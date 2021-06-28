@@ -11,7 +11,7 @@ public interface ISystemAdmin {
     //	public List<SystemAdminViewModel> findAll(int entryid);
     public List<SystemAdmin> findAll(String status);
     public SystemAdmin findById(int id);
-    public SystemAdminViewModel update(SystemAdminViewModel systemAdminViewModel);
+    public SystemAdmin update(SystemAdminViewModel systemAdminViewModel);
     public void deleteById(int id);
     public void delete(SystemAdminViewModel systemAdminViewModel);
     public void deleteAll(Iterable<SystemAdminViewModel> systemAdminViewModels);
