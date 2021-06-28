@@ -2,12 +2,16 @@ package Services.Implementation;
 
 import Domain.Entity.LabOrder;
 import Domain.ViewModel.LabOrderViewModel;
+import Repository.ILabResultRepository;
+import Repository.ILaboratoristRepository;
 import Services.Interface.ILabOrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class LabOrderService implements ILabOrderService {
+
+        
     @Override
     public List<LabOrder> findAll() {
         return null;
