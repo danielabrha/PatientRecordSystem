@@ -11,13 +11,9 @@ import java.util.List;
 
 @Component
 public class RoleViewModel {
-    @Column(name="Id")
-    @Id
-    private int RoleViewModel_Id;
-    @Column(name = "RoleViewModel_Name")
-    private String roleName;
 
-    @ManyToMany(mappedBy ="listOfRoleViewModel" )
+    private int RoleViewModel_Id;
+    private String roleName;
     private List<User> listOfUser=new LinkedList<>();
 
     public RoleViewModel() {
