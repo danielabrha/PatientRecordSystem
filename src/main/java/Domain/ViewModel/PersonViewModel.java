@@ -15,6 +15,7 @@ public class PersonViewModel {
     private String address;
     private Date dateOfBirth;
 
+
     public PersonViewModel(String fName, String lName, String mName, String gender, String email,
                   String phoneNumber, String address, Date dateOfBirth) {
         this.fName = fName;

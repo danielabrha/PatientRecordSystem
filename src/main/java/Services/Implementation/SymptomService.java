@@ -1,13 +1,27 @@
 package Services.Implementation;
 
+import Domain.Entity.Role;
 import Domain.Entity.Symptom;
+import Domain.ViewModel.RoleViewModel;
 import Domain.ViewModel.SymptomViewModel;
+import Repository.ISymptomRepository;
 import Services.Interface.ISymptomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class SymptomService implements ISymptomService {
+
+    @Autowired
+    private ISymptomRepository _symptomRepository;
+    @Autowired
+    private List<Symptom> symptomList;
+    public SymptomService(){
+        symptomList=new ArrayList<>();
+    }
+    
     @Override
     public List<Symptom> findAll() {
         return null;
@@ -50,11 +64,20 @@ public class SymptomService implements ISymptomService {
 
     @Override
     public Symptom create(SymptomViewModel symptomViewModel) {
-        return null;
+        return _symptomRepository.save(toSymptom(symptomViewModel));
     }
 
     @Override
-    public List<Symptom> createAll(List<SymptomViewModel> listSymptomViewModel) {
-        return null;
+    public List<Symptom> createAll(List<SymptomViewModel> symptomViewModelList) {
+        symptomViewModelList.forEach(symptomVM -> {
+            this.symptomList.add(toSymptom(symptomVM));
+        });
+        return _symptomRepository.saveAll(this.symptomList);
+    }
+
+    public Symptom toSymptom(SymptomViewModel symptomViewModel) {
+        Symptom symptom = new Symptom();
+        symptom.setSymptomName(symptomViewModel.getSymptomViewModelName());
+        return symptom;
     }
 }
