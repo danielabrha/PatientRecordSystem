@@ -14,8 +14,8 @@ public class Symptom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int symptomId;
 
-    @Column(name = "symptom")
-    private String symptom;
+    @Column(name = "symptomName")
+    private String symptomName;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "visitId", referencedColumnName = "Id")
@@ -25,20 +25,52 @@ public class Symptom {
     @JoinColumn(name = "doctorId", referencedColumnName = "Id")
     private Doctor doctor;
 
-    public Symptom(int symptomId, String symptom, Visit visit, Doctor doctor) {
+    public Symptom(int symptomId, String symptomName, Visit visit, Doctor doctor) {
         this.symptomId = symptomId;
-        this.symptom = symptom;
+        this.symptomName = symptomName;
         this.visit = visit;
         this.doctor = doctor;
     }
 
-    public Symptom(String symptom, Visit visit, Doctor doctor) {
-        this.symptom = symptom;
+    public Symptom(String symptomName, Visit visit, Doctor doctor) {
+        this.symptomName = symptomName;
         this.visit = visit;
         this.doctor = doctor;
     }
 
     public  Symptom(){
 
+    }
+
+    public int getSymptomId() {
+        return symptomId;
+    }
+
+    public void setSymptomId(int symptomId) {
+        this.symptomId = symptomId;
+    }
+
+    public String getSymptomName() {
+        return symptomName;
+    }
+
+    public void setSymptomName(String symptom) {
+        this.symptomName = symptom;
+    }
+
+    public Visit getVisit() {
+        return visit;
+    }
+
+    public void setVisit(Visit visit) {
+        this.visit = visit;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }
