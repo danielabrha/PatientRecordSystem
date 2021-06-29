@@ -5,13 +5,12 @@ import Domain.Entity.LabTestType;
 import Domain.Entity.Role;
 import Domain.Entity.Symptom;
 import Domain.ViewModel.LabOrderViewModel;
-import Domain.ViewModel.RoleViewModel;
+
 import Repository.ILabOrderRepository;
-import Repository.ISymptomRepository;
 import Services.Interface.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import Services.Interface.ILabOrderService;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -51,6 +50,7 @@ public class LabOrderService implements ILabOrderService {
     public LabOrderService(){
         labOrderList=new ArrayList<>();
     }
+
 
     @Override
     public List<LabOrder> findAll() {

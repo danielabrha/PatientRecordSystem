@@ -92,6 +92,7 @@ public class SymptomController {
 
         this.SymptomVM = new SymptomViewModel();
         this.SymptomVM.setSymptomViewModelId(Symptom2.getSymptomId());
+
         this.SymptomVM.setSymptomViewModelName(Symptom2.getSymptomName());
         return this.SymptomVM;
     }

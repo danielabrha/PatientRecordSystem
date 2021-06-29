@@ -20,7 +20,7 @@ public class LabResult {
     private int labResultId;
 
     @Column(name = "result")
-    private String result;
+    private String labResult;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "laboratoristId", referencedColumnName = "Id")
@@ -30,46 +30,62 @@ public class LabResult {
     @JoinColumn(name = "labOrderId", referencedColumnName = "Id")
     private LabOrder labOrder;
 
+    public Laboratorist getLaboratorist() {
+        return laboratorist;
+    }
+
+    public void setLaboratorist(Laboratorist laboratorist) {
+        this.laboratorist = laboratorist;
+    }
+
+    public LabOrder getLabOrder() {
+        return labOrder;
+    }
+
+    public void setLabOrder(LabOrder labOrder) {
+        this.labOrder = labOrder;
+    }
+
     public LabResult() {
     }
 
     public LabResult(String result, Laboratorist laboratorist, LabOrder labOrder) {
-        this.result = result;
+        this.labResult = result;
         this.laboratorist = laboratorist;
         this.labOrder = labOrder;
     }
 
     public LabResult(int labResultId, String result, Laboratorist laboratorist, LabOrder labOrder) {
         this.labResultId = labResultId;
-        this.result = result;
+        this.labResult = result;
         this.laboratorist = laboratorist;
         this.labOrder = labOrder;
     }
 
     public LabResult(int id, String result) {
         labResultId = id;
-        this.result = result;
+        this.labResult = result;
     }
 
     public LabResult(String result) {
-        this.result = result;
+        this.labResult = result;
 
     }
 
-    public int getId() {
+    public int getLabResultId() {
         return labResultId;
     }
 
-    public void setId(int id) {
+    public void setLabResultId(int id) {
         labResultId = id;
     }
 
-    public String getResult() {
-        return result;
+    public String getLabResult() {
+        return labResult;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setLabResult(String result) {
+        this.labResult = result;
     }
 
 }
