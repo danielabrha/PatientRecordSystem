@@ -81,7 +81,7 @@ public class SymptomController {
         // TODO Auto-generated method stub
 
         this.SymptomVM = new SymptomViewModel();
-        this.SymptomVM.setSymptomViewModel_Id(Symptom2.getSymptomId());
+        this.SymptomVM.setSymptomViewModeId(Symptom2.getSymptomId());
         this.SymptomVM.setSymptomViewModelName(Symptom2.getSymptomName());
         return this.SymptomVM;
     }
