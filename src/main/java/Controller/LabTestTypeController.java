@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class LabTestTypeController {
     private ILabTestType labTestTypeService;
@@ -22,6 +25,18 @@ public class LabTestTypeController {
     public LabTestTypeViewModel update(@RequestBody LabTestTypeViewModel labTestTypeViewModel){
       return  labTestTypeService.update(labTestTypeViewModel);
     }
+    @RequestMapping("LabTestType/get/data")
+       public List<LabTestTypeViewModel> get(){
+        List<Domain.Entity.LabTestType> labTestTypeList=labTestTypeService.findAll();
+        List<LabTestTypeViewModel> labTestTypeViewModelList=new ArrayList<>();
+        labTestTypeList.forEach(labTestVm->{
+            labTestTypeViewModelList.add(toLabTestTypeViewModel((Domain.Entity.LabTestType) labTestTypeList));
+        });
+                return labTestTypeViewModelList;
+            }
+
+
+
     public LabTestTypeViewModel toLabTestTypeViewModel(Domain.Entity.LabTestType labTestType){
         labTestTypeViewModel.setLabTestTypeViewModel_Id(labTestType.getLabTestTypeId());
         labTestTypeViewModel.setLabTestViewModelName(labTestType.getLabTestName());
