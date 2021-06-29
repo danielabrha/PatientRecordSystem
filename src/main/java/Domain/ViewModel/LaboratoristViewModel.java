@@ -10,24 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class LaboratoriestViewModel {
-
+public class LaboratoristViewModel {
     private int laboratoristId;
+
     private User user;
+
     private List<LabResult> labResultList = new ArrayList<>();
 
-    public LaboratoriestViewModel(int laboratoristId, User user, List<LabResult> labResultList) {
+    public LaboratoristViewModel(int laboratoristId, User user, List<LabResult> labResultList) {
         this.laboratoristId = laboratoristId;
         this.user = user;
         this.labResultList = labResultList;
     }
 
-    public LaboratoriestViewModel(User user, List<LabResult> labResultList) {
+    public LaboratoristViewModel(User user, List<LabResult> labResultList) {
         this.user = user;
         this.labResultList = labResultList;
     }
 
-    public LaboratoriestViewModel() {
+    public LaboratoristViewModel() {
     }
 
     public int getLaboratoristId() {

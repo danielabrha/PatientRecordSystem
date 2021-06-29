@@ -3,14 +3,7 @@ package Domain.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,37 +17,46 @@ public class DrugOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int drugOrderId;
+    @Column(name = "amount")
     private int amount;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
-    private Doctor doctor;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "visitId", referencedColumnName = "Id")
     private Visit visit;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "drugOrder")
-    private List<Drug> drugList = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
+    private Doctor doctor;
 
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "drugId", referencedColumnName = "Id")
+    private Drug drug;
+
+    public DrugOrder(int drugOrderId, int amount, Visit visit, Doctor doctor, Drug drug) {
+        this.drugOrderId = drugOrderId;
+        this.amount = amount;
+        this.visit = visit;
+        this.doctor = doctor;
+        this.drug = drug;
+    }
+
+    public DrugOrder(int amount, Visit visit, Doctor doctor, Drug drug) {
+        this.amount = amount;
+        this.visit = visit;
+        this.doctor = doctor;
+        this.drug = drug;
+    }
 
     public DrugOrder() {
     }
 
-    public DrugOrder(int amount, Doctor doctor, Visit visit, List<Drug> drugList) {
-        this.amount = amount;
-        this.doctor = doctor;
-        this.visit = visit;
-        this.drugList = drugList;
+    public int getDrugOrderId() {
+        return drugOrderId;
     }
 
-    public DrugOrder(int drugOrderId, int amount, Doctor doctor, Visit visit, List<Drug> drugList) {
+    public void setDrugOrderId(int drugOrderId) {
         this.drugOrderId = drugOrderId;
-        this.amount = amount;
-        this.doctor = doctor;
-        this.visit = visit;
-        this.drugList = drugList;
     }
 
     public int getAmount() {
@@ -65,20 +67,13 @@ public class DrugOrder {
         this.amount = amount;
     }
 
-    public DrugOrder(int id, int amount) {
-        drugOrderId = id;
-        this.amount = amount;
+    public Visit getVisit() {
+        return visit;
     }
 
-    public int getId() {
-        return drugOrderId;
+    public void setVisit(Visit visit) {
+        this.visit = visit;
     }
-
-    public void setId(int id) {
-        drugOrderId = id;
-    }
-    // This is from doctor drug
-
 
     public Doctor getDoctor() {
         return doctor;
@@ -88,22 +83,11 @@ public class DrugOrder {
         this.doctor = doctor;
     }
 
-    public Visit getVisit() {
-        return visit;
+    public Drug getDrug() {
+        return drug;
     }
 
-    public void setVisit(Visit visit) {
-        this.visit = visit;
+    public void setDrug(Drug drug) {
+        this.drug = drug;
     }
-
-    public List<Drug> getDrugList() {
-        return drugList;
-    }
-
-    public void setDrugList(List<Drug> drugList) {
-        this.drugList = drugList;
-    }
-
-
-
 }

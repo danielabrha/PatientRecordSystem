@@ -5,33 +5,29 @@ import org.springframework.stereotype.Component;
 import Domain.Entity.LabOrder;
 import Domain.Entity.Laboratorist;
 
+import javax.persistence.*;
+
 @Component
 public class LabResultViewModel {
-
     private int labResultId;
-    private String labResult;
-    private Laboratorist laboratorist;
+    private String labResultName;
     private LabOrder labOrder;
+    private Laboratorist laboratorist;
 
-    public LabResultViewModel(int labResultId, String result, Laboratorist laboratorist, LabOrder labOrder) {
+    public LabResultViewModel(int labResultId, String labResultName, LabOrder labOrder, Laboratorist laboratorist) {
         this.labResultId = labResultId;
-        this.labResult = result;
-        this.laboratorist = laboratorist;
+        this.labResultName = labResultName;
         this.labOrder = labOrder;
+        this.laboratorist = laboratorist;
+    }
+
+    public LabResultViewModel(String labResultName, LabOrder labOrder, Laboratorist laboratorist) {
+        this.labResultName = labResultName;
+        this.labOrder = labOrder;
+        this.laboratorist = laboratorist;
     }
 
     public LabResultViewModel() {
-    }
-
-    public LabResultViewModel(String result, Laboratorist laboratorist) {
-        this.labResult = result;
-        this.laboratorist = laboratorist;
-    }
-
-    public LabResultViewModel(String result, Laboratorist laboratorist, LabOrder labOrder) {
-        this.labResult = result;
-        this.laboratorist = laboratorist;
-        this.labOrder = labOrder;
     }
 
     public int getLabResultId() {
@@ -42,20 +38,12 @@ public class LabResultViewModel {
         this.labResultId = labResultId;
     }
 
-    public String getLabResult() {
-        return labResult;
+    public String getLabResultName() {
+        return labResultName;
     }
 
-    public void setLabResult(String result) {
-        this.labResult = result;
-    }
-
-    public Laboratorist getLaboratorist() {
-        return laboratorist;
-    }
-
-    public void setLaboratorist(Laboratorist laboratorist) {
-        this.laboratorist = laboratorist;
+    public void setLabResultName(String labResultName) {
+        this.labResultName = labResultName;
     }
 
     public LabOrder getLabOrder() {
@@ -66,4 +54,11 @@ public class LabResultViewModel {
         this.labOrder = labOrder;
     }
 
+    public Laboratorist getLaboratorist() {
+        return laboratorist;
+    }
+
+    public void setLaboratorist(Laboratorist laboratorist) {
+        this.laboratorist = laboratorist;
+    }
 }

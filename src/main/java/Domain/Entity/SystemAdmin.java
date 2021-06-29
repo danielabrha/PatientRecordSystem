@@ -58,19 +58,19 @@ public class SystemAdmin {
         this.user = user;
     }
 
-    public List<LabTestType> getLabTestType() {
+    public List<LabTestType> getLabTestTypeList() {
         return labTestTypeList;
     }
 
-    public void setLabTestType(List<LabTestType> labTestType) {
-        this.labTestTypeList = labTestType;
+    public void setLabTestTypeList(List<LabTestType> labTestTypeList) {
+        this.labTestTypeList = labTestTypeList;
     }
 
-    public List<Drug> getDrug() {
+    public List<Drug> getDrugList() {
         return drugList;
     }
 
-    public void setDrug(List<Drug> drug) {
-        this.drugList = drug;
+    public void setDrugList(List<Drug> drugList) {
+        this.drugList = drugList;
     }
 }

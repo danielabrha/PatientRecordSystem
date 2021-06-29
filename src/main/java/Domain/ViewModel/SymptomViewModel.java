@@ -8,40 +8,56 @@ import javax.persistence.*;
 
 @Component
 public class SymptomViewModel {
-    private int symptomViewModeId;
-    private String symptomViewModelName;
-    private VisitViewModel visitViewModel;
-    private DoctorViewModel doctorViewModel;
+    private int symptomId;
+    private String symptomName;
+    private Visit visit;
+    private Doctor doctor;
 
-    public int getSymptomViewModeId() {
-        return symptomViewModeId;
+    public SymptomViewModel(int symptomId, String symptomName, Visit visit, Doctor doctor) {
+        this.symptomId = symptomId;
+        this.symptomName = symptomName;
+        this.visit = visit;
+        this.doctor = doctor;
     }
 
-    public void setSymptomViewModelId(int symptomViewModeId) {
-        this.symptomViewModeId = symptomViewModeId;
+    public SymptomViewModel(String symptomName, Visit visit, Doctor doctor) {
+        this.symptomName = symptomName;
+        this.visit = visit;
+        this.doctor = doctor;
     }
 
-    public String getSymptomViewModelName() {
-        return symptomViewModelName;
+    public SymptomViewModel() {
     }
 
-    public void setSymptomViewModelName(String symptomViewModelName) {
-        this.symptomViewModelName = symptomViewModelName;
+    public int getSymptomId() {
+        return symptomId;
     }
 
-    public VisitViewModel getVisitViewModel() {
-        return visitViewModel;
+    public void setSymptomId(int symptomId) {
+        this.symptomId = symptomId;
     }
 
-    public void setVisitViewModel(VisitViewModel visitViewModel) {
-        this.visitViewModel = visitViewModel;
+    public String getSymptomName() {
+        return symptomName;
     }
 
-    public DoctorViewModel getDoctorViewModel() {
-        return doctorViewModel;
+    public void setSymptomName(String symptomName) {
+        this.symptomName = symptomName;
     }
 
-    public void setDoctorViewModel(DoctorViewModel doctorViewModel) {
-        this.doctorViewModel = doctorViewModel;
+    public Visit getVisit() {
+        return visit;
+    }
+
+    public void setVisit(Visit visit) {
+        this.visit = visit;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

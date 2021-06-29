@@ -6,46 +6,51 @@ import org.springframework.stereotype.Component;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @Component
 public class RoleViewModel {
-
-    private int RoleViewModel_Id;
+    private int roleId;
     private String roleName;
-    private List<User> listOfUser=new LinkedList<>();
+    private List<User> userList =new ArrayList<>();
+
+    public RoleViewModel(int roleId, String roleName, List<User> userList) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.userList = userList;
+    }
+
+    public RoleViewModel(String roleName, List<User> userList) {
+        this.roleName = roleName;
+        this.userList = userList;
+    }
 
     public RoleViewModel() {
     }
 
-    public RoleViewModel(int role_Id, String roleName, List<User> listOfUser) {
-        RoleViewModel_Id = role_Id;
-        this.roleName = roleName;
-        this.listOfUser = listOfUser;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public int getRoleViewModel_Id() {
-        return RoleViewModel_Id;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
-    public void setRoleViewModel_Id(int role_Id) {
-        RoleViewModel_Id = role_Id;
-    }
-
-    public String getRoleViewModelName() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleViewModelName(String roleName) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
-    public List<User> getListOfUser() {
-        return listOfUser;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setListOfUser(List<User> listOfUser) {
-        this.listOfUser = listOfUser;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

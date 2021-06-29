@@ -17,7 +17,7 @@ public class LabOrder {
     private int labOrderId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="visitId", referencedColumnName = "Id")
+    @JoinColumn(name = "visitId", referencedColumnName = "Id")
     private Visit visit;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -28,25 +28,27 @@ public class LabOrder {
     @OneToOne(mappedBy = "labOrder")
     private LabResult labResult;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "labOrder")
-    private List<LabTestType> labTestTypeList = new ArrayList<>();
 
-    public LabOrder(int labOrderId, Visit visit, Doctor doctor, List<LabTestType> labTestTypeList) {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "labTestTypeId", referencedColumnName = "Id")
+    private LabTestType labTestType;
+
+    public LabOrder(int labOrderId, Visit visit, Doctor doctor, LabResult labResult, LabTestType labTestType) {
         this.labOrderId = labOrderId;
         this.visit = visit;
         this.doctor = doctor;
-        this.labTestTypeList = labTestTypeList;
+        this.labResult = labResult;
+        this.labTestType = labTestType;
     }
 
-    public LabOrder(Visit visit, Doctor doctor, List<LabTestType> labTestTypeList) {
+    public LabOrder(Visit visit, Doctor doctor, LabResult labResult, LabTestType labTestType) {
         this.visit = visit;
         this.doctor = doctor;
-        this.labTestTypeList = labTestTypeList;
+        this.labResult = labResult;
+        this.labTestType = labTestType;
     }
 
-    public LabOrder(){
-
+    public LabOrder() {
     }
 
     public int getLabOrderId() {
@@ -81,11 +83,11 @@ public class LabOrder {
         this.labResult = labResult;
     }
 
-    public List<LabTestType> getLabTestTypeList() {
-        return labTestTypeList;
+    public LabTestType getLabTestType() {
+        return labTestType;
     }
 
-    public void setLabTestTypeList(List<LabTestType> labTestTypeList) {
-        this.labTestTypeList = labTestTypeList;
+    public void setLabTestType(LabTestType labTestType) {
+        this.labTestType = labTestType;
     }
 }

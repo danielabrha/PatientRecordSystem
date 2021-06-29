@@ -1,5 +1,6 @@
 package Domain.ViewModel;
 
+import Domain.Entity.DrugOrder;
 import Domain.Entity.LabOrder;
 import Domain.Entity.Symptom;
 import Domain.Entity.User;
@@ -13,56 +14,70 @@ import java.util.List;
 @Component
 public class DoctorViewModel {
 
-    private int doctorViewModelId;
-    private User user;
-    private List<LabOrder> labOrderList = new ArrayList<>();
-    private List<Symptom> symptomList = new ArrayList<>();
+    private int doctorId;
 
-    public DoctorViewModel(int doctorViewModelId, User user, List<LabOrder> labOrderList, List<Symptom> symptomList) {
-        this.doctorViewModelId = doctorViewModelId;
-        this.user = user;
-        this.labOrderList = labOrderList;
-        this.symptomList = symptomList;
+    private UserViewModel userViewModel;
+
+
+    private List<SymptomViewModel> symptomViewModelList = new ArrayList<>();
+    private List<DrugOrderViewModel> drugOrderViewModelList = new ArrayList<>();
+    private List<LabOrderViewModel> labOrderViewModelList = new ArrayList<>();
+
+    public DoctorViewModel(int doctorId, UserViewModel userViewModel, List<SymptomViewModel> symptomViewModelList, List<DrugOrderViewModel> drugOrderViewModelList, List<LabOrderViewModel> labOrderViewModelList) {
+        this.doctorId = doctorId;
+        this.userViewModel = userViewModel;
+        this.symptomViewModelList = symptomViewModelList;
+        this.drugOrderViewModelList = drugOrderViewModelList;
+        this.labOrderViewModelList = labOrderViewModelList;
     }
 
-    public DoctorViewModel(User user, List<LabOrder> labOrderList, List<Symptom> symptomList) {
-        this.user = user;
-        this.labOrderList = labOrderList;
-        this.symptomList = symptomList;
+    public DoctorViewModel(UserViewModel userViewModel, List<SymptomViewModel> symptomViewModelList, List<DrugOrderViewModel> drugOrderViewModelList, List<LabOrderViewModel> labOrderViewModelList) {
+        this.userViewModel = userViewModel;
+        this.symptomViewModelList = symptomViewModelList;
+        this.drugOrderViewModelList = drugOrderViewModelList;
+        this.labOrderViewModelList = labOrderViewModelList;
     }
 
     public DoctorViewModel() {
     }
 
-    public int getdoctorViewModelId() {
-        return doctorViewModelId;
+    public int getDoctorId() {
+        return doctorId;
     }
 
-    public void setdoctorViewModelId(int doctorViewModelId) {
-        this.doctorViewModelId = doctorViewModelId;
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public User getUser() {
-        return user;
+    public UserViewModel getUserViewModel() {
+        return userViewModel;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserViewModel(UserViewModel userViewModel) {
+        this.userViewModel = userViewModel;
     }
 
-    public List<LabOrder> getLabOrderList() {
-        return labOrderList;
+    public List<SymptomViewModel> getSymptomViewModelList() {
+        return symptomViewModelList;
     }
 
-    public void setLabOrderList(List<LabOrder> labOrderList) {
-        this.labOrderList = labOrderList;
+    public void setSymptomViewModelList(List<SymptomViewModel> symptomViewModelList) {
+        this.symptomViewModelList = symptomViewModelList;
     }
 
-    public List<Symptom> getSymptomList() {
-        return symptomList;
+    public List<DrugOrderViewModel> getDrugOrderViewModelList() {
+        return drugOrderViewModelList;
     }
 
-    public void setSymptomList(List<Symptom> symptomList) {
-        this.symptomList = symptomList;
+    public void setDrugOrderViewModelList(List<DrugOrderViewModel> drugOrderViewModelList) {
+        this.drugOrderViewModelList = drugOrderViewModelList;
+    }
+
+    public List<LabOrderViewModel> getLabOrderViewModelList() {
+        return labOrderViewModelList;
+    }
+
+    public void setLabOrderViewModelList(List<LabOrderViewModel> labOrderViewModelList) {
+        this.labOrderViewModelList = labOrderViewModelList;
     }
 }

@@ -1,51 +1,56 @@
 package Domain.Entity;
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Component
-@Entity(name="LabTestTypes")
+@Entity(name = "LabTestTypes")
 public class LabTestType {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int labTestTypeId;
+    @Column(name = "labTestName")
     private String labTestName;
+    @Column(name = "labTestCode")
     private String labTestCode;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="systemAdminId", referencedColumnName = "Id")
+    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
     private SystemAdmin systemAdmin;
+    @JsonIgnore
+    @OneToMany(mappedBy = "labTestType")
+    private List<LabOrder> labOrderList;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="labOrderId", referencedColumnName  ="Id")
-    private LabOrder labOrder;
-
-    public LabTestType(int labTestTypeId, String labTestName, String labTestCode, SystemAdmin systemAdmin, LabOrder labOrder) {
+    public LabTestType(int labTestTypeId, String labTestName, String labTestCode, SystemAdmin systemAdmin, List<LabOrder> labOrderList) {
         this.labTestTypeId = labTestTypeId;
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
         this.systemAdmin = systemAdmin;
-        this.labOrder = labOrder;
+        this.labOrderList = labOrderList;
     }
 
-    public LabTestType() {
-    }
-
-    public LabTestType(String labTestName, String labTestCode, SystemAdmin systemAdmin, LabOrder labOrder) {
+    public LabTestType(String labTestName, String labTestCode, SystemAdmin systemAdmin, List<LabOrder> labOrderList) {
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
         this.systemAdmin = systemAdmin;
-        this.labOrder = labOrder;
+        this.labOrderList = labOrderList;
+    }
+
+    public LabTestType() {
     }
 
     public int getLabTestTypeId() {
         return labTestTypeId;
     }
 
-
+    public void setLabTestTypeId(int labTestTypeId) {
+        this.labTestTypeId = labTestTypeId;
+    }
 
     public String getLabTestName() {
         return labTestName;
@@ -67,15 +72,15 @@ public class LabTestType {
         return systemAdmin;
     }
 
-    public void setSystemAdminId(SystemAdmin systemAdminId) {
+    public void setSystemAdmin(SystemAdmin systemAdmin) {
         this.systemAdmin = systemAdmin;
     }
 
-    public LabOrder getLabOrder() {
-        return labOrder;
+    public List<LabOrder> getLabOrderList() {
+        return labOrderList;
     }
 
-    public void setLabOrder(LabOrder labOrder) {
-        this.labOrder = labOrder;
+    public void setLabOrderList(List<LabOrder> labOrderList) {
+        this.labOrderList = labOrderList;
     }
 }

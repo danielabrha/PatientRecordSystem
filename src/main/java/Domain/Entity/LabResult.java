@@ -19,23 +19,47 @@ public class LabResult {
     @Column(name = "Id")
     private int labResultId;
 
-    @Column(name = "result")
-    private String labResult;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "laboratoristId", referencedColumnName = "Id")
-    private Laboratorist laboratorist;
+    @Column(name = "labResultName")
+    private String labResultName;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "labOrderId", referencedColumnName = "Id")
     private LabOrder labOrder;
 
-    public Laboratorist getLaboratorist() {
-        return laboratorist;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "laboratoristId", referencedColumnName = "Id")
+    private Laboratorist laboratorist;
+
+    public LabResult(int labResultId, String labResultName, LabOrder labOrder, Laboratorist laboratorist) {
+        this.labResultId = labResultId;
+        this.labResultName = labResultName;
+        this.labOrder = labOrder;
+        this.laboratorist = laboratorist;
     }
 
-    public void setLaboratorist(Laboratorist laboratorist) {
+    public LabResult(String labResultName, LabOrder labOrder, Laboratorist laboratorist) {
+        this.labResultName = labResultName;
+        this.labOrder = labOrder;
         this.laboratorist = laboratorist;
+    }
+
+    public LabResult() {
+    }
+
+    public int getLabResultId() {
+        return labResultId;
+    }
+
+    public void setLabResultId(int labResultId) {
+        this.labResultId = labResultId;
+    }
+
+    public String getLabResultName() {
+        return labResultName;
+    }
+
+    public void setLabResultName(String labResultName) {
+        this.labResultName = labResultName;
     }
 
     public LabOrder getLabOrder() {
@@ -46,46 +70,11 @@ public class LabResult {
         this.labOrder = labOrder;
     }
 
-    public LabResult() {
+    public Laboratorist getLaboratorist() {
+        return laboratorist;
     }
 
-    public LabResult(String result, Laboratorist laboratorist, LabOrder labOrder) {
-        this.labResult = result;
+    public void setLaboratorist(Laboratorist laboratorist) {
         this.laboratorist = laboratorist;
-        this.labOrder = labOrder;
     }
-
-    public LabResult(int labResultId, String result, Laboratorist laboratorist, LabOrder labOrder) {
-        this.labResultId = labResultId;
-        this.labResult = result;
-        this.laboratorist = laboratorist;
-        this.labOrder = labOrder;
-    }
-
-    public LabResult(int id, String result) {
-        labResultId = id;
-        this.labResult = result;
-    }
-
-    public LabResult(String result) {
-        this.labResult = result;
-
-    }
-
-    public int getLabResultId() {
-        return labResultId;
-    }
-
-    public void setLabResultId(int id) {
-        labResultId = id;
-    }
-
-    public String getLabResult() {
-        return labResult;
-    }
-
-    public void setLabResult(String result) {
-        this.labResult = result;
-    }
-
 }

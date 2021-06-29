@@ -5,33 +5,43 @@ import Domain.Entity.SystemAdmin;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Component
 public class DrugViewModel {
-
-    private int drugViewModelId;
+    private int drugId;
     private String drugName;
-    private String drugCode;
-    private SystemAdmin systemAdmin;
-    private DrugOrder drugOrder;
 
-    public DrugViewModel(int drugId, String drugName, String drugCode, SystemAdmin systemAdmin, DrugOrder drugOrder) {
-        this.drugViewModelId = drugId;
+    private String drugCode;
+
+    private List<DrugOrderViewModel> drugOrderViewModelList;
+
+    private SystemAdminViewModel systemAdminViewModel;
+
+    public DrugViewModel(int drugId, String drugName, String drugCode, List<DrugOrderViewModel> drugOrderViewModelList, SystemAdminViewModel systemAdminViewModel) {
+        this.drugId = drugId;
         this.drugName = drugName;
         this.drugCode = drugCode;
-        this.systemAdmin = systemAdmin;
-        this.drugOrder = drugOrder;
+        this.drugOrderViewModelList = drugOrderViewModelList;
+        this.systemAdminViewModel = systemAdminViewModel;
+    }
+
+    public DrugViewModel(String drugName, String drugCode, List<DrugOrderViewModel> drugOrderViewModelList, SystemAdminViewModel systemAdminViewModel) {
+        this.drugName = drugName;
+        this.drugCode = drugCode;
+        this.drugOrderViewModelList = drugOrderViewModelList;
+        this.systemAdminViewModel = systemAdminViewModel;
     }
 
     public DrugViewModel() {
     }
 
-    public int getdrugViewModelId() {
-        return drugViewModelId;
+    public int getDrugId() {
+        return drugId;
     }
 
-    public void setdrugViewModelId(int drugId) {
-        this.drugViewModelId = drugId;
+    public void setDrugId(int drugId) {
+        this.drugId = drugId;
     }
 
     public String getDrugName() {
@@ -50,19 +60,19 @@ public class DrugViewModel {
         this.drugCode = drugCode;
     }
 
-    public SystemAdmin getSystemAdmin() {
-        return systemAdmin;
+    public List<DrugOrderViewModel> getDrugOrderViewModelList() {
+        return drugOrderViewModelList;
     }
 
-    public void setSystemAdmin(SystemAdmin systemAdmin) {
-        this.systemAdmin = systemAdmin;
+    public void setDrugOrderViewModelList(List<DrugOrderViewModel> drugOrderViewModelList) {
+        this.drugOrderViewModelList = drugOrderViewModelList;
     }
 
-    public DrugOrder getDrugOrder() {
-        return drugOrder;
+    public SystemAdminViewModel getSystemAdminViewModel() {
+        return systemAdminViewModel;
     }
 
-    public void setDrugOrder(DrugOrder drugOrder) {
-        this.drugOrder = drugOrder;
+    public void setSystemAdminViewModel(SystemAdminViewModel systemAdminViewModel) {
+        this.systemAdminViewModel = systemAdminViewModel;
     }
-}
+  }

@@ -38,8 +38,7 @@ public class Symptom {
         this.doctor = doctor;
     }
 
-    public  Symptom(){
-
+    public Symptom() {
     }
 
     public int getSymptomId() {
@@ -54,8 +53,8 @@ public class Symptom {
         return symptomName;
     }
 
-    public void setSymptomName(String symptom) {
-        this.symptomName = symptom;
+    public void setSymptomName(String symptomName) {
+        this.symptomName = symptomName;
     }
 
     public Visit getVisit() {

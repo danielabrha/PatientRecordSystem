@@ -1,9 +1,6 @@
 package Domain.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,20 +10,25 @@ import java.util.List;
 public class Role {
     @Column(name="Id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
     @Column(name = "roleName")
     private String roleName;
 
-    @ManyToMany(mappedBy ="userList" )
+    @ManyToMany(mappedBy ="roleList" )
     private List<User> userList =new ArrayList<>();
 
-    public Role() {
-    }
-
     public Role(int roleId, String roleName, List<User> userList) {
-        roleId = roleId;
+        this.roleId = roleId;
         this.roleName = roleName;
         this.userList = userList;
+    }
+    public Role(String roleName, List<User> userList) {
+
+        this.roleName = roleName;
+        this.userList = userList;
+    }
+    public Role() {
     }
 
     public int getRoleId() {
@@ -34,7 +36,7 @@ public class Role {
     }
 
     public void setRoleId(int roleId) {
-        roleId = roleId;
+        this.roleId = roleId;
     }
 
     public String getRoleName() {

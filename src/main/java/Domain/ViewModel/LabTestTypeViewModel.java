@@ -2,78 +2,75 @@ package Domain.ViewModel;
 
 import Domain.Entity.LabOrder;
 import Domain.Entity.SystemAdmin;
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Component
 public class LabTestTypeViewModel {
-    private int labTestTypeViewModel_Id;
-    private String labTestViewModelName;
-    private String labTestViewModelCode;
-
-
+    private int labTestTypeId;
+    private String labTestName;
+    private String labTestCode;
     private SystemAdmin systemAdmin;
+    private List<LabOrder> labOrderList;
 
-    private LabOrder labOrder;
-
-    public LabTestTypeViewModel(int labTestTypeViewModel_Id, String labTestViewModelName, String labTestViewModelCode, SystemAdmin systemAdmin, LabOrder labOrder) {
-        this.labTestTypeViewModel_Id = labTestTypeViewModel_Id;
-        this.labTestViewModelName = labTestViewModelName;
-        this.labTestViewModelCode = labTestViewModelCode;
+    public LabTestTypeViewModel(int labTestTypeId, String labTestName, String labTestCode, SystemAdmin systemAdmin, List<LabOrder> labOrderList) {
+        this.labTestTypeId = labTestTypeId;
+        this.labTestName = labTestName;
+        this.labTestCode = labTestCode;
         this.systemAdmin = systemAdmin;
-        this.labOrder = labOrder;
+        this.labOrderList = labOrderList;
+    }
+
+    public LabTestTypeViewModel(String labTestName, String labTestCode, SystemAdmin systemAdmin, List<LabOrder> labOrderList) {
+        this.labTestName = labTestName;
+        this.labTestCode = labTestCode;
+        this.systemAdmin = systemAdmin;
+        this.labOrderList = labOrderList;
     }
 
     public LabTestTypeViewModel() {
     }
 
-    public LabTestTypeViewModel( String labTestViewModelName, String labTestViewModelCode, SystemAdmin systemAdmin, LabOrder labOrder) {
-        this.labTestViewModelName = labTestViewModelName;
-        this.labTestViewModelCode = labTestViewModelCode;
-        this.systemAdmin = systemAdmin;
-        this.labOrder = labOrder;
+    public int getLabTestTypeId() {
+        return labTestTypeId;
     }
 
-    public int getLabTestTypeViewModel_Id() {
-        return labTestTypeViewModel_Id;
+    public void setLabTestTypeId(int labTestTypeId) {
+        this.labTestTypeId = labTestTypeId;
     }
 
-    public void setLabTestTypeViewModel_Id(int labTestTypeViewModel_Id) {
-        this.labTestTypeViewModel_Id = labTestTypeViewModel_Id;
+    public String getLabTestName() {
+        return labTestName;
     }
 
-    public String getLabTestViewModelName() {
-        return labTestViewModelName;
+    public void setLabTestName(String labTestName) {
+        this.labTestName = labTestName;
     }
 
-    public void setLabTestViewModelName(String labTestViewModelName) {
-        this.labTestViewModelName = labTestViewModelName;
+    public String getLabTestCode() {
+        return labTestCode;
     }
 
-    public String getLabTestViewModelCode() {
-        return labTestViewModelCode;
-    }
-
-    public void setLabTestViewModelCode(String labTestViewModelCode) {
-        this.labTestViewModelCode = labTestViewModelCode;
+    public void setLabTestCode(String labTestCode) {
+        this.labTestCode = labTestCode;
     }
 
     public SystemAdmin getSystemAdmin() {
         return systemAdmin;
     }
 
-    public void setSystemAdminId(SystemAdmin systemAdminId) {
+    public void setSystemAdmin(SystemAdmin systemAdmin) {
         this.systemAdmin = systemAdmin;
     }
 
-    public LabOrder getLabOrder() {
-        return labOrder;
+    public List<LabOrder> getLabOrderList() {
+        return labOrderList;
     }
 
-    public void setLabOrder(LabOrder labOrder) {
-        this.labOrder = labOrder;
+    public void setLabOrderList(List<LabOrder> labOrderList) {
+        this.labOrderList = labOrderList;
     }
 }

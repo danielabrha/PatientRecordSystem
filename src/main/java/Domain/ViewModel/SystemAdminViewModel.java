@@ -11,19 +11,19 @@ import java.util.List;
 
 @Component
 public class SystemAdminViewModel {
-    private int systemAdminViewModel_Id;
+    private int systemAdminId;
     private User user;
-    private List<LabTestType> labTestTypeList;
+    private List <LabTestType> labTestTypeList;
     private List<Drug> drugList;
 
-    public SystemAdminViewModel(int systemAdminViewModel_Id, User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
-        this.systemAdminViewModel_Id = systemAdminViewModel_Id;
+    public SystemAdminViewModel(int systemAdminId, User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
+        this.systemAdminId = systemAdminId;
         this.user = user;
         this.labTestTypeList = labTestTypeList;
         this.drugList = drugList;
     }
 
-    public SystemAdminViewModel( User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
+    public SystemAdminViewModel(User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
         this.user = user;
         this.labTestTypeList = labTestTypeList;
         this.drugList = drugList;
@@ -32,12 +32,12 @@ public class SystemAdminViewModel {
     public SystemAdminViewModel() {
     }
 
-    public int getSystemAdminViewModel_Id() {
-        return systemAdminViewModel_Id;
+    public int getSystemAdminId() {
+        return systemAdminId;
     }
 
-    public void setSystemAdminViewModel_Id(int systemAdminViewModel_Id) {
-        this.systemAdminViewModel_Id = systemAdminViewModel_Id;
+    public void setSystemAdminId(int systemAdminId) {
+        this.systemAdminId = systemAdminId;
     }
 
     public User getUser() {
@@ -48,20 +48,20 @@ public class SystemAdminViewModel {
         this.user = user;
     }
 
-    public List<LabTestType> getLabTestType() {
+    public List<LabTestType> getLabTestTypeList() {
         return labTestTypeList;
     }
 
-    public void setLabTestType(List<LabTestType> labTestType) {
-        this.labTestTypeList = labTestType;
+    public void setLabTestTypeList(List<LabTestType> labTestTypeList) {
+        this.labTestTypeList = labTestTypeList;
     }
 
-    public List<Drug> getDrug() {
+    public List<Drug> getDrugList() {
         return drugList;
     }
 
-    public void setDrug(List<Drug> drug) {
-        this.drugList = drug;
+    public void setDrugList(List<Drug> drugList) {
+        this.drugList = drugList;
     }
 }
 
