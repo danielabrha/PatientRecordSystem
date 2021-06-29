@@ -9,8 +9,8 @@ import Repository.IDrugOrderRepository;
 import Services.Interface.IDrugOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
 @Service
 public class DrugOrderService implements IDrugOrderService {
 
@@ -82,12 +82,12 @@ public class DrugOrderService implements IDrugOrderService {
         return _iDrugOrderRepository.saveAll(this.drugOrderList);
     }
     public DrugOrder toDrugOrder(DrugOrderViewModel drugOrderViewModel){
-        DrugOrder drugOrder = new DrugOrder();
-        drugOrder.setId(drugOrderViewModel.getDurgOrderViewModelId());
-        drugOrder.setAmount(drugOrderViewModel.getAmount());
-        drugOrder.setDrugList(drugOrderViewModel.getDrugList());
-        drugOrder.setDoctor(drugOrderViewModel.getDoctor());
-        drugOrder.setVisit(drugOrderViewModel.getVisit());
-        return drugOrder;
+        //DrugOrder drugOrder = new DrugOrder();
+//        drugOrder.setId(drugOrderViewModel.getDurgOrderViewModelId());
+//        drugOrder.setAmount(drugOrderViewModel.getAmount());
+//        drugOrder.setDrugList(drugOrderViewModel.getDrugList());
+//        drugOrder.setDoctor(drugOrderViewModel.getDoctor());
+//        drugOrder.setVisit(drugOrderViewModel.getVisit());
+        return null;
     }
 }

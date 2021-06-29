@@ -46,6 +46,9 @@ public class SystemAdmin {
         return systemAdminId;
     }
 
+    public void setSystemAdminId(int systemAdminId) {
+        this.systemAdminId = systemAdminId;
+    }
 
     public User getUser() {
         return user;
