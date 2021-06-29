@@ -1,15 +1,22 @@
 package Services.Implementation;
 
 import Domain.ViewModel.LabTestTypeViewModel;
+import Repository.ILabTestTypeRepository;
 import Services.Interface.ILabTestType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class LabTestType implements ILabTestType {
+
+    private Domain.Entity.LabTestType labTestType;
+    private ILabTestTypeRepository labTestTypeRepository;
+    private LabTestTypeViewModel labTestTypeViewModel;
+
     @Override
     public List<Domain.Entity.LabTestType> findAll() {
-        return null;
+        return labTestTypeRepository.findAll();
+
     }
 
     @Override
@@ -56,4 +63,5 @@ public class LabTestType implements ILabTestType {
     public List<Domain.Entity.LabTestType> createAll(List<LabTestTypeViewModel> listLabTestTypeViewModel) {
         return null;
     }
+   // public LabT
 }
