@@ -10,7 +10,7 @@ public class Drug {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long drugId;
+    private int drugId;
 
     private String drugName;
     private String drugCode;
@@ -23,7 +23,7 @@ public class Drug {
     @JoinColumn(name = "drugListId", referencedColumnName = "Id")
     private DrugOrder drugOrder;
 
-    public Drug(Long drugId, String drugName, String drugCode, SystemAdmin systemAdmin) {
+    public Drug(int drugId, String drugName, String drugCode, SystemAdmin systemAdmin) {
         this.drugId = drugId;
         this.drugName = drugName;
         this.drugCode = drugCode;
@@ -39,11 +39,11 @@ public class Drug {
     public Drug() {
     }
 
-    public Long getDrugId() {
+    public int getDrugId() {
         return drugId;
     }
 
-    public void setDrugId(Long drugId) {
+    public void setDrugId(int drugId) {
         this.drugId = drugId;
     }
 

@@ -8,15 +8,13 @@ import java.util.List;
 
 //
 //@Component
-@Entity(name="Doctors")
+@Entity(name = "Doctors")
 public class Doctor {
 
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctorId;
-    // third change
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "Id")
@@ -28,7 +26,7 @@ public class Doctor {
 
     @JsonIgnore
     @OneToMany(mappedBy = "doctor")
-    private  List<Symptom> symptomList = new ArrayList<>();
+    private List<Symptom> symptomList = new ArrayList<>();
 
     public Doctor(int doctorId, User user, List<LabOrder> labOrderList, List<Symptom> symptomList) {
         this.doctorId = doctorId;
@@ -45,6 +43,7 @@ public class Doctor {
 
     public Doctor() {
     }
+
     public int getDoctorId() {
         return doctorId;
     }

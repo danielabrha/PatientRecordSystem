@@ -38,6 +38,7 @@ public class DrugOrder {
     @OneToMany(mappedBy = "drugOrder")
     private List<Drug> drugList = new ArrayList<>();
 
+
     public DrugOrder() {
     }
 
@@ -56,14 +57,6 @@ public class DrugOrder {
         this.drugList = drugList;
     }
 
-    public int getDrugOrderId() {
-        return drugOrderId;
-    }
-
-    public void setDrugOrderId(int drugOrderId) {
-        this.drugOrderId = drugOrderId;
-    }
-
     public int getAmount() {
         return amount;
     }
@@ -71,6 +64,21 @@ public class DrugOrder {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    public DrugOrder(int id, int amount) {
+        drugOrderId = id;
+        this.amount = amount;
+    }
+
+    public int getId() {
+        return drugOrderId;
+    }
+
+    public void setId(int id) {
+        drugOrderId = id;
+    }
+    // This is from doctor drug
+
 
     public Doctor getDoctor() {
         return doctor;
@@ -95,5 +103,7 @@ public class DrugOrder {
     public void setDrugList(List<Drug> drugList) {
         this.drugList = drugList;
     }
+
+
 
 }
