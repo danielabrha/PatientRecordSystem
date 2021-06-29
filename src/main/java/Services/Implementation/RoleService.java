@@ -9,15 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class RoleService implements IRoleService {
     @Autowired
     private IRoleRepository _roleRepository;
     @Autowired
     private List<Role> roleList;
-    public RoleService(){
-        roleList=new ArrayList<>();
+
+    public RoleService() {
+        roleList = new ArrayList<>();
     }
+
     @Override
     public List<Role> findAll() {
         return _roleRepository.findAll();
@@ -34,7 +37,14 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public RoleViewModel update(RoleViewModel roleViewModel) {
+    public Role update(RoleViewModel roleViewModel) {
+
+        Role previousRole = _roleRepository.findById(roleViewModel.getRoleViewModel_Id()).orElse(null);
+        if (previousRole != null) {
+            previousRole.setRoleName(roleViewModel.getRoleViewModelName());
+            previousRole.setUserList(roleViewModel.getListOfUser());
+            return _roleRepository.save(previousRole);
+        }
         return null;
     }
 
@@ -45,14 +55,24 @@ public class RoleService implements IRoleService {
 
     @Override
     public void delete(RoleViewModel roleViewModel) {
+        Role previousRole = _roleRepository.findById(roleViewModel.getRoleViewModel_Id()).orElse(null);
+        if (previousRole != null){
+            _roleRepository.deleteById(previousRole.getRoleId());
+        }
 
     }
 
     @Override
     public void deleteAll(Iterable<RoleViewModel> roleViewModels) {
 
-    }
+        roleViewModels.forEach(roleViewModel -> {
+            Role role = _roleRepository.findById(roleViewModel.getRoleViewModel_Id()).orElse(null);
+            if (role!=null)
+                _roleRepository.deleteById(role.getRoleId());
 
+        });
+
+    }
     @Override
     public void deleteAll() {
         _roleRepository.deleteAll();
@@ -72,6 +92,7 @@ public class RoleService implements IRoleService {
         return _roleRepository.saveAll(this.roleList);
 
     }
+
     public Role toRole(RoleViewModel roleViewModel) {
         Role role = new Role();
         role.setRoleName(roleViewModel.getRoleViewModelName());
