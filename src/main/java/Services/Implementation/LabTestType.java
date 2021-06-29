@@ -1,12 +1,36 @@
 package Services.Implementation;
 
+import Domain.Entity.LabOrder;
 import Domain.ViewModel.LabTestTypeViewModel;
+import Repository.ILabOrderRepository;
+import Repository.ILabTestTypeRepository;
 import Services.Interface.ILabTestType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class LabTestType implements ILabTestType {
+
+    @Autowired
+    private ILabTestTypeRepository _labTestTypeRepository;
+
+
+
+
+    private List<Domain.Entity.LabTestType> labTestTypeList;
+
+    public  LabTestType(){
+        labTestTypeList = new ArrayList<>();
+    }
+    @Override
+    public List<Domain.Entity.LabTestType> findAllLabTests(int labOrderId){
+        _labTestTypeRepository.findByLabTestTypeId(labOrderId)
+                .forEach(labTestTypeList::add);
+        return labTestTypeList;
+    }
+
     @Override
     public List<Domain.Entity.LabTestType> findAll() {
         return null;

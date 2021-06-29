@@ -11,11 +11,11 @@ public interface ISymptomService {
     //	public List<SymptomViewModel> findAll(int entryid);
     public List<Symptom> findAll(String status);
     public Symptom findById(int id);
-    public SymptomViewModel update(SymptomViewModel symptomViewModel);
+    public Symptom update(SymptomViewModel symptomViewModel);
     public void deleteById(int id);
     public void delete(SymptomViewModel symptomViewModel);
     public void deleteAll(Iterable<SymptomViewModel> symptomViewModels);
     public void deleteAll();
-    public Symptom create(SymptomViewModel symptomViewModel);
+    public Symptom create(SymptomViewModel symptomViewModel, int doctorId, int visitId);
     public List<Symptom> createAll(List<SymptomViewModel> listSymptomViewModel);
 }

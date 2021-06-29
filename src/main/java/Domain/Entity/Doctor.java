@@ -10,7 +10,7 @@ import java.util.List;
 //@Component
 @Entity(name="Doctors")
 public class Doctor {
-    // kidi
+
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,9 +1,10 @@
 package Repository;
 
-import Domain.Entity.Receptionst;
+import Domain.Entity.LabOrder;
+import Domain.Entity.Laboratorist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IReceptionistRepository extends JpaRepository<Receptionst,Integer> {
+public interface ILabOrderRepository extends JpaRepository<LabOrder,Integer> {
 }

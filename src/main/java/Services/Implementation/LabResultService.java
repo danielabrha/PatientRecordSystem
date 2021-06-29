@@ -24,7 +24,7 @@ public class LabResultService implements ILabOrderService {
     }
 
     @Override
-    public LabOrderViewModel update(LabOrderViewModel labOrderViewModel) {
+    public LabOrder update(LabOrderViewModel labOrderViewModel) {
         return null;
     }
 
