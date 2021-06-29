@@ -34,7 +34,14 @@ public class LabTestTypeController {
         });
                 return labTestTypeViewModelList;
             }
-
+     @RequestMapping("LabTestType/deleteAll/data")
+     public void delete(){
+        labTestTypeService.deleteAll();
+     }
+    @RequestMapping("LabTestType/deleteById/data")
+    public void deleteById(LabTestTypeViewModel labTestTypeViewModel){
+        labTestTypeService.deleteById(labTestTypeViewModel.getLabTestTypeViewModel_Id());
+    }
 
 
     public LabTestTypeViewModel toLabTestTypeViewModel(Domain.Entity.LabTestType labTestType){
