@@ -36,7 +36,6 @@ public class RoleController {
 
         return toRoleViewModel(this.userRole);
         //return new RoleViewModel();
-
     }
 
     @PostMapping("/Role/post/All/data")
