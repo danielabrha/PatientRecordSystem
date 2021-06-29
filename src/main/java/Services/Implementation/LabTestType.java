@@ -2,6 +2,7 @@ package Services.Implementation;
 
 import Domain.Entity.LabOrder;
 import Domain.ViewModel.LabTestTypeViewModel;
+
 import Repository.ILabOrderRepository;
 import Repository.ILabTestTypeRepository;
 import Services.Interface.ILabTestType;
@@ -13,8 +14,10 @@ import java.util.List;
 @Service
 public class LabTestType implements ILabTestType {
 
-    @Autowired
-    private ILabTestTypeRepository _labTestTypeRepository;
+    private Domain.Entity.LabTestType labTestType;
+    private ILabTestTypeRepository labTestTypeRepository;
+    private LabTestTypeViewModel labTestTypeViewModel;
+
 
 
 
@@ -26,14 +29,15 @@ public class LabTestType implements ILabTestType {
     }
     @Override
     public List<Domain.Entity.LabTestType> findAllLabTests(int labOrderId){
-        _labTestTypeRepository.findByLabTestTypeId(labOrderId)
+        labTestTypeRepository.findByLabTestTypeId(labOrderId)
                 .forEach(labTestTypeList::add);
         return labTestTypeList;
     }
 
     @Override
     public List<Domain.Entity.LabTestType> findAll() {
-        return null;
+        return labTestTypeRepository.findAll();
+
     }
 
     @Override
@@ -80,4 +84,5 @@ public class LabTestType implements ILabTestType {
     public List<Domain.Entity.LabTestType> createAll(List<LabTestTypeViewModel> listLabTestTypeViewModel) {
         return null;
     }
+   // public LabT
 }
