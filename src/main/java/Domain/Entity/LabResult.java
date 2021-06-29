@@ -30,6 +30,22 @@ public class LabResult {
     @JoinColumn(name = "labOrderId", referencedColumnName = "Id")
     private LabOrder labOrder;
 
+    public Laboratorist getLaboratorist() {
+        return laboratorist;
+    }
+
+    public void setLaboratorist(Laboratorist laboratorist) {
+        this.laboratorist = laboratorist;
+    }
+
+    public LabOrder getLabOrder() {
+        return labOrder;
+    }
+
+    public void setLabOrder(LabOrder labOrder) {
+        this.labOrder = labOrder;
+    }
+
     public LabResult() {
     }
 
