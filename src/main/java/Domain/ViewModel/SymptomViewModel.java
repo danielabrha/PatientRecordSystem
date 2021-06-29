@@ -17,7 +17,7 @@ public class SymptomViewModel {
         return symptomViewModeId;
     }
 
-    public void setSymptomViewModeId(int symptomViewModeId) {
+    public void setSymptomViewModelId(int symptomViewModeId) {
         this.symptomViewModeId = symptomViewModeId;
     }
 

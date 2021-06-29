@@ -46,8 +46,10 @@ public class LabResultService implements ILabResultService {
     }
 
     @Override
+
     public void deleteAll(Iterable<LabResultViewModel> labResultViewModels) {
    
+
     }
 
     @Override
