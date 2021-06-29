@@ -9,13 +9,13 @@ import Domain.Entity.Laboratorist;
 public class LabResultViewModel {
 
     private int labResultId;
-    private String result;
+    private String labResult;
     private Laboratorist laboratorist;
     private LabOrder labOrder;
 
     public LabResultViewModel(int labResultId, String result, Laboratorist laboratorist, LabOrder labOrder) {
         this.labResultId = labResultId;
-        this.result = result;
+        this.labResult = result;
         this.laboratorist = laboratorist;
         this.labOrder = labOrder;
     }
@@ -24,12 +24,12 @@ public class LabResultViewModel {
     }
 
     public LabResultViewModel(String result, Laboratorist laboratorist) {
-        this.result = result;
+        this.labResult = result;
         this.laboratorist = laboratorist;
     }
 
     public LabResultViewModel(String result, Laboratorist laboratorist, LabOrder labOrder) {
-        this.result = result;
+        this.labResult = result;
         this.laboratorist = laboratorist;
         this.labOrder = labOrder;
     }
@@ -42,12 +42,12 @@ public class LabResultViewModel {
         this.labResultId = labResultId;
     }
 
-    public String getResult() {
-        return result;
+    public String getLabResult() {
+        return labResult;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setLabResult(String result) {
+        this.labResult = result;
     }
 
     public Laboratorist getLaboratorist() {

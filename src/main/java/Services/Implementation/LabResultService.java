@@ -1,60 +1,88 @@
 package Services.Implementation;
 
-import Domain.Entity.LabOrder;
-import Domain.ViewModel.LabOrderViewModel;
-import Services.Interface.ILabOrderService;
+import Domain.Entity.LabResult;
+import Domain.ViewModel.LabResultViewModel;
+import Repository.ILabResultRepository;
+import Services.Interface.ILabResultService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
 @Service
-public class LabResultService implements ILabOrderService {
+public class LabResultService implements ILabResultService {
+
+    @Autowired
+    ILabResultRepository _iLabResultRepository;
+    
     @Override
-    public List<LabOrder> findAll() {
+    public LabResult create(LabResultViewModel labResultViewModel) {
+        return _iLabResultRepository.save(toLabResult(labResultViewModel));
+    }
+
+    @Override
+    public List<LabResult> createAll(List<LabResultViewModel> listLabResultViewModel) {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<LabOrder> findAll(String status) {
-        return null;
+    public void delete(LabResultViewModel labResultViewModel) {
+        // TODO Auto-generated method stub
+        
     }
 
     @Override
-    public LabOrder findById(int id) {
-        return null;
-    }
-
-    @Override
-    public LabOrderViewModel update(LabOrderViewModel labOrderViewModel) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(int id) {
-
-    }
-
-    @Override
-    public void delete(LabOrderViewModel labOrderViewModel) {
-
-    }
-
-    @Override
-    public void deleteAll(Iterable<LabOrderViewModel> labOrderViewModels) {
-
+    public void deleteAll(Iterable<LabResultViewModel> labResultViewModels) {
+        // TODO Auto-generated method stub
+        
     }
 
     @Override
     public void deleteAll() {
-
+        // TODO Auto-generated method stub
+        
     }
 
     @Override
-    public LabOrder create(LabOrderViewModel labOrderViewModel) {
+    public void deleteById(int id) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public List<LabResult> findAll() {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<LabOrder> createAll(List<LabOrderViewModel> listLabOrderViewModel) {
+    public List<LabResult> findAll(String status) {
+        // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public LabResult findById(int id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LabResultViewModel update(LabResultViewModel labResultViewModel) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+
+
+
+
+    public LabResult toLabResult(LabResultViewModel labResultViewModel) {
+        LabResult labResult = new LabResult();
+        labResult.setResult(labResultViewModel.getResult());;
+        return labResult;
+    }
+
 }
