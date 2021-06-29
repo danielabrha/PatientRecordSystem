@@ -11,11 +11,11 @@ public interface ILabOrderService {
     //	public List<LabOrderViewModel> findAll(int entryid);
     public List<LabOrder> findAll(String status);
     public LabOrder findById(int id);
-    public LabOrderViewModel update(LabOrderViewModel labOrderViewModel);
+    public LabOrder update(LabOrderViewModel labOrderViewModel);
     public void deleteById(int id);
     public void delete(LabOrderViewModel labOrderViewModel);
     public void deleteAll(Iterable<LabOrderViewModel> labOrderViewModels);
     public void deleteAll();
-    public LabOrder create(LabOrderViewModel labOrderViewModel);
+    public LabOrder create(LabOrderViewModel labOrderViewModel, int visitId, int doctorId, int labTestTypeId, int labResultId);
     public List<LabOrder> createAll(List<LabOrderViewModel> listLabOrderViewModel);
 }

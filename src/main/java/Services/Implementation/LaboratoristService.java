@@ -2,30 +2,45 @@ package Services.Implementation;
 
 import Domain.Entity.Laboratorist;
 import Domain.ViewModel.LaboratoriestViewModel;
+import Repository.ILaboratoristRepository;
 import Services.Interface.ILaboratoristService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class LaboratoristService implements ILaboratoristService {
+
+    ILaboratoristRepository _iLaboratoristRepository;
+    List<Laboratorist> laboratoristList = new ArrayList<>();
+
     @Override
     public List<Laboratorist> findAll() {
+
         return null;
     }
 
     @Override
     public List<Laboratorist> findAll(String status) {
-        return null;
+        return _iLaboratoristRepository.findAll();
+//        _iLaboratoristRepository.findAll().forEach(laboratoristList::add);
+//        return laboratoristList;
     }
 
     @Override
     public Laboratorist findById(int id) {
-        return null;
+        return _iLaboratoristRepository.findById(id).orElse(null);
     }
 
     @Override
-    public LaboratoriestViewModel update(LaboratoriestViewModel laboratoristViewModel) {
-        return null;
+    public Laboratorist update(LaboratoriestViewModel laboratoristViewModel) {
+        Laboratorist previousLaboratorist = _iLaboratoristRepository.findById(laboratoristViewModel.getLaboratoristId()).orElse(null);
+        if (previousLaboratorist != null) {
+        }
+
+
+        return previousLaboratorist;
     }
 
     @Override
@@ -56,5 +71,10 @@ public class LaboratoristService implements ILaboratoristService {
     @Override
     public List<Laboratorist> createAll(List<LaboratoriestViewModel> listLaboratoriestViewModel) {
         return null;
+    }
+
+    public Laboratorist toLaboratoris(LaboratoriestViewModel laboratoriestViewModel) {
+        Laboratorist laboratorist = _iLaboratoristRepository.findById(laboratoriestViewModel.getLaboratoristId()).orElse(null);
+        return laboratorist;
     }
 }
