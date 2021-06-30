@@ -2,7 +2,7 @@ package Controller;
 
 import Domain.Entity.SystemAdmin;
 import Domain.ViewModel.SystemAdminViewModel;
-import Services.Interface.ISystemAdmin;
+import Services.Interface.ISystemAdminService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class SystemAdminController {
 
-private ISystemAdmin systemAdminService;
+private ISystemAdminService systemAdminService;
 private SystemAdminViewModel systemAdminViewModel;
 private SystemAdmin systemAdmin;
 
@@ -42,7 +42,7 @@ private SystemAdmin systemAdmin;
 
     public SystemAdminViewModel toSystemAdminViewModel(SystemAdmin systemAdmin){
        this.systemAdminViewModel=new SystemAdminViewModel();
-       this.systemAdminViewModel.setSystemAdminViewModel_Id(systemAdmin.getSystemAdminId());
+       this.systemAdminViewModel.setSystemAdminId(systemAdmin.getSystemAdminId());
        return this.systemAdminViewModel;
     }
 }
