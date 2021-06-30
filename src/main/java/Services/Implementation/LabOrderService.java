@@ -37,12 +37,11 @@ public class LabOrderService implements ILabOrderService {
     @Autowired
     private ILabResultRepository _labResultRepository;
 
-    public LabOrderService(IVisitService _visitService, IDoctorService _doctorService,
-                           ILabTestType _labTestTypeService, List<LabTestType> labTestTypeList) {
-        this._visitService = _visitService;
-        this._doctorService = _doctorService;
-        this._labTestTypeService = _labTestTypeService;
-        this.labTestTypeList = labTestTypeList;
+    public LabOrderService() {
+        _visitService = new VisitService();
+        _doctorService = new DoctorService();
+        _labTestTypeService = new LabTestType();
+        labTestTypeList = new ArrayList<>();
     }
 
     @Override

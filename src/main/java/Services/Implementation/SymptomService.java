@@ -27,13 +27,11 @@ public class SymptomService implements ISymptomService {
 
     @Autowired
     private List<Symptom> symptomList;
-    public SymptomService(){
-        symptomList=new ArrayList<>();
-    }
 
-    public SymptomService(IDoctorService _doctorService, IVisitService _visitService) {
-        this._doctorService = _doctorService;
-        this._visitService = _visitService;
+    public SymptomService() {
+        _doctorService = new DoctorService();
+        _visitService = new VisitService();
+        symptomList=new ArrayList<>();
     }
 
     @Override

@@ -21,9 +21,9 @@ public class LabResultService implements ILabResultService {
     @Autowired
     ILaboratoristService _laboratoristService;
 
-    public LabResultService(ILabOrderService _labOrderService, ILaboratoristService _laboratoristService) {
-        this._labOrderService = _labOrderService;
-        this._laboratoristService = _laboratoristService;
+    public LabResultService() {
+        _labOrderService = new LabOrderService();
+        _laboratoristService = new LaboratoristService();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class LabResultService implements ILabResultService {
         return _labResultRepository.save(labResult);
     }
 
-    @Override
+        @Override
     public List<LabResult> createAll(List<LabResultViewModel> listLabResultViewModel) {
        
         return null;
@@ -84,10 +84,6 @@ public class LabResultService implements ILabResultService {
     public LabResult update(LabResultViewModel labResultViewModel) {
         return null;
     }
-
-
-
-
 
 
     public LabResult toLabResult(LabResultViewModel labResultViewModel) {
