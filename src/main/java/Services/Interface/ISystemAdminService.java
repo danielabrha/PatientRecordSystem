@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public interface ISystemAdmin {
+public interface ISystemAdminService {
     public List<SystemAdmin> findAll();
     //	public List<SystemAdminViewModel> findAll(int entryid);
     public List<SystemAdmin> findAll(String status);

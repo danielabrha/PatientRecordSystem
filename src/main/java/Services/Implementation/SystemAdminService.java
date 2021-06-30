@@ -3,13 +3,14 @@ import Domain.Entity.SystemAdmin;
 import Domain.ViewModel.SystemAdminViewModel;
 import Repository.ISystemAdminRepository;
 import Services.Interface.ISystemAdmin;
+import Services.Interface.ISystemAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class SystemAdminService implements ISystemAdmin {
+public class SystemAdminService implements ISystemAdminService {
     @Autowired
     private ISystemAdminRepository _systemAdminRepository;
     private SystemAdmin systemAdmin;
