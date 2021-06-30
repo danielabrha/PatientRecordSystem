@@ -30,7 +30,7 @@ public class ReceptionstService implements IReceptionsService {
     }
 
     @Override
-    public ReceptionstViewModel update(ReceptionstViewModel receptionstViewModel) {
+    public Receptionst update(ReceptionstViewModel receptionstViewModel) {
         return null;
     }
 

@@ -39,10 +39,9 @@ public class RoleService implements IRoleService {
     @Override
     public Role update(RoleViewModel roleViewModel) {
 
-        Role previousRole = _roleRepository.findById(roleViewModel.getRoleViewModel_Id()).orElse(null);
+        Role previousRole = _roleRepository.findById(roleViewModel.getRoleId()).orElse(null);
         if (previousRole != null) {
-            previousRole.setRoleName(roleViewModel.getRoleViewModelName());
-            previousRole.setUserList(roleViewModel.getListOfUser());
+            previousRole.setRoleName(roleViewModel.getRoleName());
             return _roleRepository.save(previousRole);
         }
         return null;
@@ -55,7 +54,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public void delete(RoleViewModel roleViewModel) {
-        Role previousRole = _roleRepository.findById(roleViewModel.getRoleViewModel_Id()).orElse(null);
+        Role previousRole = _roleRepository.findById(roleViewModel.getRoleId()).orElse(null);
         if (previousRole != null){
             _roleRepository.deleteById(previousRole.getRoleId());
         }
@@ -66,7 +65,7 @@ public class RoleService implements IRoleService {
     public void deleteAll(Iterable<RoleViewModel> roleViewModels) {
 
         roleViewModels.forEach(roleViewModel -> {
-            Role role = _roleRepository.findById(roleViewModel.getRoleViewModel_Id()).orElse(null);
+            Role role = _roleRepository.findById(roleViewModel.getRoleId()).orElse(null);
             if (role!=null)
                 _roleRepository.deleteById(role.getRoleId());
 
@@ -95,7 +94,7 @@ public class RoleService implements IRoleService {
 
     public Role toRole(RoleViewModel roleViewModel) {
         Role role = new Role();
-        role.setRoleName(roleViewModel.getRoleViewModelName());
+        role.setRoleName(roleViewModel.getRoleName());
         return role;
     }
 }
