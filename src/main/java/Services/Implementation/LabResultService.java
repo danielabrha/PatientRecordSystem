@@ -1,5 +1,6 @@
 package Services.Implementation;
 
+import Domain.Entity.LabOrder;
 import Domain.Entity.LabResult;
 import Domain.ViewModel.LabResultViewModel;
 import Repository.ILabResultRepository;
@@ -9,6 +10,8 @@ import Services.Interface.ILaboratoristService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,29 +19,36 @@ public class LabResultService implements ILabResultService {
 
     @Autowired
     ILabResultRepository _labResultRepository;
+
     @Autowired
-    ILabOrderService _labOrderService;
+    private List<LabResult> labResultList;
+
     @Autowired
-    ILaboratoristService _laboratoristService;
+    private ILabOrderService _labOrderService;
+    @Autowired
+    private ILaboratoristService _laboratoristService;
 
     public LabResultService() {
         _labOrderService = new LabOrderService();
         _laboratoristService = new LaboratoristService();
+        labResultList = new ArrayList<>();
     }
 
     @Override
-    public LabResult create(LabResultViewModel labResultViewModel, int labOrdedrId, int laboratoristId) {
-        LabResult labResult=toLabResult(labResultViewModel);
-        labResult.setLabOrder(_labOrderService.findById(labOrdedrId)); 
-        labResult.setLaboratorist(_laboratoristService.findById(laboratoristId));
-        
+    public LabResult create(LabResultViewModel labResultViewModel, int labOrderId, int laboratoristId) {
+        LabResult labResult=toLabResult(labResultViewModel,labOrderId, laboratoristId);
         return _labResultRepository.save(labResult);
     }
 
         @Override
-    public List<LabResult> createAll(List<LabResultViewModel> listLabResultViewModel) {
-       
-        return null;
+    public List<LabResult> createAll(List<LabResultViewModel> labResultViewModelList, int labOrderId,
+                                     int laboratoristId) {
+            LabResult labResult = new LabResult();
+            labResultViewModelList.forEach(labResultVM -> {
+
+                this.labResultList.add(toLabResult(labResultVM,labOrderId, laboratoristId));
+            });
+            return _labResultRepository.saveAll(this.labResultList);
     }
 
     @Override
@@ -86,9 +96,11 @@ public class LabResultService implements ILabResultService {
     }
 
 
-    public LabResult toLabResult(LabResultViewModel labResultViewModel) {
+    public LabResult toLabResult(LabResultViewModel labResultViewModel, int labOrderId, int laboratoristId) {
         LabResult labResult = new LabResult();
         labResult.setLabResultName(labResultViewModel.getLabResultName());
+        labResult.setLabOrder(_labOrderService.findById(labOrderId));
+        labResult.setLaboratorist(_laboratoristService.findById(laboratoristId));
         return labResult;
     }
 

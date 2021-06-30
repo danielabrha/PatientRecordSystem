@@ -1,7 +1,10 @@
 package Services.Implementation;
 
+import Domain.Entity.Drug;
+import Domain.Entity.LabOrder;
 import Domain.Entity.Role;
 import Domain.Entity.Symptom;
+import Domain.ViewModel.DrugViewModel;
 import Domain.ViewModel.RoleViewModel;
 import Domain.ViewModel.SymptomViewModel;
 import Repository.ISymptomRepository;
@@ -92,13 +95,24 @@ public class SymptomService implements ISymptomService {
     }
 
     @Override
-    public List<Symptom> createAll(List<SymptomViewModel> symptomViewModelList) {
-        // it dont usefull more
+    public List<Symptom> createAll(List<SymptomViewModel> symptomViewModelList, int visitId,
+                                   int doctorId) {
+        Symptom symptom = new Symptom();
         symptomViewModelList.forEach(symptomVM -> {
-         //   this.symptomList.add(toSymptom(symptomVM));
+
+            this.symptomList.add(toSymptom(symptomVM,visitId, doctorId));
         });
         return _symptomRepository.saveAll(this.symptomList);
     }
 
+
+    public Symptom toSymptom (SymptomViewModel symptomViewModel, int visitId,
+                              int doctorId) {
+        Symptom symptom = new Symptom();
+        symptom.setSymptomName(symptomViewModel.getSymptomName());
+        symptom.setVisit(_visitService.findById(visitId));
+        symptom.setDoctor(_doctorService.findById(doctorId));
+        return symptom;
+    }
 
 }

@@ -2,8 +2,11 @@ package Controller;
 
 import Domain.Entity.Doctor;
 import Domain.Entity.Symptom;
+import Domain.Entity.Symptom;
 import Domain.Entity.Visit;
 import Domain.ViewModel.SymptomViewModel;
+import Domain.ViewModel.SymptomViewModel;
+import Services.Implementation.SymptomService;
 import Services.Implementation.SymptomService;
 import Services.Interface.ISymptomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,92 +18,74 @@ import java.util.List;
 @RestController
 public class SymptomController {
 
-    // @Autowired
-    private ISymptomService _SymptomService;
-    //    @Autowired
+    private SymptomService _symptomService;
     private Symptom symptom;
-    //    @Autowired
-    private SymptomViewModel SymptomVM;
-    //    @Autowired
-    private List<SymptomViewModel> _listSymptomVM;
-    //    @Autowired
-    private List<Symptom> _listSymptoms;
-
-
-    private Doctor doctor;
-    private Visit visit;
+    private List<Symptom> _symptomList;
+    private SymptomViewModel symptomViewModel;
+    private List<SymptomViewModel> _symptomViewModelList;
 
     public SymptomController() {
-        _SymptomService = new SymptomService();
-        doctor = new  Doctor();
-        visit = new Visit();
-        symptom = new Symptom();
-        _listSymptomVM = new ArrayList<SymptomViewModel>();
-        _listSymptoms = new ArrayList<Symptom>();
+        this._symptomService = new SymptomService();
+        this.symptom = new Symptom();
+        this._symptomList = new ArrayList<>();
+        this.symptomViewModel = new SymptomViewModel();
+        this._symptomViewModelList = new ArrayList<>();
     }
 
-    @PostMapping("/Symptom/post/data/{doctorId}/{visitId}")
-    public SymptomViewModel postSymptom(@RequestBody SymptomViewModel SymptomVM,
-                                        @PathVariable (value = "doctorId") int doctorId,
-                                        @PathVariable (value = "visitId") int visitId) {
-        this.symptom = _SymptomService.create(SymptomVM, doctorId, visitId);
+    @PostMapping("/Symptom/post/data/{visitId}/{doctorId}")
+    public Symptom postSymptom(@RequestBody SymptomViewModel SymptomVM,
+                                 @PathVariable (value = "visitId") int visitId,
+                                 @PathVariable (value = "doctorId") int doctorId
 
-        return toSymptomViewModel(this.symptom);
-        //return new SymptomViewModel();
+
+    ) {
+        return _symptomService.create(SymptomVM, visitId, doctorId);
 
     }
 
-    @PostMapping("/Symptom/post/All/data")
-    public List<SymptomViewModel> postSymptoms(@RequestBody List<SymptomViewModel> setSymptomVM) {
-        this._listSymptoms = _SymptomService.createAll(setSymptomVM);
-        return toSetSymptomViewModel(this._listSymptoms);
+    @PostMapping("/Symptom/post/All/data/{visitId}/{doctorId}/{labTestTypeId}")
+    public List<Symptom> postSymptoms(@RequestBody List<SymptomViewModel> symptomViewModelList,
+                                        @PathVariable (value = "visitId") int visitId,
+                                        @PathVariable (value = "doctorId") int doctorId) {
+        return  _symptomService.createAll(symptomViewModelList, visitId, doctorId);
     }
 
     @GetMapping("/Symptom/get/data/{id}")
-    public SymptomViewModel getSymptom(@PathVariable(value = "id") int Id) {
-        this.symptom = _SymptomService.findById(Id);
-        return toSymptomViewModel(this.symptom);
+    public Symptom getSymptom(@PathVariable(value = "id") int Id) {
+        return _symptomService.findById(Id);
 
     }
 
     @GetMapping("/Symptoms/get/All/data")
-    public List<SymptomViewModel> getAllSymptom() {
-       this._listSymptoms = _SymptomService.findAll();
-        return toSetSymptomViewModel(this._listSymptoms);
+    public List<Symptom> getAllSymptom() {
+        return  _symptomService.findAll();
 
     }
 
-	@PutMapping("/Symptom/update/data")
-	private SymptomViewModel updateSymptom(@RequestBody SymptomViewModel SymptomCM) {
-		return toSymptomViewModel(_SymptomService.update(SymptomCM));
-	}
+    @PutMapping("/Symptom/update/data")
+    private Symptom updateSymptom(@RequestBody SymptomViewModel SymptomCM) {
+        return _symptomService.update(SymptomCM);
+    }
 
     @DeleteMapping("/Symptom/deleteById/data/{id}")
     private Boolean deleteSymptomById(@PathVariable int id) {
-        _SymptomService.deleteById(id);
+        _symptomService.deleteById(id);
         return true;
     }
 
     @DeleteMapping("/Symptom/deleteAll/data")
     private Boolean deleteAllSymptom() {
-        _SymptomService.deleteAll();
+        _symptomService.deleteAll();
         return true;
     }
 
     private SymptomViewModel toSymptomViewModel(Symptom Symptom2) {
         // TODO Auto-generated method stub
 
-        this.SymptomVM = new SymptomViewModel();
-        this.SymptomVM.setSymptomViewModelId(Symptom2.getSymptomId());
-
-        this.SymptomVM.setSymptomViewModelName(Symptom2.getSymptomName());
-        return this.SymptomVM;
+        return null;
     }
 
     private List<SymptomViewModel> toSetSymptomViewModel(List<Symptom> setSymptom) {
-        setSymptom.forEach(Symptom -> {
-            this._listSymptomVM.add(toSymptomViewModel(Symptom));
-        });
-        return this._listSymptomVM;
+        return null;
     }
 }

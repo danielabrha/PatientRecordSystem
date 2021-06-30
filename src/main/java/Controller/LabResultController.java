@@ -1,15 +1,13 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import Domain.ViewModel.LabResultViewModel;
+import Services.Implementation.LabResultService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Domain.ViewModel.LabResultViewModel;
 import Domain.Entity.*;
@@ -18,80 +16,76 @@ import Services.Interface.ILabResultService;
 
 @RestController
 public class LabResultController {
-    @Autowired
-    private ILabResultService _LabResultService;
-    @Autowired
-    private LabResultViewModel labResultViewModel;
-    @Autowired
-    private LabOrder labOrder;
-    @Autowired
-    private Laboratorist laboratorist;
-    @Autowired
+
+    private LabResultService _labResultService;
     private LabResult labResult;
-    @Autowired
-    private List<LabResultViewModel> labResultViewModelList;
-    @Autowired
-    private List<LabResult> labResultList;
+    private List<LabResult> _labResultList;
+    private LabResultViewModel labResultViewModel;
+    private List<LabResultViewModel> _labResultViewModelList;
+
     public LabResultController() {
-        _LabResultService = new LabResultService();
-        labOrder = new LabOrder();
-        labResult = new LabResult();
-        labResultViewModelList = new LinkedList<>();
-        labResultList = new LinkedList<>();
-        
+        this._labResultService = new LabResultService();
+        this.labResult = new LabResult();
+        this._labResultList = new ArrayList<>();
+        this.labResultViewModel = new LabResultViewModel();
+        this._labResultViewModelList = new ArrayList<>();
     }
 
-    @PostMapping("/Lab/post/result/{labOrderId}/{laboratoristId}")
-    public LabResultViewModel postResult(@PathVariable(value = "labOrdedrId") int labOrderId,
-        @PathVariable(value = "laboratoristId") int laboratoristId,
-        @RequestBody LabResultViewModel labResultViewModel){
-        this.labResult = _LabResultService.create(labResultViewModel,labOrderId,laboratoristId);
+    @PostMapping("/LabResult/post/data/{labOrderId}/{laboratoristId}")
+    public LabResult postLabResult(@RequestBody LabResultViewModel LabResultVM,
+                               @PathVariable (value = "labOrderId") int labOrderId,
+                               @PathVariable (value = "laboratoristId") int laboratoristId
 
-        return toSetLabResultViewModel(labResult);
-    }
-    @GetMapping("Lab/get/result/{labOrderId}")
-    public LabResultViewModel getResult(@PathVariable(value = "labOrderId")int id){
-        this.labResult = _LabResultService.findById(id);
-        return toGetLabResultViewModel(this.labResult);
-    }
-    @GetMapping("Lab/get/result/all")
-    public List<LabResultViewModel> getAllLabResult(){
-        this.labResultList = _LabResultService.findAll();
-        return toGetResultViewModel(this.labResultList);
+
+    ) {
+        return _labResultService.create(LabResultVM, labOrderId, laboratoristId);
+
     }
 
-    @DeleteMapping("Lab/delete/result/{labResultId}")
-    public Boolean deleteLabResult(@PathVariable(value = "labResultId") int labResultId){
-        _LabResultService.deleteById(labResultId);
+    @PostMapping("/LabResult/post/All/data/{}/{laboratoristId}/{labTestTypeId}")
+    public List<LabResult> postLabResults(@RequestBody List<LabResultViewModel> labResultViewModelList,
+                                      @PathVariable (value = "labOrderId") int labOrderId,
+                                      @PathVariable (value = "laboratoristId") int laboratoristId) {
+        return  _labResultService.createAll(labResultViewModelList, labOrderId, laboratoristId);
+    }
+
+    @GetMapping("/LabResult/get/data/{id}")
+    public LabResult getLabResult(@PathVariable(value = "id") int Id) {
+        return _labResultService.findById(Id);
+
+    }
+
+    @GetMapping("/LabResults/get/All/data")
+    public List<LabResult> getAllLabResult() {
+        return  _labResultService.findAll();
+
+    }
+
+    @PutMapping("/LabResult/update/data")
+    private LabResult updateLabResult(@RequestBody LabResultViewModel LabResultCM) {
+        return _labResultService.update(LabResultCM);
+    }
+
+    @DeleteMapping("/LabResult/deleteById/data/{id}")
+    private Boolean deleteLabResultById(@PathVariable int id) {
+        _labResultService.deleteById(id);
         return true;
     }
-    @DeleteMapping("Lab/delete/result/all")
-    public Boolean deleteAllResult(){
-        _LabResultService.deleteAll();
+
+    @DeleteMapping("/LabResult/deleteAll/data")
+    private Boolean deleteAllLabResult() {
+        _labResultService.deleteAll();
         return true;
     }
-    public List<LabResultViewModel> toGetResultViewModel(List<LabResult> setLabResult){
-        setLabResult.forEach(LabResult ->{
-            this.labResultViewModelList.add(toSetLabResultViewModel(LabResult));
-        });
-        return this.labResultViewModelList;
+
+    private LabResultViewModel toLabResultViewModel(LabResult LabResult2) {
+        // TODO Auto-generated method stub
+
+        return null;
     }
 
-    public LabResultViewModel toSetLabResultViewModel(LabResult labResult) {
-        this.labResultViewModel = new LabResultViewModel();
-        this.labResultViewModel.setLabResultId(labResult.getLabResultId());
-        this.labResultViewModel.setLabResult(labResult.getLabResult());
-        
-        return this.labResultViewModel;
-    }
-
-    public LabResultViewModel toGetLabResultViewModel(LabResult labResult){
-        this.labResultViewModel = new LabResultViewModel();
-        this.labResultViewModel.setLabResultId(labResult.getLabResultId());
-        this.labResultViewModel.setLabOrder(labResult.getLabOrder());
-        this.labResultViewModel.setLabResult(labResult.getLabResult());
-
-        return this.labResultViewModel;
+    private List<LabResultViewModel> toSetLabResultViewModel(List<LabResult> setLabResult) {
+        return null;
     }
 
     

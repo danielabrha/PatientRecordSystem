@@ -17,5 +17,5 @@ public interface IVisitService {
     public void deleteAll(Iterable<VisitViewModel> visitViewModels);
     public void deleteAll();
     public Visit create(VisitViewModel visitViewModel,int patientId, int receptionId);
-    public List<Visit> createAll(List<VisitViewModel> listVisitViewModel);
+    public List<Visit> createAll(List<VisitViewModel> listVisitViewModel, int receptionistId, int patientId);
 }

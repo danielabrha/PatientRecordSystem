@@ -42,6 +42,7 @@ public class LabOrderService implements ILabOrderService {
         _doctorService = new DoctorService();
         _labTestTypeService = new LabTestTypeService();
         labTestTypeList = new ArrayList<>();
+        labOrderList = new ArrayList<>();
     }
 
     @Override
@@ -115,10 +116,12 @@ public class LabOrderService implements ILabOrderService {
     }
 
     @Override
-    public List<LabOrder> createAll(List<LabOrderViewModel> listLabOrderViewModel) {
-        // needs more implementation
-        listLabOrderViewModel.forEach(labOrderVM -> {
-          //  this.labOrderList.add(toLabOrder(labOrderVM));
+    public List<LabOrder> createAll(List<LabOrderViewModel> labOrderViewModelList, int visitId, int doctorId,
+                                    int labTestTypeId) {
+        LabOrder labOrder = new LabOrder();
+        labOrderViewModelList.forEach(labOrderVM -> {
+
+            this.labOrderList.add(toLabOrder(visitId,doctorId, labTestTypeId));
         });
         return _labOrderRepository.saveAll(this.labOrderList);
     }
