@@ -5,6 +5,8 @@ import Domain.ViewModel.DrugOrderViewModel;
 import Services.Implementation.DrugOrderService;
 import Services.Interface.IDrugOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,8 +15,9 @@ import java.util.List;
 @RestController
 public class DrugOrderController {
 
-   // @Autowired
-  //  private JavaMailSender mailSender;
+    @Autowired
+    private JavaMailSender mailSender;
+
     private IDrugOrderService _drugOrderService;
     private DrugOrder drugOrder;
     private List<DrugOrder> _drugOrderList;
@@ -58,16 +61,16 @@ public class DrugOrderController {
     @GetMapping("/DrugOrder/get/All/data/")
     public List<DrugOrder> getDrugOrder() {
 
-//        String from = "691fa95586-cc12c1@inbox.mailtrap.io";
-//        String to = "michock.mit@gmail.com";
-//
-//        SimpleMailMessage message = new SimpleMailMessage();
-//
-//        message.setFrom(from);
-//        message.setTo(to);
-//        message.setSubject("This is a plain text email");
-//        message.setText("Hello guys! This is a plain text email.");
-//        mailSender.send(message);
+        String from = "691fa95586-cc12c1@inbox.mailtrap.io";
+        String to = "whailu@miu.edu";
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("Hello");
+        message.setText("This is from PRS");
+        mailSender.send(message);
 
         return _drugOrderService.findAll();
     }
