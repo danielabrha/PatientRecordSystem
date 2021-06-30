@@ -1,95 +1,74 @@
 package Controller;
 
+import Domain.Entity.Role;
+import Domain.ViewModel.RoleViewModel;
 import Services.Implementation.RoleService;
+import Services.Implementation.RoleService;
+import Services.Interface.IRoleService;
 import Services.Interface.IRoleService;
 import Domain.Entity.Role;
 import Domain.ViewModel.RoleViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @RestController
 public class RoleController {
-//    @Autowired
-    private IRoleService _RoleService;
-//    @Autowired
-    private Role userRole;
-//    @Autowired
-    private RoleViewModel RoleVM;
-//    @Autowired
-    private List<RoleViewModel> _listRoleVM;
-//    @Autowired
-    private List<Role> _listRoles;
+    private IRoleService _labTestTypeService;
+    private Role labTestType;
+    private List<Role> _labTestTypeList;
+    private RoleViewModel labTestTypeViewModel;
+    private List<RoleViewModel> _labTestTypeViewModelList;
 
     public RoleController() {
-        _RoleService = new RoleService();
-        userRole = new Role();
-        _listRoleVM = new LinkedList<RoleViewModel>();
-        _listRoles = new LinkedList<Role>();
+        this._labTestTypeService = new RoleService();
+        this.labTestType = new Role();
+        this._labTestTypeList = new ArrayList<>();
+        this.labTestTypeViewModel = new RoleViewModel();
+        this._labTestTypeViewModelList = new ArrayList<>();
+    }
+    @PostMapping("Role/post/data/")
+    public Role postDurg(@RequestBody RoleViewModel labTestTypeVM){
+        return _labTestTypeService.create(labTestTypeVM);
+
     }
 
-    @PostMapping("/Role/post/data")
-    public RoleViewModel postRole(@RequestBody RoleViewModel RoleVM) {
-        this.userRole = _RoleService.create(RoleVM);
+    @PostMapping("Role/post/All/data/")
+    public List<Role> postRole(@RequestBody List<RoleViewModel> labTestTypeVMList){
+        return  _labTestTypeService.createAll(labTestTypeVMList);
 
-        return toRoleViewModel(this.userRole);
-        //return new RoleViewModel();
     }
+    @PutMapping("Role/update/{roleId}")
+    public Role updateRole(@RequestBody RoleViewModel labTestTypeVM,@PathVariable (value = "roleId") int roleId){
 
-    @PostMapping("/Role/post/All/data")
-    public List<RoleViewModel> postRoles(@RequestBody List<RoleViewModel> setRoleVM) {
-        this._listRoles = _RoleService.createAll(setRoleVM);
-        return toSetRoleViewModel(this._listRoles);
+        return _labTestTypeService.update(labTestTypeVM,roleId);
+
     }
-
     @GetMapping("/Role/get/data/{id}")
-    public RoleViewModel getRole(@PathVariable(value = "id") int Id) {
-        this.userRole = _RoleService.findById(Id);
-        return toRoleViewModel(this.userRole);
+    public Role getRole(@PathVariable(value = "id") int Id) {
+        return _labTestTypeService.findById(Id);
+    }
+    @GetMapping("/Role/get/All/data/")
+    public List<Role> getRole() {
 
+        return _labTestTypeService.findAll();
     }
 
-    @GetMapping("/Roles/get/All/data")
-    public List<RoleViewModel> getAllRole() {
-
-//        this._listRoles = _RoleService.findAll();
-//        return toSetRoleViewModel(this._listRoles);
-        return null;
-
-    }
-
-//	@PutMapping("/Role/update/data")
-//	private RoleViewModel updateRole(@RequestBody RoleViewModel RoleCM) {
-//		return toRoleViewModel(_RoleService.update(RoleCM));
-//	}
-
-    @DeleteMapping("/Role/deleteById/data/{id}")
-    private Boolean deleteRoleById(@PathVariable int id) {
-        _RoleService.deleteById(id);
+    @DeleteMapping("Role/delete/{id}")
+    public Boolean deleteRole(@PathVariable int id){
+        _labTestTypeService.deleteById(id);
         return true;
+
     }
 
-    @DeleteMapping("/Role/deleteAll/data")
-    private Boolean deleteAllRole() {
-        _RoleService.deleteAll();
+    @DeleteMapping("Role/delete/all")
+    public Boolean deleteAllRole(){
+        _labTestTypeService.deleteAll();
         return true;
+
     }
 
-    private RoleViewModel toRoleViewModel(Role Role2) {
-        // TODO Auto-generated method stub
-
-        this.RoleVM = new RoleViewModel();
-        this.RoleVM.setRoleViewModel_Id(Role2.getRoleId());
-        this.RoleVM.setRoleViewModelName(Role2.getRoleName());
-        return this.RoleVM;
-    }
-
-    private List<RoleViewModel> toSetRoleViewModel(List<Role> setRole) {
-        setRole.forEach(Role -> {
-            this._listRoleVM.add(toRoleViewModel(Role));
-        });
-        return this._listRoleVM;
-    }
 }

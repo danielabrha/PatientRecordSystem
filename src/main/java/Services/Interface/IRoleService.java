@@ -11,7 +11,7 @@ public interface IRoleService {
     //	public List<RoleViewModel> findAll(int entryid);
     public List<Role> findAll(String status);
     public Role findById(int id);
-    public Role update(RoleViewModel roleViewModel);
+    public Role update(RoleViewModel roleViewModel,int roleId);
     public void deleteById(int id);
     public void delete(RoleViewModel roleViewModel);
     public void deleteAll(Iterable<RoleViewModel> roleViewModels);
