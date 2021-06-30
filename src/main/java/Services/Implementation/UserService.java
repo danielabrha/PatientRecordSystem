@@ -40,8 +40,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User update(UserViewModel userViewModel) {
-        User existingUser=_userRepository.findById(userViewModel.getUserId()).orElse(null);
+    public User update(UserViewModel userViewModel,int userId) {
+        User existingUser=_userRepository.findById(userId).orElse(null);
+       // User existingUser=_userRepository.findById(userViewModel.getUserId()).orElse(null);
         if(existingUser !=null){
             existingUser=  toUser(userViewModel);
             existingUser.setUserId(userViewModel.getUserId());

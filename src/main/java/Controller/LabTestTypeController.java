@@ -1,52 +1,68 @@
 package Controller;
 
+import Domain.Entity.LabTestType;
 import Domain.ViewModel.LabTestTypeViewModel;
-import Services.Interface.ILabTestType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import Domain.ViewModel.LabTestTypeViewModel;
+import Services.Implementation.LabTestTypeService;
+import Services.Interface.ILabTestTypeService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class LabTestTypeController {
-    private ILabTestType labTestTypeService;
-    private LabTestTypeViewModel labTestTypeViewModel;
+    private ILabTestTypeService _labTestTypeService;
     private LabTestType labTestType;
+    private List<LabTestType> _labTestTypeList;
+    private LabTestTypeViewModel labTestTypeViewModel;
+    private List<LabTestTypeViewModel> _labTestTypeViewModelList;
 
-    @RequestMapping("LabTestType/post/data")
-     public LabTestTypeViewModel postSystemAdmin(@RequestBody LabTestTypeViewModel labTestTypeViewModel){
-        return toLabTestTypeViewModel(labTestTypeService.create(labTestTypeViewModel));
+    public LabTestTypeController() {
+        this._labTestTypeService = new LabTestTypeService();
+        this.labTestType = new LabTestType();
+        this._labTestTypeList = new ArrayList<>();
+        this.labTestTypeViewModel = new LabTestTypeViewModel();
+        this._labTestTypeViewModelList = new ArrayList<>();
     }
-    @RequestMapping("LabTestType/update/data")
-    public LabTestTypeViewModel update(@RequestBody LabTestTypeViewModel labTestTypeViewModel){
-      return  labTestTypeService.update(labTestTypeViewModel);
-    }
-    @RequestMapping("LabTestType/get/data")
-       public List<LabTestTypeViewModel> get(){
-        List<Domain.Entity.LabTestType> labTestTypeList=labTestTypeService.findAll();
-        List<LabTestTypeViewModel> labTestTypeViewModelList=new ArrayList<>();
-        labTestTypeList.forEach(labTestVm->{
-            labTestTypeViewModelList.add(toLabTestTypeViewModel((Domain.Entity.LabTestType) labTestTypeList));
-        });
-                return labTestTypeViewModelList;
-            }
-     @RequestMapping("LabTestType/deleteAll/data")
-     public void delete(){
-        labTestTypeService.deleteAll();
-     }
-    @RequestMapping("LabTestType/deleteById/data")
-    public void deleteById(LabTestTypeViewModel labTestTypeViewModel){
-        labTestTypeService.deleteById(labTestTypeViewModel.getLabTestTypeViewModel_Id());
+    @PostMapping("LabTestType/post/data/{systemAdminId}")
+    public LabTestType postDurg(@RequestBody LabTestTypeViewModel labTestTypeVM,@PathVariable(value = "systemAdminId") int systemAdminId){
+        return _labTestTypeService.create(labTestTypeVM,systemAdminId);
+
     }
 
+    @PostMapping("LabTestType/post/All/data/{systemAdminId}")
+    public List<LabTestType> postLabTestType(@RequestBody List<LabTestTypeViewModel> labTestTypeVMList,@PathVariable (value = "systemAdminId") int systemAdminId){
+        return  _labTestTypeService.createAll(labTestTypeVMList,systemAdminId);
 
-    public LabTestTypeViewModel toLabTestTypeViewModel(Domain.Entity.LabTestType labTestType){
-        labTestTypeViewModel.setLabTestTypeViewModel_Id(labTestType.getLabTestTypeId());
-        labTestTypeViewModel.setLabTestViewModelName(labTestType.getLabTestName());
-        labTestTypeViewModel.setLabTestViewModelCode(labTestType.getLabTestCode());
-        return labTestTypeViewModel;
+    }
+    @PutMapping("LabTestType/update/{systemAdminId}")
+    public LabTestType updateLabTestType(@RequestBody LabTestTypeViewModel labTestTypeVM,@PathVariable (value = "systemAdminId") int systemAdminId){
+
+        return _labTestTypeService.update(labTestTypeVM,systemAdminId);
+
+    }
+    @GetMapping("/LabTestType/get/data/{id}")
+    public LabTestType getLabTestType(@PathVariable(value = "id") int Id) {
+        return _labTestTypeService.findById(Id);
+    }
+    @GetMapping("/LabTestType/get/All/data/")
+    public List<LabTestType> getLabTestType() {
+
+        return _labTestTypeService.findAll();
     }
 
+    @DeleteMapping("LabTestType/delete/{id}")
+    public Boolean deleteLabTestType(@PathVariable int id){
+        _labTestTypeService.deleteById(id);
+        return true;
+
+    }
+
+    @DeleteMapping("LabTestType/delete/all")
+    public Boolean deleteAllLabTestType(){
+        _labTestTypeService.deleteAll();
+        return true;
+
+    }
 }

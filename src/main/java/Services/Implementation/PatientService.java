@@ -31,8 +31,9 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public Patient update(PatientViewModel patientViewModel) {
-        Patient existingPatient = _patientRepository.findById(patientViewModel.getPatientId()).orElse(null);
+    public Patient update(PatientViewModel patientViewModel,int patientId) {
+        Patient existingPatient = _patientRepository.findById(patientId).orElse(null);
+//        Patient existingPatient = _patientRepository.findById(patientViewModel.getPatientId()).orElse(null);
         if (existingPatient != null) {
             existingPatient = toPatient(patientViewModel);
             existingPatient.setPatientId(patientViewModel.getPatientId());
