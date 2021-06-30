@@ -11,7 +11,7 @@ public interface IReceptionsService {
     //	public List<ReceptionstViewModel> findAll(int entryid);
     public List<Receptionst> findAll(String status);
     public Receptionst findById(int id);
-    public ReceptionstViewModel update(ReceptionstViewModel receptionstViewModel);
+    public Receptionst update(ReceptionstViewModel receptionstViewModel);
     public void deleteById(int id);
     public void delete(ReceptionstViewModel receptionstViewModel);
     public void deleteAll(Iterable<ReceptionstViewModel> receptionstViewModels);

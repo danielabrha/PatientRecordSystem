@@ -1,16 +1,23 @@
 package Services.Implementation;
 
 import Domain.Entity.Patient;
+import Domain.Entity.Patient;
 import Domain.ViewModel.PatientViewModel;
+import Repository.IPatientRepository;
 import Services.Interface.IPatientService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class PatientService implements IPatientService {
+    private static int minimum = 10000;
+    private static int maximum = 99999;
+    private IPatientRepository _patientRepository;
+
     @Override
     public List<Patient> findAll() {
-        return null;
+        return _patientRepository.findAll();
     }
 
     @Override
@@ -20,17 +27,23 @@ public class PatientService implements IPatientService {
 
     @Override
     public Patient findById(int id) {
-        return null;
+        return _patientRepository.findById(id).orElse(null);
     }
 
     @Override
-    public PatientViewModel update(PatientViewModel patientViewModel) {
+    public Patient update(PatientViewModel patientViewModel) {
+        Patient existingPatient = _patientRepository.findById(patientViewModel.getPatientId()).orElse(null);
+        if (existingPatient != null) {
+            existingPatient = toPatient(patientViewModel);
+            existingPatient.setPatientId(patientViewModel.getPatientId());
+            return _patientRepository.save(existingPatient);
+        }
         return null;
     }
 
     @Override
     public void deleteById(int id) {
-
+        _patientRepository.deleteById(id);
     }
 
     @Override
@@ -45,16 +58,41 @@ public class PatientService implements IPatientService {
 
     @Override
     public void deleteAll() {
-
+        _patientRepository.deleteAll();
     }
 
     @Override
     public Patient create(PatientViewModel patientViewModel) {
-        return null;
+        int cardNumber;
+        Patient patient = toPatient(patientViewModel);
+
+        while (true) {
+            cardNumber = (int) ((Math.random() * (maximum - minimum)) + minimum);
+            Patient existingPatientWithCardNumber = _patientRepository.findByCardNumber(cardNumber);
+            if (existingPatientWithCardNumber == null) {
+                break;
+            }
+        }
+        patient.setCardRecordNumber(cardNumber);
+        return _patientRepository.save(patient);
     }
 
     @Override
     public List<Patient> createAll(List<PatientViewModel> listPatientViewModel) {
         return null;
+    }
+
+    public Patient toPatient(PatientViewModel patientViewModel) {
+        Patient patient = new Patient();
+
+        patient.setfName(patientViewModel.getfName());
+        patient.setlName(patientViewModel.getlName());
+        patient.setmName(patientViewModel.getmName());
+        patient.setAddress(patientViewModel.getAddress());
+        patient.setEmail(patientViewModel.getEmail());
+        patient.setGender(patientViewModel.getGender());
+        patient.setDateOfBirth(patientViewModel.getDateOfBirth());
+        patient.setPhoneNumber(patientViewModel.getPhoneNumber());
+        return patient;
     }
 }

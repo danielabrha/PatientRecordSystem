@@ -25,7 +25,8 @@ public class UserService implements IUserService {
     }
     @Override
     public List<User> findAll() {
-        return null;
+
+        return _userRepository.findAll();
     }
 
     @Override
@@ -39,7 +40,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserViewModel update(UserViewModel userViewModel) {
+    public User update(UserViewModel userViewModel) {
+        User existingUser=_userRepository.findById(userViewModel.getUserId()).orElse(null);
+        if(existingUser !=null){
+            existingUser=  toUser(userViewModel);
+            existingUser.setUserId(userViewModel.getUserId());
+          return _userRepository.save(existingUser);
+        }
         return null;
     }
 
@@ -65,49 +72,25 @@ public class UserService implements IUserService {
 
     @Override
     public User create(UserViewModel userViewModel) {
-       // List<Role> listRole=new ArrayList<>();
-       // Role role=_roleService.findById(roleId);
-        List<Role> listRoles=new ArrayList<>();
-        userViewModel.getListOfRole().forEach(role->{
-            listRoles.add(_roleService.toRole(role));
-        });
-       // listRole.add(role);
-        User user=toUser(userViewModel);
-        user.setRoleList(listRoles);
-
-        user= _userRepository.save(user);
-//if(role.getRoleName().equals("Doctor")){
-//
-//}
-//        if(role.getRoleName().equals("Doctor")){
-//
-//        }
-//        if(role.getRoleName().equals("Receptions")){
-//
-//        }
-//        if(role.getRoleName().equals("Laboratoriest")){
-//
-//        }
-//        if(role.getRoleName().equals("Laboratoriest")){
-//
-//        }
-         return user;
+     User newUser=toUser(userViewModel);
+        newUser.setUserName(userViewModel.getEmail());
+        newUser.setPassword("123@123");
+        return _userRepository.save(newUser);
     }
 
     @Override
     public List<User> createAll(List<UserViewModel> listUserViewModel) {
-
-//        listUserViewModel.forEach(userVM -> {
-//            this.listUser.add(toUser(userVM));
-//        });
-//        return _userRepository.saveAll(this.listUser);
-        return  null;
+        List<User> userList=new ArrayList<>();
+        listUserViewModel.forEach(userViewModel->{
+            userList.add(toUser(userViewModel));
+        });
+        return  _userRepository.saveAll(userList);
 
     }
     public User toUser(UserViewModel userViewModel) {
         User user = new User();
 
-        this.user.setUserName(userViewModel.getUserName());
+       //this.user.setUserName(userViewModel.getUserName());
         this.user.setfName(userViewModel.getfName());
         this.user.setlName(userViewModel.getlName());
         this.user.setmName(userViewModel.getmName());

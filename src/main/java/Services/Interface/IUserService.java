@@ -11,7 +11,7 @@ public interface IUserService {
     //	public List<UserViewModel> findAll(int entryid);
     public List<User> findAll(String status);
     public User findById(int id);
-    public UserViewModel update(UserViewModel userViewModel);
+    public User update(UserViewModel userViewModel);
     public void deleteById(int id);
     public void delete(UserViewModel userViewModel);
     public void deleteAll(Iterable<UserViewModel> userViewModels);

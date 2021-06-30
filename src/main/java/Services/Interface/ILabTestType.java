@@ -12,7 +12,7 @@ public interface ILabTestType {
     public List<LabTestType> findAll(String status);
     public List<LabTestType> findAllLabTests(int labOrderId);
     public LabTestType findById(int id);
-    public LabTestTypeViewModel update(LabTestTypeViewModel labTestTypeViewModel);
+    public LabTestType update(LabTestTypeViewModel labTestTypeViewModel);
     public void deleteById(int id);
     public void delete(LabTestTypeViewModel labTestTypeViewModel);
     public void deleteAll(Iterable<LabTestTypeViewModel> labTestTypeViewModels);

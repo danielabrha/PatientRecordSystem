@@ -12,7 +12,7 @@ public interface IDrugOrderService {
     //	public List<DrugOrderViewModel> findAll(int entryid);
     public List<DrugOrder> findAll(String status);
     public DrugOrder findById(int id);
-    public DrugOrderViewModel update(DrugOrderViewModel drugOrderViewModel);
+    public DrugOrder update(DrugOrderViewModel drugOrderViewModel);
     public void deleteById(int id);
     public void delete(DrugOrderViewModel drugOrderViewModel);
     public void deleteAll(Iterable<DrugOrderViewModel> drugOrderViewModels);

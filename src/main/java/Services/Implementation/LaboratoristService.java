@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class LaboratoristService implements ILaboratoristService {
 
-    ILaboratoristRepository _iLaboratoristRepository;
+    ILaboratoristRepository _laboratoristRepository;
     List<Laboratorist> laboratoristList = new ArrayList<>();
 
     @Override
@@ -23,19 +23,18 @@ public class LaboratoristService implements ILaboratoristService {
 
     @Override
     public List<Laboratorist> findAll(String status) {
-        return _iLaboratoristRepository.findAll();
-//        _iLaboratoristRepository.findAll().forEach(laboratoristList::add);
-//        return laboratoristList;
+        return _laboratoristRepository.findAll();
+
     }
 
     @Override
     public Laboratorist findById(int id) {
-        return _iLaboratoristRepository.findById(id).orElse(null);
+        return _laboratoristRepository.findById(id).orElse(null);
     }
 
     @Override
     public Laboratorist update(LaboratoristViewModel laboratoristViewModel) {
-        Laboratorist previousLaboratorist = _iLaboratoristRepository.findById(laboratoristViewModel.getLaboratoristId()).orElse(null);
+        Laboratorist previousLaboratorist = _laboratoristRepository.findById(laboratoristViewModel.getLaboratoristId()).orElse(null);
         if (previousLaboratorist != null) {
         }
 
@@ -74,7 +73,7 @@ public class LaboratoristService implements ILaboratoristService {
     }
 
     public Laboratorist toLaboratoris(LaboratoristViewModel laboratoristViewModel) {
-        Laboratorist laboratorist = _iLaboratoristRepository.findById(laboratoristViewModel.getLaboratoristId()).orElse(null);
+        Laboratorist laboratorist = _laboratoristRepository.findById(laboratoristViewModel.getLaboratoristId()).orElse(null);
         return laboratorist;
     }
 }

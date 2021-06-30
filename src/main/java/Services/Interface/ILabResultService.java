@@ -11,7 +11,7 @@ public interface ILabResultService {
     //	public List<LabResultViewModel> findAll(int entryid);
     public List<LabResult> findAll(String status);
     public LabResult findById(int id);
-    public LabResultViewModel update(LabResultViewModel labResultViewModel);
+    public LabResult update(LabResultViewModel labResultViewModel);
     public void deleteById(int id);
     public void delete(LabResultViewModel labResultViewModel);
     public void deleteAll(Iterable<LabResultViewModel> labResultViewModels);

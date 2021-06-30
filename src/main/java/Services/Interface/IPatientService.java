@@ -11,7 +11,7 @@ public interface IPatientService {
     //	public List<PatientViewModel> findAll(int entryid);
     public List<Patient> findAll(String status);
     public Patient findById(int id);
-    public PatientViewModel update(PatientViewModel patientViewModel);
+    public Patient update(PatientViewModel patientViewModel);
     public void deleteById(int id);
     public void delete(PatientViewModel patientViewModel);
     public void deleteAll(Iterable<PatientViewModel> patientViewModels);

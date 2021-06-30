@@ -20,7 +20,7 @@ import java.util.List;
 public class DoctorService implements IDoctorService {
 
     @Autowired
-    IDoctorRepository _iDoctorRepository;
+    IDoctorRepository _doctorRepository;
 
     @Autowired
     List<Doctor> doctorList;
@@ -32,58 +32,58 @@ public class DoctorService implements IDoctorService {
 
     @Override
     public List<Doctor> findAll() {
-        // DoctorService displays list of doctors
-        return null;
+        return _doctorRepository.findAll();
+       // return null;
 
     }
 
     @Override
     public List<Doctor> findAll(String status) {
-        return _iDoctorRepository.findAll();
+        return _doctorRepository.findAll();
     }
 
     @Override
     public Doctor findById(int id) {
-        return _iDoctorRepository.findById(id).orElse(null);
+        return _doctorRepository.findById(id).orElse(null);
     }
 
     @Override
     public Doctor update(DoctorViewModel doctorViewModel) {
-        Doctor previousDoctor = _iDoctorRepository.findById(doctorViewModel.getdoctorViewModelId()).orElse(null);
+        Doctor previousDoctor = _doctorRepository.findById(doctorViewModel.getDoctorId()).orElse(null);
         if (previousDoctor != null) {
             previousDoctor = toDoctor(doctorViewModel);
         }
-        return _iDoctorRepository.save(previousDoctor);
+        return _doctorRepository.save(previousDoctor);
     }
 
     @Override
     public void deleteById(int id) {
-        _iDoctorRepository.deleteById(id);
+        _doctorRepository.deleteById(id);
     }
 
     @Override
     public void delete(DoctorViewModel doctorViewModel) {
-        Doctor doctor = _iDoctorRepository.findById(doctorViewModel.getdoctorViewModelId()).orElse(null);
+        Doctor doctor = _doctorRepository.findById(doctorViewModel.getDoctorId()).orElse(null);
         if(doctor != null){
-            _iDoctorRepository.deleteById(doctor.getDoctorId());
+            _doctorRepository.deleteById(doctor.getDoctorId());
         }
     }
 
     @Override
     public void deleteAll(Iterable<DoctorViewModel> doctorViewModels) {
         doctorViewModels.forEach(roleViewModel -> {
-            Doctor doctor = _iDoctorRepository.findById(roleViewModel.getdoctorViewModelId()).orElse(null);
+            Doctor doctor = _doctorRepository.findById(roleViewModel.getDoctorId()).orElse(null);
             if (doctor!=null)
-                _iDoctorRepository.deleteById(doctor.getDoctorId());
+                _doctorRepository.deleteById(doctor.getDoctorId());
         });
     }
     @Override
     public void deleteAll() {
-        _iDoctorRepository.deleteAll();
+        _doctorRepository.deleteAll();
     }
     @Override
     public Doctor create(DoctorViewModel doctorViewModel) {
-        _iDoctorRepository.save(toDoctor(doctorViewModel));
+        _doctorRepository.save(toDoctor(doctorViewModel));
         return null;
     }
     @Override
@@ -91,14 +91,14 @@ public class DoctorService implements IDoctorService {
         listDoctorViewModel.forEach(roleVM -> {
             this.doctorList.add(toDoctor(roleVM));
         });
-        return _iDoctorRepository.saveAll(this.doctorList);
+        return _doctorRepository.saveAll(this.doctorList);
     }
     public Doctor toDoctor(DoctorViewModel doctorViewModel){
         Doctor doctor = new Doctor();
-        doctor.setDoctorId(doctorViewModel.getdoctorViewModelId());
-        doctor.setLabOrderList(doctorViewModel.getLabOrderList());
-        doctor.setSymptomList(doctorViewModel.getSymptomList());
-        doctor.setUser(doctorViewModel.getUser());
+//       Doctor doctor.setDoctorId(doctorViewModel.getdoctorViewModelId());
+//        doctor.setLabOrderList(doctorViewModel.getLabOrderViewModelList());
+//        doctor.setSymptomList(doctorViewModel.getSymptomList());
+//        doctor.setUser(doctorViewModel.getUser());
         return doctor;
     }
 

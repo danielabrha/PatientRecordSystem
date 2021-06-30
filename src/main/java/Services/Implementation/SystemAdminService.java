@@ -3,18 +3,20 @@ import Domain.Entity.SystemAdmin;
 import Domain.ViewModel.SystemAdminViewModel;
 import Repository.ISystemAdminRepository;
 import Services.Interface.ISystemAdmin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
 public class SystemAdminService implements ISystemAdmin {
-    private ISystemAdminRepository systemAdminRepository;
+    @Autowired
+    private ISystemAdminRepository _systemAdminRepository;
     private SystemAdmin systemAdmin;
     private SystemAdminViewModel systemAdminViewModel;
     @Override
     public List<SystemAdmin> findAll() {
-        return systemAdminRepository.findAll();
+        return _systemAdminRepository.findAll();
     }
     @Override
     public List<SystemAdmin> findAll(String status) {
@@ -22,25 +24,25 @@ public class SystemAdminService implements ISystemAdmin {
     }
     @Override
     public SystemAdmin findById(int id) {
-        return systemAdminRepository.getById(id);
+        return _systemAdminRepository.getById(id);
     }
     @Override
     public SystemAdmin update(SystemAdminViewModel systemAdminViewModel1) {
-        SystemAdmin existingSystemAdmin =systemAdminRepository.findById(systemAdminViewModel1.getSystemAdminViewModel_Id()).orElse(null);
+        SystemAdmin existingSystemAdmin =_systemAdminRepository.findById(systemAdminViewModel1.getSystemAdminId()).orElse(null);
         if(existingSystemAdmin == null) {
             return null;
         }
         systemAdmin.setSystemAdminId(existingSystemAdmin.getSystemAdminId());
-        return systemAdminRepository.save(systemAdmin);
+        return _systemAdminRepository.save(systemAdmin);
     }
     @Override
     public void deleteById(int id) {
-        systemAdminRepository.deleteById(id);
+        _systemAdminRepository.deleteById(id);
     }
     @Override
     public void delete(SystemAdminViewModel systemAdminViewModel) {
         systemAdmin=toSystemAdmin(systemAdminViewModel);
-    systemAdminRepository.delete(systemAdmin);
+    _systemAdminRepository.delete(systemAdmin);
 
     }
     @Override
@@ -49,13 +51,13 @@ public class SystemAdminService implements ISystemAdmin {
     }
     @Override
     public void deleteAll() {
-        systemAdminRepository.deleteAll();
+        _systemAdminRepository.deleteAll();
     }
     @Override
     public SystemAdmin create(SystemAdminViewModel systemAdminViewModel)
     {
 
-       return systemAdminRepository.save(toSystemAdmin(systemAdminViewModel));
+       return _systemAdminRepository.save(toSystemAdmin(systemAdminViewModel));
     }
     @Override
     public List<SystemAdmin> createAll(List<SystemAdminViewModel> listSystemAdminViewModel) {
@@ -63,13 +65,13 @@ public class SystemAdminService implements ISystemAdmin {
         listSystemAdminViewModel.forEach(systemAdmin->{
             systemAdminList.add(toSystemAdmin((SystemAdminViewModel) listSystemAdminViewModel));
         });
-        return systemAdminRepository.saveAll(systemAdminList);
+        return _systemAdminRepository.saveAll(systemAdminList);
 
 
     }
 
     public SystemAdmin toSystemAdmin(SystemAdminViewModel systemAdminViewModel){
-        systemAdmin.setSystemAdminId(systemAdminViewModel.getSystemAdminViewModel_Id());
+        systemAdmin.setSystemAdminId(systemAdminViewModel.getSystemAdminId());
         return systemAdmin;
     }
 }

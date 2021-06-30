@@ -11,11 +11,11 @@ public interface IVisitService {
     //	public List<VisitViewModel> findAll(int entryid);
     public List<Visit> findAll(String status);
     public Visit findById(int id);
-    public VisitViewModel update(VisitViewModel visitViewModel);
+    public Visit update(VisitViewModel visitViewModel);
     public void deleteById(int id);
     public void delete(VisitViewModel visitViewModel);
     public void deleteAll(Iterable<VisitViewModel> visitViewModels);
     public void deleteAll();
-    public Visit create(VisitViewModel visitViewModel);
+    public Visit create(VisitViewModel visitViewModel,int patientId, int receptionId);
     public List<Visit> createAll(List<VisitViewModel> listVisitViewModel);
 }
