@@ -1,8 +1,12 @@
 package Controller;
 
 import Domain.Entity.Drug;
+import Domain.Entity.DrugOrder;
+import Domain.Entity.SystemAdmin;
+import Domain.ViewModel.DrugOrderViewModel;
 import Domain.ViewModel.DrugViewModel;
 import Domain.ViewModel.RoleViewModel;
+import Domain.ViewModel.SystemAdminViewModel;
 import Services.Implementation.DrugService;
 import Services.Interface.IDrugService;
 import org.springframework.web.bind.annotation.*;
@@ -26,42 +30,72 @@ public class DrugController {
         this.drugViewModel = new DrugViewModel();
         this._drugViewModelList = new ArrayList<>();
     }
-    @PostMapping("Drug/post/data")
-    public DrugViewModel postDrug(@RequestBody DrugViewModel drugVM){
-        this.drug = _drugService.create(drugVM);
-        return toDrugViewModel(this.drug);
+    @PostMapping("Drug/post/data/{systemAdminId}")
+    public Drug postDurg(@RequestBody DrugViewModel drugVM,@PathVariable (value = "systemAdminId") int systemAdminId){
+       return _drugService.create(drugVM,systemAdminId);
+
     }
 
-    @PostMapping("Drug/post/All/data")
-    public List<DrugViewModel> postDrug(@RequestBody List<DrugViewModel> drugVMList){
-        this._drugList = _drugService.createAll(drugVMList);
-        return toDrugViewModel(this._drugList);
+    @PostMapping("Drug/post/All/data/{systemAdminId}")
+    public List<Drug> postDrug(@RequestBody List<DrugViewModel> drugVMList,@PathVariable (value = "systemAdminId") int systemAdminId){
+        return  _drugService.createAll(drugVMList,systemAdminId);
+
+    }
+    @PutMapping("Drug/update/{systemAdminId}")
+    public Drug updateDrug(@RequestBody DrugViewModel drugVM,@PathVariable (value = "systemAdminId") int systemAdminId){
+
+        return _drugService.update(drugVM,systemAdminId);
+
     }
     @GetMapping("/Drug/get/data/{id}")
-    public DrugViewModel getDrug(@PathVariable(value = "id") int Id) {
-        this.drug = _drugService.findById(Id);
-        return toDrugViewModel(this.drug);
+    public Drug getDrug(@PathVariable(value = "id") int Id) {
+       return _drugService.findById(Id);
     }
     @GetMapping("/Drug/get/All/data/")
-    public List<DrugViewModel> getDrug() {
-        // to be implemented
-        return null;
+    public List<Drug> getDrug() {
+
+        return _drugService.findAll();
     }
 
-    @DeleteMapping("Drug/deletebyId/{id}")
+    @DeleteMapping("Drug/delete/{id}")
     public Boolean deleteDrug(@PathVariable int id){
         _drugService.deleteById(id);
         return true;
 
     }
 
+    @DeleteMapping("Drug/delete/all")
+    public Boolean deleteAllDrug(){
+        _drugService.deleteAll();
+        return true;
 
+    }
 
     private List<DrugViewModel> toDrugViewModel(List<Drug> drugList){
         return null;
     }
 
     private DrugViewModel toDrugViewModel(Drug drug) {
-        return null;
+        DrugViewModel drugVM=new DrugViewModel();
+        List<DrugOrderViewModel> drugOrderViewModelList=new ArrayList<>();
+        DrugOrderViewModel drugOrderViewModel=new DrugOrderViewModel();
+        drugVM.setDrugId(drug.getDrugId());
+        drugVM.setDrugCode(drug.getDrugCode());
+        List<DrugOrder> drugOrderList= drug.getDrugOrderList();
+        drugOrderList.forEach(drugOrder -> {
+            drugOrderViewModel.setDrugOrderId(drugOrder.getDrugOrderId());
+            drugOrderViewModel.setAmount(drugOrder.getAmount());
+            drugOrderViewModel.setVisit(drugOrder.getVisit());
+            drugOrderViewModel.setDrug(drugOrder.getDrug());
+            drugOrderViewModel.setDoctor(drugOrder.getDoctor());
+            drugOrderViewModelList.add(drugOrderViewModel);
+        });
+        drugVM.setDrugOrderViewModelList(drugOrderViewModelList);
+        SystemAdmin systemAdmin=drug.getSystemAdmin();
+        SystemAdminViewModel systemAdminViewModel=new SystemAdminViewModel();
+        systemAdminViewModel.setSystemAdminId(systemAdmin.getSystemAdminId());
+        systemAdminViewModel.setUser(systemAdmin.getUser());
+        drugVM.setSystemAdminViewModel(systemAdminViewModel);
+        return  drugVM;
     }
 }

@@ -11,11 +11,11 @@ public interface IDrugService {
     //	public List<DrugViewModel> findAll(int entryid);
     public List<Drug> findAll(String status);
     public Drug findById(int id);
-    public Drug update(DrugViewModel drugViewModel);
+    public Drug update(DrugViewModel drugViewModel,int systemAdminId);
     public void deleteById(int id);
     public void delete(DrugViewModel drugViewModel);
     public void deleteAll(Iterable<DrugViewModel> drugViewModels);
     public void deleteAll();
-    public Drug create(DrugViewModel drugViewModel);
-    public List<Drug> createAll(List<DrugViewModel> listDrugViewModel);
+    public Drug create(DrugViewModel drugViewModel,int systemAdminId);
+    public List<Drug> createAll(List<DrugViewModel> listDrugViewModel,int systemAdminId);
 }

@@ -2,10 +2,12 @@ package Services.Implementation;
 
 import Domain.Entity.Drug;
 import Domain.Entity.Role;
+import Domain.Entity.SystemAdmin;
 import Domain.ViewModel.DrugViewModel;
 import Domain.ViewModel.RoleViewModel;
 import Repository.IDrugRepository;
 import Services.Interface.IDrugService;
+import Services.Interface.ISystemAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,11 @@ public class DrugService implements IDrugService {
 
     @Autowired
     List<Drug> drugList;
+    private ISystemAdminService _systemAdminService;
 
     public DrugService() {
         drugList = new ArrayList<>();
+        _systemAdminService = new SystemAdminService();
     }
 
 
@@ -42,10 +46,10 @@ public class DrugService implements IDrugService {
     }
 
     @Override
-    public Drug update(DrugViewModel drugViewModel) {
+    public Drug update(DrugViewModel drugViewModel,int systemAdminId) {
         Drug previousDrug = _drugRepository.findById(drugViewModel.getDrugId()).orElse(null);
         if (previousDrug != null) {
-            previousDrug = toDrug(drugViewModel);
+            previousDrug = toDrug(drugViewModel,systemAdminId);
             previousDrug.setDrugId(drugViewModel.getDrugId());
 
         }
@@ -60,7 +64,7 @@ public class DrugService implements IDrugService {
     @Override
     public void delete(DrugViewModel drugViewModel) {
         Drug previousDrug = _drugRepository.findById(drugViewModel.getDrugId()).orElse(null);
-        if (previousDrug != null){
+        if (previousDrug != null) {
             _drugRepository.deleteById(previousDrug.getDrugId());
         }
     }
@@ -69,7 +73,7 @@ public class DrugService implements IDrugService {
     public void deleteAll(Iterable<DrugViewModel> drugViewModels) {
         drugViewModels.forEach(roleViewModel -> {
             Drug drug = _drugRepository.findById(roleViewModel.getDrugId()).orElse(null);
-            if (drug!=null)
+            if (drug != null)
                 _drugRepository.deleteById(drug.getDrugId());
         });
     }
@@ -80,22 +84,27 @@ public class DrugService implements IDrugService {
     }
 
     @Override
-    public Drug create(DrugViewModel drugViewModel) {
-        return _drugRepository.save(toDrug(drugViewModel));
+    public Drug create(DrugViewModel drugViewModel, int systemAdminId) {
+        Drug drug = toDrug(drugViewModel,systemAdminId);
+        return _drugRepository.save(drug);
     }
 
-    @Override
-    public List<Drug> createAll(List<DrugViewModel> listDrugViewModel) {
 
+
+    @Override
+    public List<Drug> createAll(List<DrugViewModel> listDrugViewModel, int systemAdminId) {
+        Drug drug = new Drug();
         listDrugViewModel.forEach(roleVM -> {
-            this.drugList.add(toDrug(roleVM));
+
+            this.drugList.add(toDrug(roleVM,systemAdminId));
         });
         return _drugRepository.saveAll(this.drugList);
 
     }
 
-    public Drug toDrug(DrugViewModel drugViewModel) {
+    public Drug toDrug(DrugViewModel drugViewModel,int systemAdminId) {
         Drug drug = new Drug();
+        drug.setSystemAdmin(_systemAdminService.findById(systemAdminId));
         drug.setDrugName(drugViewModel.getDrugName());
         drug.setDrugCode(drugViewModel.getDrugCode());
         return drug;
