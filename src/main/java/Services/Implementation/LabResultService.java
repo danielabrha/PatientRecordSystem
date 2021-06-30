@@ -17,18 +17,20 @@ public class LabResultService implements ILabResultService {
     @Autowired
     ILabResultRepository _labResultRepository;
     @Autowired
-    ILabOrderService _LabOrderService;
+    ILabOrderService _labOrderService;
     @Autowired
-    ILaboratoristService _LaboratoristService;
-    public LabResultService(){
-        _LabOrderService=new LabOrderService();
-        _LaboratoristService = new LaboratoristService();
+    ILaboratoristService _laboratoristService;
+
+    public LabResultService(ILabOrderService _labOrderService, ILaboratoristService _laboratoristService) {
+        this._labOrderService = _labOrderService;
+        this._laboratoristService = _laboratoristService;
     }
+
     @Override
     public LabResult create(LabResultViewModel labResultViewModel, int labOrdedrId, int laboratoristId) {
         LabResult labResult=toLabResult(labResultViewModel);
-        labResult.setLabOrder(_LabOrderService.findById(labOrdedrId)); 
-        labResult.setLaboratorist(_LaboratoristService.findById(laboratoristId));
+        labResult.setLabOrder(_labOrderService.findById(labOrdedrId)); 
+        labResult.setLaboratorist(_laboratoristService.findById(laboratoristId));
         
         return _labResultRepository.save(labResult);
     }
@@ -79,8 +81,7 @@ public class LabResultService implements ILabResultService {
     }
 
     @Override
-    public LabResultViewModel update(LabResultViewModel labResultViewModel) {
-        
+    public LabResult update(LabResultViewModel labResultViewModel) {
         return null;
     }
 
@@ -91,7 +92,7 @@ public class LabResultService implements ILabResultService {
 
     public LabResult toLabResult(LabResultViewModel labResultViewModel) {
         LabResult labResult = new LabResult();
-        labResult.setLabResult(labResultViewModel.getLabResult());;
+        labResult.setLabResultName(labResultViewModel.getLabResultName());
         return labResult;
     }
 

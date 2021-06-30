@@ -16,6 +16,6 @@ public interface ILabOrderService {
     public void delete(LabOrderViewModel labOrderViewModel);
     public void deleteAll(Iterable<LabOrderViewModel> labOrderViewModels);
     public void deleteAll();
-    public LabOrder create(LabOrderViewModel labOrderViewModel, int visitId, int doctorId, int labTestTypeId, int labResultId);
+    public LabOrder create(LabOrderViewModel labOrderViewModel, int visitId, int doctorId, int labTestTypeId);
     public List<LabOrder> createAll(List<LabOrderViewModel> listLabOrderViewModel);
 }

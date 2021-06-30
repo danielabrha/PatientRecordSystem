@@ -18,22 +18,6 @@ public class LabTestType implements ILabTestType {
     private ILabTestTypeRepository labTestTypeRepository;
     private LabTestTypeViewModel labTestTypeViewModel;
 
-
-
-
-
-    private List<Domain.Entity.LabTestType> labTestTypeList;
-
-    public  LabTestType(){
-        labTestTypeList = new ArrayList<>();
-    }
-    @Override
-    public List<Domain.Entity.LabTestType> findAllLabTests(int labOrderId){
-        labTestTypeRepository.findByLabTestTypeId(labOrderId)
-                .forEach(labTestTypeList::add);
-        return labTestTypeList;
-    }
-
     @Override
     public List<Domain.Entity.LabTestType> findAll() {
         return labTestTypeRepository.findAll();

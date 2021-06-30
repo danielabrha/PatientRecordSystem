@@ -54,8 +54,7 @@ public class SymptomService implements ISymptomService {
 
     @Override
     public Symptom update(SymptomViewModel symptomViewModel) {
-        _symptomRepository.save(toSymptom(symptomViewModel));
-        return toSymptom(symptomViewModel);
+        return null;
     }
 
     @Override
@@ -89,7 +88,6 @@ public class SymptomService implements ISymptomService {
         Symptom symptom = toSymptom(symptomViewModel);
         symptom.setDoctor(_doctorService.findById(doctorId));
         symptom.setVisit(_visitService.findById(visitId));
-
         return _symptomRepository.save(symptom);
     }
 
@@ -103,7 +101,7 @@ public class SymptomService implements ISymptomService {
 
     public Symptom toSymptom(SymptomViewModel symptomViewModel) {
         Symptom symptom = new Symptom();
-        symptom.setSymptomName(symptomViewModel.getSymptomViewModelName());
+        symptom.setSymptomName(symptomViewModel.getSymptomName());
         return symptom;
     }
 }

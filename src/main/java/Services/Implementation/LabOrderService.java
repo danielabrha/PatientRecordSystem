@@ -1,12 +1,11 @@
 package Services.Implementation;
 
-import Domain.Entity.LabOrder;
+import Domain.Entity.*;
 import Domain.Entity.LabTestType;
-import Domain.Entity.Role;
-import Domain.Entity.Symptom;
 import Domain.ViewModel.LabOrderViewModel;
 
 import Repository.ILabOrderRepository;
+import Repository.ILabResultRepository;
 import Services.Interface.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import Services.Interface.ILabOrderService;
@@ -33,24 +32,18 @@ public class LabOrderService implements ILabOrderService {
     private List<LabTestType> labTestTypeList;
 
     @Autowired
-    private ILabResultService _labResultService
+    private ILabResultService _labResultService;
 
-    public LabOrderService(ILabOrderRepository _labOrderRepository, List<LabOrder> labOrderList,
-                           IVisitService _visitService, IDoctorService _doctorService, ILabTestType _labTestTypeService,
-                           List<LabTestType> labTestTypeList, ILabResultService _labResultService) {
-        this._labOrderRepository = _labOrderRepository;
-        this.labOrderList = labOrderList;
+    @Autowired
+    private ILabResultRepository _labResultRepository;
+
+    public LabOrderService(IVisitService _visitService, IDoctorService _doctorService,
+                           ILabTestType _labTestTypeService, List<LabTestType> labTestTypeList) {
         this._visitService = _visitService;
         this._doctorService = _doctorService;
         this._labTestTypeService = _labTestTypeService;
         this.labTestTypeList = labTestTypeList;
-        this._labResultService = _labResultService;
     }
-
-    public LabOrderService(){
-        labOrderList=new ArrayList<>();
-    }
-
 
     @Override
     public List<LabOrder> findAll() {
@@ -71,7 +64,14 @@ public class LabOrderService implements ILabOrderService {
 
     @Override
     public LabOrder update(LabOrderViewModel labOrderViewModel) {
-        _labOrderRepository.save(toLabOrder(labOrderViewModel));
+        //update labOrder if it has no result
+        LabOrder labOrder = toLabOrder(labOrderViewModel);
+        int labOrderId = labOrder.getLabOrderId();
+        LabResult labResult = _labResultRepository.findByLabOrderId(labOrderId);
+        if(labResult == null){
+            _labOrderRepository.save(labOrder);
+
+        }
         return toLabOrder(labOrderViewModel);
     }
 
@@ -100,15 +100,12 @@ public class LabOrderService implements ILabOrderService {
 
     @Override
     public LabOrder create(LabOrderViewModel labOrderViewModel, int visitId, int doctorId,
-                           int labTestTypeId, int labResultId) {
-        courseRepository.findByTopicId(topicId)
-                .forEach(courses::add);
-        int laborderId;
-        LabOrder labOrder = toLabOrder(labOrderViewModel);
-        laborderId = labOrder.getLabOrderId();
+                           int labTestTypeId) {
+
+        LabOrder labOrder = new LabOrder();
         labOrder.setVisit(_visitService.findById(visitId));
         labOrder.setDoctor(_doctorService.findById(doctorId));
-        labOrder.setLabTestTypeList(_labTestTypeService.findAllLabTests(laborderId));
+        labOrder.setLabTestType(_labTestTypeService.findById(labTestTypeId));
         return _labOrderRepository.save(labOrder);
     }
 
@@ -122,7 +119,6 @@ public class LabOrderService implements ILabOrderService {
 
     public LabOrder toLabOrder(LabOrderViewModel labOrderViewModel) {
         LabOrder labOrder = new LabOrder();
-        // Not attribute to set
         return labOrder;
     }
 }

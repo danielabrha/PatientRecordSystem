@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ILabResultRepository extends JpaRepository<LabResult,Integer> {
+    public LabResult findByLabOrderId(int labOrderId);
 }
