@@ -1,8 +1,6 @@
 package Repository;
 
-import Domain.Entity.LabOrder;
 import Domain.Entity.LabTestType;
-import Services.Implementation.LabTestType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -10,7 +10,6 @@ public interface ILabTestTypeService {
     public List<LabTestType> findAll();
     //	public List<LabTestTypeViewModel> findAll(int entryid);
     public List<LabTestType> findAll(String status);
-    public List<LabTestType> findAllLabTests(int labOrderId);
     public LabTestType findById(int id);
     public LabTestType update(LabTestTypeViewModel labTestTypeViewModel,int systemAdminId);
     public void deleteById(int id);

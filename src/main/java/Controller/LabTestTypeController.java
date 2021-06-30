@@ -1,8 +1,6 @@
 package Controller;
 
 import Domain.ViewModel.LabTestTypeViewModel;
-import Domain.ViewModel.SystemAdminViewModel;
-import Services.Implementation.LabTestType;
 import Services.Interface.ILabTestType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

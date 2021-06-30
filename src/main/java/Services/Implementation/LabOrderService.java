@@ -1,18 +1,19 @@
 package Services.Implementation;
 
-import Domain.Entity.LabOrder;
+import Domain.Entity.*;
 import Domain.Entity.LabTestType;
-import Domain.Entity.Role;
-import Domain.Entity.Symptom;
 import Domain.ViewModel.LabOrderViewModel;
 
 import Repository.ILabOrderRepository;
+import Repository.ILabResultRepository;
 import Services.Interface.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import Services.Interface.ILabOrderService;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class LabOrderService implements ILabOrderService {
 
@@ -28,33 +29,24 @@ public class LabOrderService implements ILabOrderService {
     private IDoctorService _doctorService;
 
     @Autowired
-    private ILabTestType _labTestTypeService;
+    private ILabTestTypeService _labTestTypeService;
 
     private List<LabTestType> labTestTypeList;
 
+
     @Autowired
-    private ILabResultService _labResultService
+    private ILabResultRepository _labResultRepository;
 
-    public LabOrderService(ILabOrderRepository _labOrderRepository, List<LabOrder> labOrderList,
-                           IVisitService _visitService, IDoctorService _doctorService, ILabTestType _labTestTypeService,
-                           List<LabTestType> labTestTypeList, ILabResultService _labResultService) {
-        this._labOrderRepository = _labOrderRepository;
-        this.labOrderList = labOrderList;
-        this._visitService = _visitService;
-        this._doctorService = _doctorService;
-        this._labTestTypeService = _labTestTypeService;
-        this.labTestTypeList = labTestTypeList;
-        this._labResultService = _labResultService;
+    public LabOrderService() {
+        _visitService = new VisitService();
+        _doctorService = new DoctorService();
+        _labTestTypeService = new LabTestTypeService();
+        labTestTypeList = new ArrayList<>();
     }
-
-    public LabOrderService(){
-        labOrderList=new ArrayList<>();
-    }
-
 
     @Override
     public List<LabOrder> findAll() {
-       return  _labOrderRepository.findAll();
+        return _labOrderRepository.findAll();
 
     }
 
@@ -65,14 +57,26 @@ public class LabOrderService implements ILabOrderService {
 
     @Override
     public LabOrder findById(int id) {
-       return _labOrderRepository.findById(id).orElse(null);
+        return _labOrderRepository.findById(id).orElse(null);
 
     }
 
     @Override
-    public LabOrder update(LabOrderViewModel labOrderViewModel) {
-        _labOrderRepository.save(toLabOrder(labOrderViewModel));
-        return toLabOrder(labOrderViewModel);
+    public LabOrder update(LabOrderViewModel labOrderViewModel, int visitId, int doctorId,
+                           int labTestTypeId) {
+        /* update labOrder if it has no result */
+        LabOrder labOrder = new LabOrder();
+        labOrder = toLabOrder(visitId, doctorId,
+                labTestTypeId);
+        labOrder.setLabOrderId(labOrderViewModel.getLabOrderId());
+
+        int labOrderId = labOrderViewModel.getLabOrderId();
+        LabResult labResult = _labResultRepository.findByLabOrderId(labOrderId);
+        if (labResult == null) {
+            return _labOrderRepository.save(labOrder);
+
+        }
+        return null;
     }
 
     @Override
@@ -82,15 +86,16 @@ public class LabOrderService implements ILabOrderService {
 
     @Override
     public void delete(LabOrderViewModel labOrderViewModel) {
-        _labOrderRepository.delete(toLabOrder(labOrderViewModel));
+        _labOrderRepository.deleteById(labOrderViewModel.getLabOrderId());
     }
 
     @Override
-    public void deleteAll(Iterable<LabOrderViewModel> labOrderViewModels) {
-        labOrderViewModels.forEach(labOrderVM -> {
-            this.labOrderList.add(toLabOrder(labOrderVM));
-        });
-        _labOrderRepository.deleteAll(this.labOrderList);
+    public void deleteAll(Iterable<LabOrderViewModel> labOrderViewModels)
+    {
+//        labOrderViewModels.forEach(labOrderVM -> {
+//            this.labOrderList.add(toLabOrder(labOrderVM));
+//        });
+//        _labOrderRepository.deleteAll(this.labOrderList);
     }
 
     @Override
@@ -100,29 +105,30 @@ public class LabOrderService implements ILabOrderService {
 
     @Override
     public LabOrder create(LabOrderViewModel labOrderViewModel, int visitId, int doctorId,
-                           int labTestTypeId, int labResultId) {
-        courseRepository.findByTopicId(topicId)
-                .forEach(courses::add);
-        int laborderId;
-        LabOrder labOrder = toLabOrder(labOrderViewModel);
-        laborderId = labOrder.getLabOrderId();
+                           int labTestTypeId) {
+
+        LabOrder labOrder = new LabOrder();
         labOrder.setVisit(_visitService.findById(visitId));
         labOrder.setDoctor(_doctorService.findById(doctorId));
-        labOrder.setLabTestTypeList(_labTestTypeService.findAllLabTests(laborderId));
+        labOrder.setLabTestType(_labTestTypeService.findById(labTestTypeId));
         return _labOrderRepository.save(labOrder);
     }
 
     @Override
     public List<LabOrder> createAll(List<LabOrderViewModel> listLabOrderViewModel) {
+        // needs more implementation
         listLabOrderViewModel.forEach(labOrderVM -> {
-            this.labOrderList.add(toLabOrder(labOrderVM));
+          //  this.labOrderList.add(toLabOrder(labOrderVM));
         });
         return _labOrderRepository.saveAll(this.labOrderList);
     }
 
-    public LabOrder toLabOrder(LabOrderViewModel labOrderViewModel) {
+    public LabOrder toLabOrder(int visitId, int doctorId,
+                               int labTestTypeId) {
         LabOrder labOrder = new LabOrder();
-        // Not attribute to set
+        labOrder.setVisit(_visitService.findById(visitId));
+        labOrder.setDoctor(_doctorService.findById(doctorId));
+        labOrder.setLabTestType(_labTestTypeService.findById(labTestTypeId));
         return labOrder;
     }
 }

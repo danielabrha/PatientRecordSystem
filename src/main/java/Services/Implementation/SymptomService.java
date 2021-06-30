@@ -27,13 +27,11 @@ public class SymptomService implements ISymptomService {
 
     @Autowired
     private List<Symptom> symptomList;
-    public SymptomService(){
-        symptomList=new ArrayList<>();
-    }
 
-    public SymptomService(IDoctorService _doctorService, IVisitService _visitService) {
-        this._doctorService = _doctorService;
-        this._visitService = _visitService;
+    public SymptomService() {
+        _doctorService = new DoctorService();
+        _visitService = new VisitService();
+        symptomList=new ArrayList<>();
     }
 
     @Override
@@ -54,8 +52,7 @@ public class SymptomService implements ISymptomService {
 
     @Override
     public Symptom update(SymptomViewModel symptomViewModel) {
-        _symptomRepository.save(toSymptom(symptomViewModel));
-        return toSymptom(symptomViewModel);
+        return null;
     }
 
     @Override
@@ -67,15 +64,16 @@ public class SymptomService implements ISymptomService {
     @Override
     public void delete(SymptomViewModel symptomViewModel) {
 
-        _symptomRepository.delete(toSymptom(symptomViewModel));
+        _symptomRepository.deleteById(symptomViewModel.getSymptomId());
     }
 
     @Override
     public void deleteAll(Iterable<SymptomViewModel> symptomViewModels) {
         symptomViewModels.forEach(symptomVM -> {
-            this.symptomList.add(toSymptom(symptomVM));
+            _symptomRepository.deleteById(symptomVM.getSymptomId());
+
         });
-        _symptomRepository.deleteAll(this.symptomList);
+
 
     }
 
@@ -86,24 +84,21 @@ public class SymptomService implements ISymptomService {
 
     @Override
     public Symptom create(SymptomViewModel symptomViewModel, int doctorId, int visitId) {
-        Symptom symptom = toSymptom(symptomViewModel);
+        Symptom symptom =new Symptom();
+        symptom.setSymptomName(symptomViewModel.getSymptomName());
         symptom.setDoctor(_doctorService.findById(doctorId));
         symptom.setVisit(_visitService.findById(visitId));
-
         return _symptomRepository.save(symptom);
     }
 
     @Override
     public List<Symptom> createAll(List<SymptomViewModel> symptomViewModelList) {
+        // it dont usefull more
         symptomViewModelList.forEach(symptomVM -> {
-            this.symptomList.add(toSymptom(symptomVM));
+         //   this.symptomList.add(toSymptom(symptomVM));
         });
         return _symptomRepository.saveAll(this.symptomList);
     }
 
-    public Symptom toSymptom(SymptomViewModel symptomViewModel) {
-        Symptom symptom = new Symptom();
-        symptom.setSymptomName(symptomViewModel.getSymptomViewModelName());
-        return symptom;
-    }
+
 }

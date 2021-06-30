@@ -35,10 +35,7 @@ public class LabTestTypeService implements ILabTestTypeService {
         return null;
     }
 
-    @Override
-    public List<LabTestType> findAllLabTests(int labOrderId) {
-        return null;
-    }
+
 
     @Override
     public LabTestType findById(int id) {
