@@ -2,8 +2,11 @@ package com.example.patientrecordsystem.Controller;
 
 
 
-import com.example.patientrecordsystem.Domain.Entity.DrugOrder;
+import com.example.patientrecordsystem.Domain.Entity.*;
+import com.example.patientrecordsystem.Service.Implementation.DoctorService;
 import com.example.patientrecordsystem.Service.Implementation.DrugOrderService;
+import com.example.patientrecordsystem.Service.Implementation.DrugService;
+import com.example.patientrecordsystem.Service.Implementation.VisitService;
 import com.example.patientrecordsystem.Service.Interface.IDrugOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -19,7 +22,17 @@ public class DrugOrderController {
     @Autowired
     private JavaMailSender mailSender;
 
-    private IDrugOrderService _drugOrderService;
+    @Autowired
+    private VisitService _visitService;
+
+    @Autowired
+    private DoctorService _doctorService;
+
+    @Autowired
+    private DrugService _drugService;
+
+    @Autowired
+    private DrugOrderService _drugOrderService;
     private DrugOrder drugOrder;
     private List<DrugOrder> _drugOrderList;
 
@@ -34,23 +47,42 @@ public class DrugOrderController {
                               @PathVariable(value = "doctorId") int doctorId,
                               @PathVariable(value = "drugId") int drugId,
                               @RequestBody DrugOrder drugOrder){
+        // send email notification to patient;
+
+        Visit visit = _visitService.findById(visitId);
+        Patient patient = visit.getPatient();
+        String fullName = patient.getfName() + " " + patient.getmName() + " " + patient.getlName();
+        String age = patient.getDateOfBirth();
+        String phoneNumber = patient.getPhoneNumber();
+        String address = patient.getAddress();
+        int cardNumber = patient.getCardRecordNumber();
+
+        Drug drug = _drugService.findById(drugId);
+
+        String drugName = drug.getDrugName();
+        int drugAmount = drugOrder.getAmount();
+
+        String body = "fullName: " + fullName + "\n" +
+                        "age: " + age + "\n" +
+                        "phoneNumber: " + phoneNumber + "\n" +
+                        "address: " + address + "\n" +
+                        "cardNumber: " + cardNumber + "\n" +
+                        "drugName: " + drugName + "\n" +
+                        "drugAmount: " + drugAmount + "\n";
+
 
         String from = "691fa95586-cc12c1@inbox.mailtrap.io";
-        String to = "whailu@miu.edu";
+        String to = patient.getEmail();
 
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(from);
         message.setTo(to);
-        message.setSubject("Hello");
-        message.setText("This is from PRS");
+        message.setSubject("Drug Order");
+        message.setText(body);
         mailSender.send(message);
 
-        return _drugOrderService.create(drugOrder,drugId,doctorId,visitId);
-
-
-
-    }
+        return _drugOrderService.create(drugOrder,drugId,doctorId,visitId);    }
 
     @PostMapping("DrugOrder/post/All/data/")
     public List<DrugOrder> postDrugOrder(@RequestBody List<DrugOrder> drugOrderList){
