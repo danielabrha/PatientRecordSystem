@@ -4,6 +4,7 @@ package com.example.patientrecordsystem.Controller;
 
 import com.example.patientrecordsystem.Domain.Entity.Visit;
 import com.example.patientrecordsystem.Service.Implementation.VisitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 public class VisitController {
 
+    @Autowired
     private VisitService _visitService;
     private Visit visit;
     private List<Visit> _visitList;
@@ -34,7 +36,7 @@ public class VisitController {
 
     }
 
-    @PostMapping("/Visit/post/All/data/{receptionistId}/{patientId}/{labTestTypeId}")
+    @PostMapping("/Visit/post/All/data/{receptionistId}/{patientId}")
     public List<Visit> postVisits(@RequestBody List<Visit> visitList,
                                   @PathVariable (value = "receptionistId") int receptionistId,
                                   @PathVariable (value = "patientId") int patientId) {
