@@ -1,11 +1,8 @@
 package com.example.patientrecordsystem.Service.Implementation;
 
 
-
-
 import com.example.patientrecordsystem.Domain.Entity.LabOrder;
 import com.example.patientrecordsystem.Domain.Entity.LabTestType;
-import com.example.patientrecordsystem.Domain.ViewModel.LabOrderViewModel;
 import com.example.patientrecordsystem.Repository.ILabOrderRepository;
 import com.example.patientrecordsystem.Repository.ILabResultRepository;
 import com.example.patientrecordsystem.Service.Interface.IDoctorService;
@@ -27,13 +24,13 @@ public class LabOrderService implements ILabOrderService {
     private List<LabOrder> labOrderList;
 
     @Autowired
-    private IVisitService _visitService;
+    private VisitService _visitService;
 
     @Autowired
-    private IDoctorService _doctorService;
+    private DoctorService _doctorService;
 
     @Autowired
-    private ILabTestTypeService _labTestTypeService;
+    private LabTestTypeService _labTestTypeService;
 
     private List<LabTestType> labTestTypeList;
 
@@ -67,21 +64,19 @@ public class LabOrderService implements ILabOrderService {
     }
 
     @Override
-    public LabOrder update(LabOrderViewModel labOrderViewModel, int visitId, int doctorId,
+    public LabOrder update(LabOrder labOrder1, int visitId, int doctorId,
                            int labTestTypeId) {
         /* update labOrder if it has no result */
-        LabOrder labOrder = new LabOrder();
-        labOrder = toLabOrder(visitId, doctorId,
-                labTestTypeId);
-        labOrder.setLabOrderId(labOrderViewModel.getLabOrderId());
+        LabOrder labOrder = _labOrderRepository.findById(labOrder1.getLabOrderId()).orElse(null);
+        LabOrder labOrder2=new LabOrder();
+        if (labOrder != null) {
+            labOrder2=toLabOrder(visitId, doctorId,
+                    labTestTypeId);
+            labOrder2.setLabOrderId(labOrder.getLabOrderId());
+            return _labOrderRepository.save(labOrder2);
+        }
+        return null;
 
-        int labOrderId = labOrderViewModel.getLabOrderId();
-        // LabResult labResult = _labResultRepository.findByLabOrderId(labOrderId);
-        // if (labResult == null) {
-        return _labOrderRepository.save(labOrder);
-
-        //  }
-        //   return null;
     }
 
     @Override
@@ -90,14 +85,13 @@ public class LabOrderService implements ILabOrderService {
     }
 
     @Override
-    public void delete(LabOrderViewModel labOrderViewModel) {
-        _labOrderRepository.deleteById(labOrderViewModel.getLabOrderId());
+    public void delete(LabOrder labOrder) {
+        _labOrderRepository.deleteById(labOrder.getLabOrderId());
     }
 
     @Override
-    public void deleteAll(Iterable<LabOrderViewModel> labOrderViewModels)
-    {
-//        labOrderViewModels.forEach(labOrderVM -> {
+    public void deleteAll(Iterable<LabOrder> labOrders) {
+//        labOrders.forEach(labOrderVM -> {
 //            this.labOrderList.add(toLabOrder(labOrderVM));
 //        });
 //        _labOrderRepository.deleteAll(this.labOrderList);
@@ -109,25 +103,23 @@ public class LabOrderService implements ILabOrderService {
     }
 
     @Override
-    public LabOrder create(LabOrderViewModel labOrderViewModel, int visitId, int doctorId,
+    public LabOrder create(int visitId, int doctorId,
                            int labTestTypeId) {
 
-        LabOrder labOrder = new LabOrder();
-        labOrder.setVisit(_visitService.findById(visitId));
-        labOrder.setDoctor(_doctorService.findById(doctorId));
-        labOrder.setLabTestType(_labTestTypeService.findById(labTestTypeId));
-        return _labOrderRepository.save(labOrder);
+
+        return _labOrderRepository.save(toLabOrder(visitId, doctorId, labTestTypeId));
     }
 
     @Override
-    public List<LabOrder> createAll(List<LabOrderViewModel> labOrderViewModelList, int visitId, int doctorId,
+    public List<LabOrder> createAll(List<LabOrder> labOrderList, int visitId, int doctorId,
                                     int labTestTypeId) {
         LabOrder labOrder = new LabOrder();
-        labOrderViewModelList.forEach(labOrderVM -> {
+        List<LabOrder> labOrderList1 = new ArrayList<>();
+        labOrderList.forEach(labOrderVM -> {
 
-            this.labOrderList.add(toLabOrder(visitId,doctorId, labTestTypeId));
+            labOrderList1.add(toLabOrder(visitId, doctorId, labTestTypeId));
         });
-        return _labOrderRepository.saveAll(this.labOrderList);
+        return _labOrderRepository.saveAll(labOrderList1);
     }
 
     public LabOrder toLabOrder(int visitId, int doctorId,

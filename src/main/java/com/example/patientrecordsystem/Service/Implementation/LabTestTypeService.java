@@ -4,7 +4,6 @@ package com.example.patientrecordsystem.Service.Implementation;
 
 import com.example.patientrecordsystem.Domain.Entity.LabTestType;
 import com.example.patientrecordsystem.Domain.Entity.SystemAdmin;
-import com.example.patientrecordsystem.Domain.ViewModel.LabTestTypeViewModel;
 import com.example.patientrecordsystem.Repository.ILabTestTypeRepository;
 import com.example.patientrecordsystem.Service.Interface.ILabTestTypeService;
 import com.example.patientrecordsystem.Service.Interface.ISystemAdminService;
@@ -17,7 +16,6 @@ import java.util.List;
 public class LabTestTypeService implements ILabTestTypeService {
     private LabTestType labTestType;
     private ILabTestTypeRepository _labTestTypeRepository;
-    private LabTestTypeViewModel labTestTypeViewModel;
     private ISystemAdminService _systemAdminService;
 
     private List<LabTestType> labTestTypeList;
@@ -47,14 +45,14 @@ public class LabTestTypeService implements ILabTestTypeService {
     }
 
     @Override
-    public LabTestType update(LabTestTypeViewModel labTestTypeViewModel, int systemAdminId) {
+    public LabTestType update(LabTestType labTestType, int systemAdminId) {
         LabTestType exisitinglabTestType = _labTestTypeRepository
-                .findById(labTestTypeViewModel.getLabTestTypeId())
+                .findById(labTestType.getLabTestTypeId())
                 .orElse(null);
         if (exisitinglabTestType != null) {
-            exisitinglabTestType= toLabTestType(labTestTypeViewModel);
+            exisitinglabTestType= toLabTestType(labTestType);
             exisitinglabTestType.setSystemAdmin(getSystemAdmin(systemAdminId));
-            exisitinglabTestType.setLabTestTypeId(labTestTypeViewModel.getLabTestTypeId());
+            exisitinglabTestType.setLabTestTypeId(labTestType.getLabTestTypeId());
             return _labTestTypeRepository.save(exisitinglabTestType);
         }
         return null;
@@ -66,14 +64,14 @@ public class LabTestTypeService implements ILabTestTypeService {
     }
 
     @Override
-    public void delete(LabTestTypeViewModel labTestTypeViewModel) {
-        _labTestTypeRepository.deleteById(labTestTypeViewModel.getLabTestTypeId());
+    public void delete(LabTestType labTestType) {
+        _labTestTypeRepository.deleteById(labTestType.getLabTestTypeId());
     }
 
     @Override
-    public void deleteAll(Iterable<LabTestTypeViewModel> labTestTypeViewModels) {
-        labTestTypeViewModels.forEach(labTestTypeViewModel1 -> {
-            _labTestTypeRepository.deleteById(labTestTypeViewModel1.getLabTestTypeId());
+    public void deleteAll(Iterable<LabTestType> labTestTypes) {
+        labTestTypes.forEach(labTestType1 -> {
+            _labTestTypeRepository.deleteById(labTestType1.getLabTestTypeId());
         });
     }
 
@@ -84,10 +82,10 @@ public class LabTestTypeService implements ILabTestTypeService {
 
 
     @Override
-    public LabTestType create(LabTestTypeViewModel labTestTypeViewModel, int systemAdminId) {
-        LabTestType labTestType = toLabTestType(labTestTypeViewModel);
-        labTestType.setSystemAdmin(getSystemAdmin(systemAdminId));
-        return _labTestTypeRepository.save(labTestType);
+    public LabTestType create(LabTestType labTestType, int systemAdminId) {
+        LabTestType labTestType1 = toLabTestType(labTestType);
+        labTestType1.setSystemAdmin(getSystemAdmin(systemAdminId));
+        return _labTestTypeRepository.save(labTestType1);
     }
 
     private SystemAdmin getSystemAdmin(int id) {
@@ -95,22 +93,22 @@ public class LabTestTypeService implements ILabTestTypeService {
     }
 
     @Override
-    public List<LabTestType> createAll(List<LabTestTypeViewModel> listLabTestTypeViewModel, int systemAdminId) {
+    public List<LabTestType> createAll(List<LabTestType> listLabTestType, int systemAdminId) {
         List<LabTestType> labTestTypeList = new ArrayList<>();
 
-        listLabTestTypeViewModel.forEach(labTestTypeViewModel1 -> {
+        listLabTestType.forEach(labTestType1 -> {
             LabTestType labTestType = new LabTestType();
-            labTestType = toLabTestType(labTestTypeViewModel1);
+            labTestType = toLabTestType(labTestType1);
             labTestType.setSystemAdmin(getSystemAdmin(systemAdminId));
             labTestTypeList.add(labTestType);
         });
         return _labTestTypeRepository.saveAll(labTestTypeList);
     }
 
-    private LabTestType toLabTestType(LabTestTypeViewModel labTestTypeViewModel) {
-        LabTestType labTestType = new LabTestType();
-        labTestType.setLabTestCode(labTestTypeViewModel.getLabTestCode());
-        labTestType.setLabTestName(labTestTypeViewModel.getLabTestName());
+    private LabTestType toLabTestType(LabTestType labTestType) {
+
+        labTestType.setLabTestCode(labTestType.getLabTestCode());
+        labTestType.setLabTestName(labTestType.getLabTestName());
         return labTestType;
     }
 }

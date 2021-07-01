@@ -18,9 +18,10 @@ public class DrugService implements IDrugService {
     @Autowired
     IDrugRepository _drugRepository;
 
-    @Autowired
+
     List<Drug> drugList;
-    private ISystemAdminService _systemAdminService;
+    @Autowired
+    private SystemAdminService _systemAdminService;
 
     public DrugService() {
         drugList = new ArrayList<>();
@@ -82,8 +83,8 @@ public class DrugService implements IDrugService {
     }
 
     @Override
-    public Drug create(Drug drug, int systemAdminId) {
-        Drug drug = toDrug(drug,systemAdminId);
+    public Drug create(Drug drug1, int systemAdminId) {
+        Drug drug = toDrug(drug1,systemAdminId);
         return _drugRepository.save(drug);
     }
 
@@ -101,10 +102,7 @@ public class DrugService implements IDrugService {
     }
 
     public Drug toDrug(Drug drug,int systemAdminId) {
-        Drug drug = new Drug();
         drug.setSystemAdmin(_systemAdminService.findById(systemAdminId));
-        drug.setDrugName(drug.getDrugName());
-        drug.setDrugCode(drug.getDrugCode());
         return drug;
     }
 }

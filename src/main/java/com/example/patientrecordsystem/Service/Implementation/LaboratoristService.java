@@ -3,7 +3,6 @@ package com.example.patientrecordsystem.Service.Implementation;
 
 
 import com.example.patientrecordsystem.Domain.Entity.Laboratorist;
-import com.example.patientrecordsystem.Domain.ViewModel.LaboratoristViewModel;
 import com.example.patientrecordsystem.Repository.ILaboratoristRepository;
 import com.example.patientrecordsystem.Service.Interface.ILaboratoristService;
 import org.springframework.stereotype.Service;
@@ -35,8 +34,8 @@ public class LaboratoristService implements ILaboratoristService {
     }
 
     @Override
-    public Laboratorist update(LaboratoristViewModel laboratoristViewModel) {
-        Laboratorist previousLaboratorist = _laboratoristRepository.findById(laboratoristViewModel.getLaboratoristId()).orElse(null);
+    public Laboratorist update(Laboratorist laboratorist) {
+        Laboratorist previousLaboratorist = _laboratoristRepository.findById(laboratorist.getLaboratoristId()).orElse(null);
         if (previousLaboratorist != null) {
         }
 
@@ -50,12 +49,12 @@ public class LaboratoristService implements ILaboratoristService {
     }
 
     @Override
-    public void delete(LaboratoristViewModel laboratoristViewModel) {
+    public void delete(Laboratorist laboratorist) {
 
     }
 
     @Override
-    public void deleteAll(Iterable<LaboratoristViewModel> laboratoristViewModels) {
+    public void deleteAll(Iterable<Laboratorist> laboratorists) {
 
     }
 
@@ -65,17 +64,17 @@ public class LaboratoristService implements ILaboratoristService {
     }
 
     @Override
-    public Laboratorist create(LaboratoristViewModel laboratoristViewModel) {
+    public Laboratorist create(Laboratorist laboratorist) {
         return null;
     }
 
     @Override
-    public List<Laboratorist> createAll(List<LaboratoristViewModel> listLaboratoristViewModel) {
+    public List<Laboratorist> createAll(List<Laboratorist> listLaboratorist) {
         return null;
     }
 
-    public Laboratorist toLaboratoris(LaboratoristViewModel laboratoristViewModel) {
-        Laboratorist laboratorist = _laboratoristRepository.findById(laboratoristViewModel.getLaboratoristId()).orElse(null);
+    public Laboratorist toLaboratoris(Laboratorist laboratorist1) {
+        Laboratorist laboratorist = _laboratoristRepository.findById(laboratorist1.getLaboratoristId()).orElse(null);
         return laboratorist;
     }
 }

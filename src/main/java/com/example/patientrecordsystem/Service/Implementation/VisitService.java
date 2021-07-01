@@ -1,23 +1,23 @@
 package com.example.patientrecordsystem.Service.Implementation;
 
 
-
 import com.example.patientrecordsystem.Domain.Entity.Patient;
 import com.example.patientrecordsystem.Domain.Entity.Receptionst;
 import com.example.patientrecordsystem.Domain.Entity.Visit;
-import com.example.patientrecordsystem.Domain.ViewModel.VisitViewModel;
 import com.example.patientrecordsystem.Repository.IVisitRepository;
 import com.example.patientrecordsystem.Service.Interface.IPatientService;
 import com.example.patientrecordsystem.Service.Interface.IReceptionsService;
 import com.example.patientrecordsystem.Service.Interface.IVisitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class VisitService implements IVisitService {
-
+    @Autowired
     private IVisitRepository _visitRepository;
     private IPatientService _patientService;
     private IReceptionsService _receptionsService;
@@ -45,7 +45,7 @@ public class VisitService implements IVisitService {
     }
 
     @Override
-    public Visit update(VisitViewModel visitViewModel) {
+    public Visit update(Visit visit) {
         return null;
     }
 
@@ -55,12 +55,12 @@ public class VisitService implements IVisitService {
     }
 
     @Override
-    public void delete(VisitViewModel visitViewModel) {
+    public void delete(Visit visit) {
 
     }
 
     @Override
-    public void deleteAll(Iterable<VisitViewModel> visitViewModels) {
+    public void deleteAll(Iterable<Visit> visits) {
 
     }
 
@@ -70,32 +70,27 @@ public class VisitService implements IVisitService {
     }
 
     @Override
-    public Visit create(VisitViewModel visitViewModel, int patientId, int receptionId) {
-        Visit visit = new Visit();
-        Patient patient = _patientService.findById(patientId);
-        Receptionst receptionst = _receptionsService.findById(receptionId);
-        visit.setVisitDate(visitViewModel.getVisitDate());
-        visit.setPatient(patient);
-        visit.setReceptionst(receptionst);
+    public Visit create(Visit visit, int patientId, int receptionId) {
 
-        return _visitRepository.save(visit);
+        visit.setVisitDate(new Date());
+        return _visitRepository.save(toVisit(visit, patientId, receptionId));
     }
 
     @Override
-    public List<Visit> createAll(List<VisitViewModel> visitViewModelList, int receptionistId, int patientId) {
-        Visit visit = new Visit();
-        visitViewModelList.forEach(visitVM -> {
-
-            this.visitList.add(toVisit(visitVM,receptionistId, patientId));
+    public List<Visit> createAll(List<Visit> visitList, int receptionistId, int patientId) {
+        List<Visit> visitList1 = new ArrayList<>();
+        visitList.forEach(visitVM -> {
+            Visit visit = new Visit();
+            visit = toVisit(visitVM, receptionistId, patientId);
+            visit.setVisitDate(new Date());
+            visitList1.add(visit);
         });
-        return _visitRepository.saveAll(this.visitList);
+        return _visitRepository.saveAll(visitList1);
     }
 
 
-    public Visit toVisit (VisitViewModel visitViewModel, int receptionistId,
-                          int patientId) {
-        Visit visit = new Visit();
-        visit.setVisitDate(visitViewModel.getVisitDate());
+    public Visit toVisit(Visit visit, int receptionistId,
+                         int patientId) {
         visit.setReceptionst(_receptionsService.findById(receptionistId));
         visit.setPatient(_patientService.findById(patientId));
         return visit;
