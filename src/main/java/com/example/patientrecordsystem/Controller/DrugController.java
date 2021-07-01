@@ -5,9 +5,9 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.Drug;
 import com.example.patientrecordsystem.Domain.Entity.DrugOrder;
 import com.example.patientrecordsystem.Domain.Entity.SystemAdmin;
-import com.example.patientrecordsystem.Domain.ViewModel.DrugOrderViewModel;
-import com.example.patientrecordsystem.Domain.ViewModel.DrugViewModel;
-import com.example.patientrecordsystem.Domain.ViewModel.SystemAdminViewModel;
+import com.example.patientrecordsystem.Domain..DrugOrder;
+import com.example.patientrecordsystem.Domain..Drug;
+import com.example.patientrecordsystem.Domain..SystemAdmin;
 import com.example.patientrecordsystem.Service.Implementation.DrugService;
 import com.example.patientrecordsystem.Service.Interface.IDrugService;
 import org.springframework.web.bind.annotation.*;
@@ -21,29 +21,29 @@ public class DrugController {
     private IDrugService _drugService;
     private Drug drug;
     private List<Drug> _drugList;
-    private DrugViewModel drugViewModel;
-    private List<DrugViewModel> _drugViewModelList;
+    private Drug drug;
+    private List<Drug> _drugList;
 
     public DrugController() {
         this._drugService = new DrugService();
         this.drug = new Drug();
         this._drugList = new ArrayList<>();
-        this.drugViewModel = new DrugViewModel();
-        this._drugViewModelList = new ArrayList<>();
+        this.drug = new Drug();
+        this._drugList = new ArrayList<>();
     }
     @PostMapping("Drug/post/data/{systemAdminId}")
-    public Drug postDurg(@RequestBody DrugViewModel drugVM, @PathVariable(value = "systemAdminId") int systemAdminId){
+    public Drug postDurg(@RequestBody Drug drugVM, @PathVariable(value = "systemAdminId") int systemAdminId){
         return _drugService.create(drugVM,systemAdminId);
 
     }
 
     @PostMapping("Drug/post/All/data/{systemAdminId}")
-    public List<Drug> postDrug(@RequestBody List<DrugViewModel> drugVMList,@PathVariable (value = "systemAdminId") int systemAdminId){
+    public List<Drug> postDrug(@RequestBody List<Drug> drugVMList,@PathVariable (value = "systemAdminId") int systemAdminId){
         return  _drugService.createAll(drugVMList,systemAdminId);
 
     }
     @PutMapping("Drug/update/{systemAdminId}")
-    public Drug updateDrug(@RequestBody DrugViewModel drugVM,@PathVariable (value = "systemAdminId") int systemAdminId){
+    public Drug updateDrug(@RequestBody Drug drugVM,@PathVariable (value = "systemAdminId") int systemAdminId){
 
         return _drugService.update(drugVM,systemAdminId);
 
@@ -72,31 +72,31 @@ public class DrugController {
 
     }
 
-    private List<DrugViewModel> toDrugViewModel(List<Drug> drugList){
+    private List<Drug> toDrug(List<Drug> drugList){
         return null;
     }
 
-    private DrugViewModel toDrugViewModel(Drug drug) {
-        DrugViewModel drugVM=new DrugViewModel();
-        List<DrugOrderViewModel> drugOrderViewModelList=new ArrayList<>();
-        DrugOrderViewModel drugOrderViewModel=new DrugOrderViewModel();
-        drugVM.setDrugId(drug.getDrugId());
-        drugVM.setDrugCode(drug.getDrugCode());
-        List<DrugOrder> drugOrderList= drug.getDrugOrderList();
-        drugOrderList.forEach(drugOrder -> {
-            drugOrderViewModel.setDrugOrderId(drugOrder.getDrugOrderId());
-            drugOrderViewModel.setAmount(drugOrder.getAmount());
-            drugOrderViewModel.setVisit(drugOrder.getVisit());
-            drugOrderViewModel.setDrug(drugOrder.getDrug());
-            drugOrderViewModel.setDoctor(drugOrder.getDoctor());
-            drugOrderViewModelList.add(drugOrderViewModel);
-        });
-        drugVM.setDrugOrderViewModelList(drugOrderViewModelList);
-        SystemAdmin systemAdmin=drug.getSystemAdmin();
-        SystemAdminViewModel systemAdminViewModel=new SystemAdminViewModel();
-        systemAdminViewModel.setSystemAdminId(systemAdmin.getSystemAdminId());
-        systemAdminViewModel.setUser(systemAdmin.getUser());
-        drugVM.setSystemAdminViewModel(systemAdminViewModel);
-        return  drugVM;
-    }
+//    private Drug toDrug(Drug drug) {
+//        Drug drugVM=new Drug();
+//        List<DrugOrder> drugOrderList=new ArrayList<>();
+//        DrugOrder drugOrder=new DrugOrder();
+//        drugVM.setDrugId(drug.getDrugId());
+//        drugVM.setDrugCode(drug.getDrugCode());
+//        List<DrugOrder> drugOrderList= drug.getDrugOrderList();
+//        drugOrderList.forEach(drugOrder -> {
+//            drugOrder.setDrugOrderId(drugOrder.getDrugOrderId());
+//            drugOrder.setAmount(drugOrder.getAmount());
+//            drugOrder.setVisit(drugOrder.getVisit());
+//            drugOrder.setDrug(drugOrder.getDrug());
+//            drugOrder.setDoctor(drugOrder.getDoctor());
+//            drugOrderList.add(drugOrder);
+//        });
+//        drugVM.setDrugOrderList(drugOrderList);
+//        SystemAdmin systemAdmin=drug.getSystemAdmin();
+//        SystemAdmin systemAdmin=new SystemAdmin();
+//        systemAdmin.setSystemAdminId(systemAdmin.getSystemAdminId());
+//        systemAdmin.setUser(systemAdmin.getUser());
+//        drugVM.setSystemAdmin(systemAdmin);
+//        return  drugVM;
+//    }
 }
