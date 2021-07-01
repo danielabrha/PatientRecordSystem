@@ -3,7 +3,6 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.DrugOrder;
-import com.example.patientrecordsystem.Domain.ViewModel.DrugOrderViewModel;
 import com.example.patientrecordsystem.Service.Implementation.DrugOrderService;
 import com.example.patientrecordsystem.Service.Interface.IDrugOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,47 +22,18 @@ public class DrugOrderController {
     private IDrugOrderService _drugOrderService;
     private DrugOrder drugOrder;
     private List<DrugOrder> _drugOrderList;
-    private DrugOrderViewModel drugOrderViewModel;
-    private List<DrugOrderViewModel> _drugOrderViewModelList;
 
     public DrugOrderController() {
         this._drugOrderService = new DrugOrderService();
         this.drugOrder = new DrugOrder();
         this._drugOrderList = new ArrayList<>();
-        this.drugOrderViewModel = new DrugOrderViewModel();
-        this._drugOrderViewModelList = new ArrayList<>();
+    
     }
     @PostMapping("DrugOrder/post/data/{visitId}/{doctorId}/{drugId}")
     public DrugOrder postDurg(@PathVariable(value = "visitId") int visitId,
                               @PathVariable(value = "doctorId") int doctorId,
                               @PathVariable(value = "drugId") int drugId,
-                              @RequestBody DrugOrderViewModel drugOrderVM){
-        return _drugOrderService.create(drugOrderVM,drugId,doctorId,visitId);
-
-
-
-    }
-
-    @PostMapping("DrugOrder/post/All/data/")
-    public List<DrugOrder> postDrugOrder(@RequestBody List<DrugOrderViewModel> drugOrderVMList){
-        return  _drugOrderService.createAll(drugOrderVMList);
-
-    }
-    @PutMapping("DrugOrder/update/{visitId}/{doctorId}/{drugId}")
-    public DrugOrder updateDrugOrder(@RequestBody DrugOrderViewModel drugOrderVM,
-                                     @PathVariable(value = "visitId") int visitId,
-                                     @PathVariable(value = "doctorId") int doctorId,
-                                     @PathVariable(value = "drugId") int drugId){
-
-        return _drugOrderService.update(drugOrderVM,drugId,doctorId,visitId);
-
-    }
-    @GetMapping("/DrugOrder/get/data/{id}")
-    public DrugOrder getDrugOrder(@PathVariable(value = "id") int Id) {
-        return _drugOrderService.findById(Id);
-    }
-    @GetMapping("/DrugOrder/get/All/data/")
-    public List<DrugOrder> getDrugOrder() {
+                              @RequestBody DrugOrder drugOrder){
 
         String from = "691fa95586-cc12c1@inbox.mailtrap.io";
         String to = "whailu@miu.edu";
@@ -75,6 +45,35 @@ public class DrugOrderController {
         message.setSubject("Hello");
         message.setText("This is from PRS");
         mailSender.send(message);
+
+        return _drugOrderService.create(drugOrder,drugId,doctorId,visitId);
+
+
+
+    }
+
+    @PostMapping("DrugOrder/post/All/data/")
+    public List<DrugOrder> postDrugOrder(@RequestBody List<DrugOrder> drugOrderList){
+        return  _drugOrderService.createAll(drugOrderList);
+
+    }
+    @PutMapping("DrugOrder/update/{visitId}/{doctorId}/{drugId}")
+    public DrugOrder updateDrugOrder(@RequestBody DrugOrder drugOrder,
+                                     @PathVariable(value = "visitId") int visitId,
+                                     @PathVariable(value = "doctorId") int doctorId,
+                                     @PathVariable(value = "drugId") int drugId){
+
+        return _drugOrderService.update(drugOrder,drugId,doctorId,visitId);
+
+    }
+    @GetMapping("/DrugOrder/get/data/{id}")
+    public DrugOrder getDrugOrder(@PathVariable(value = "id") int Id) {
+        return _drugOrderService.findById(Id);
+    }
+    @GetMapping("/DrugOrder/get/All/data/")
+    public List<DrugOrder> getDrugOrder() {
+
+
 
         return _drugOrderService.findAll();
     }
