@@ -3,11 +3,6 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.Drug;
-import com.example.patientrecordsystem.Domain.Entity.DrugOrder;
-import com.example.patientrecordsystem.Domain.Entity.SystemAdmin;
-import com.example.patientrecordsystem.Domain..DrugOrder;
-import com.example.patientrecordsystem.Domain..Drug;
-import com.example.patientrecordsystem.Domain..SystemAdmin;
 import com.example.patientrecordsystem.Service.Implementation.DrugService;
 import com.example.patientrecordsystem.Service.Interface.IDrugService;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +14,6 @@ import java.util.List;
 public class DrugController {
 
     private IDrugService _drugService;
-    private Drug drug;
-    private List<Drug> _drugList;
     private Drug drug;
     private List<Drug> _drugList;
 

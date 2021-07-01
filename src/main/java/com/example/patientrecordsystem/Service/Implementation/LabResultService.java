@@ -2,7 +2,6 @@ package com.example.patientrecordsystem.Service.Implementation;
 
 
 import com.example.patientrecordsystem.Domain.Entity.LabResult;
-import com.example.patientrecordsystem.Domain.ViewModel.LabResultViewModel;
 import com.example.patientrecordsystem.Repository.ILabResultRepository;
 import com.example.patientrecordsystem.Service.Interface.ILabOrderService;
 import com.example.patientrecordsystem.Service.Interface.ILabResultService;
@@ -23,9 +22,9 @@ public class LabResultService implements ILabResultService {
     private List<LabResult> labResultList;
 
     @Autowired
-    private ILabOrderService _labOrderService;
+    private LabOrderService _labOrderService;
     @Autowired
-    private ILaboratoristService _laboratoristService;
+    private LaboratoristService _laboratoristService;
 
     public LabResultService() {
         _labOrderService = new LabOrderService();
@@ -34,16 +33,16 @@ public class LabResultService implements ILabResultService {
     }
 
     @Override
-    public LabResult create(LabResultViewModel labResultViewModel, int labOrderId, int laboratoristId) {
-        LabResult labResult=toLabResult(labResultViewModel,labOrderId, laboratoristId);
+    public LabResult create(LabResult labResult1, int labOrderId, int laboratoristId) {
+        LabResult labResult=toLabResult(labResult1,labOrderId, laboratoristId);
         return _labResultRepository.save(labResult);
     }
 
     @Override
-    public List<LabResult> createAll(List<LabResultViewModel> labResultViewModelList, int labOrderId,
+    public List<LabResult> createAll(List<LabResult> labResultList, int labOrderId,
                                      int laboratoristId) {
         LabResult labResult = new LabResult();
-        labResultViewModelList.forEach(labResultVM -> {
+        labResultList.forEach(labResultVM -> {
 
             this.labResultList.add(toLabResult(labResultVM,labOrderId, laboratoristId));
         });
@@ -51,14 +50,14 @@ public class LabResultService implements ILabResultService {
     }
 
     @Override
-    public void delete(LabResultViewModel labResultViewModel) {
+    public void delete(LabResult labResult) {
 
 
     }
 
     @Override
 
-    public void deleteAll(Iterable<LabResultViewModel> labResultViewModels) {
+    public void deleteAll(Iterable<LabResult> labResults) {
 
 
     }
@@ -90,14 +89,14 @@ public class LabResultService implements ILabResultService {
     }
 
     @Override
-    public LabResult update(LabResultViewModel labResultViewModel) {
+    public LabResult update(LabResult labResult) {
         return null;
     }
 
 
-    public LabResult toLabResult(LabResultViewModel labResultViewModel, int labOrderId, int laboratoristId) {
-        LabResult labResult = new LabResult();
-        labResult.setLabResultName(labResultViewModel.getLabResultName());
+    public LabResult toLabResult(LabResult labResult, int labOrderId, int laboratoristId) {
+
+        labResult.setLabResultName(labResult.getLabResultName());
         labResult.setLabOrder(_labOrderService.findById(labOrderId));
         labResult.setLaboratorist(_laboratoristService.findById(laboratoristId));
         return labResult;
