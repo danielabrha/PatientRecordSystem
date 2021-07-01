@@ -1,12 +1,10 @@
 package com.example.patientrecordsystem.Service.Implementation;
 
 
-
 import com.example.patientrecordsystem.Domain.Entity.Doctor;
 import com.example.patientrecordsystem.Domain.Entity.Drug;
 import com.example.patientrecordsystem.Domain.Entity.DrugOrder;
 import com.example.patientrecordsystem.Domain.Entity.Visit;
-import com.example.patientrecordsystem.Domain.ViewModel.DrugOrderViewModel;
 import com.example.patientrecordsystem.Repository.IDrugOrderRepository;
 import com.example.patientrecordsystem.Service.Interface.IDoctorService;
 import com.example.patientrecordsystem.Service.Interface.IDrugOrderService;
@@ -26,11 +24,11 @@ public class DrugOrderService implements IDrugOrderService {
     @Autowired
     private List<DrugOrder> drugOrderList;
     @Autowired
-    private IVisitService _visitService;
+    private VisitService _visitService;
     @Autowired
-    private IDoctorService _doctorService;
+    private DoctorService _doctorService;
     @Autowired
-    private IDrugService _drugService;
+    private DrugService _drugService;
 
     public DrugOrderService() {
         _visitService = new VisitService();
@@ -54,10 +52,13 @@ public class DrugOrderService implements IDrugOrderService {
     }
 
     @Override
-    public DrugOrder update(DrugOrderViewModel drugOrderViewModel, int drugId, int doctorId, int visitId) {
-        DrugOrder drugOrder = _drugOrderRepository.findById(drugOrderViewModel.getDrugOrderId()).orElse(null);
-
-        return _drugOrderRepository.save( toDrugOrder(drugOrderViewModel, drugId, doctorId, visitId, drugOrder));
+    public DrugOrder update(DrugOrder drugOrder1, int drugId, int doctorId, int visitId) {
+        DrugOrder drugOrder = _drugOrderRepository.findById(drugOrder1.getDrugOrderId()).orElse(null);
+        if (drugOrder != null) {
+            drugOrder = toDrugOrder(drugOrder, drugId, doctorId, visitId);
+            return _drugOrderRepository.save(drugOrder);
+        }
+        return null;
     }
 
     @Override
@@ -66,16 +67,16 @@ public class DrugOrderService implements IDrugOrderService {
     }
 
     @Override
-    public void delete(DrugOrderViewModel drugOrderViewModel) {
-        DrugOrder drugOrder = _drugOrderRepository.findById(drugOrderViewModel.getDrugOrderId()).orElse(null);
+    public void delete(DrugOrder drugOrder1) {
+        DrugOrder drugOrder = _drugOrderRepository.findById(drugOrder1.getDrugOrderId()).orElse(null);
         if (drugOrder != null)
             _drugOrderRepository.deleteById(drugOrder.getDrugOrderId());
     }
 
     @Override
-    public void deleteAll(Iterable<DrugOrderViewModel> drugOrderViewModels) {
-        drugOrderViewModels.forEach(drugOrderViewModel -> {
-            DrugOrder drugOrder = _drugOrderRepository.findById(drugOrderViewModel.getDrugOrderId()).orElse(null);
+    public void deleteAll(Iterable<DrugOrder> drugOrders) {
+        drugOrders.forEach(drugOrder1 -> {
+            DrugOrder drugOrder = _drugOrderRepository.findById(drugOrder1.getDrugOrderId()).orElse(null);
             if (drugOrder != null)
                 _drugOrderRepository.deleteById(drugOrder.getDrugOrderId());
         });
@@ -88,25 +89,24 @@ public class DrugOrderService implements IDrugOrderService {
     }
 
     @Override
-    public DrugOrder create(DrugOrderViewModel drugOrderViewModel, int drugId, int doctorId, int visitId) {
-        DrugOrder drugOrder =new DrugOrder();
-        return _drugOrderRepository.save( toDrugOrder(drugOrderViewModel, drugId, doctorId, visitId, drugOrder));
+    public DrugOrder create(DrugOrder drugOrder, int drugId, int doctorId, int visitId) {
+
+        return _drugOrderRepository.save(toDrugOrder(drugOrder, drugId, doctorId, visitId));
     }
 
-    private DrugOrder toDrugOrder(DrugOrderViewModel drugOrderViewModel, int drugId, int doctorId, int visitId, DrugOrder drugOrder) {
-        Doctor doctor =_doctorService.findById(doctorId);
-        Visit visit=_visitService.findById(visitId);
-        Drug drug=_drugService.findById(drugId);
-        drugOrder.setDrug(drug);
-        drugOrder.setAmount(drugOrderViewModel.getAmount());
-        drugOrder.setDoctor(doctor);
-        drugOrder.setVisit(visit);
-        return drugOrder;
+    private DrugOrder toDrugOrder(DrugOrder drugOrder1, int drugId, int doctorId, int visitId) {
+        Doctor doctor = _doctorService.findById(doctorId);
+        Visit visit = _visitService.findById(visitId);
+        Drug drug = _drugService.findById(drugId);
+        drugOrder1.setDrug(drug);
+        drugOrder1.setDoctor(doctor);
+        drugOrder1.setVisit(visit);
+        return drugOrder1;
     }
 
     @Override
-    public List<DrugOrder> createAll(List<DrugOrderViewModel> listDrugOrderViewModel) {
-//        listDrugOrderViewModel.forEach(roleVM -> {
+    public List<DrugOrder> createAll(List<DrugOrder> listDrugOrder) {
+//        listDrugOrder.forEach(roleVM -> {
 //            this.drugOrderList.add(toDrugOrder(roleVM));
 //        });
 //        return _drugOrderRepository.saveAll(this.drugOrderList);
