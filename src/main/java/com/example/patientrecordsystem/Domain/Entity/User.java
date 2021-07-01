@@ -30,7 +30,7 @@ public class User extends Person {
     @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
-    @JsonIgnore
+
     @OneToOne(mappedBy = "user")
     private Receptionst receptionst;
 

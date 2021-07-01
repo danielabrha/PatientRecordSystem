@@ -41,7 +41,7 @@ public class LabTestTypeController {
                                          @PathVariable (value = "labTestTypeId") int labTestTypeId,
                                          @PathVariable (value = "systemAdminId") int systemAdminId){
 
-        return _labTestTypeService.update(labTestTypeVM,labTestTypeId,systemAdminId);
+        return _labTestTypeService.update(labTestTypeVM,systemAdminId);
 
     }
     @GetMapping("LabTestType/get/data/{id}")

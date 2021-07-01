@@ -2,6 +2,9 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.ToString;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,7 @@ public class Receptionst {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UserId", referencedColumnName = "Id")
+    @ToString.Exclude
     private User user;
 
     @OneToMany(mappedBy = "receptionst")
