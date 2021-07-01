@@ -1,7 +1,6 @@
 package com.example.patientrecordsystem.Service.Implementation;
 
 
-
 import com.example.patientrecordsystem.Domain.Entity.User;
 import com.example.patientrecordsystem.Repository.IUserRepository;
 import com.example.patientrecordsystem.Service.Interface.IRoleService;
@@ -47,8 +46,25 @@ public class UserService implements IUserService {
         User existingUser = _userRepository.findById(userId).orElse(null);
         // User existingUser=_userRepository.findById(user.getUserId()).orElse(null);
         if (existingUser != null) {
-            user.setUserId(user.getUserId());
-            return _userRepository.save(user);
+
+            if (user.getfName() != null)
+                existingUser.setfName(user.getfName());
+            if (user.getlName() != null)
+                existingUser.setlName(user.getlName());
+            if (user.getmName() != null)
+                existingUser.setmName(user.getmName());
+            if (user.getEmail() != null)
+                existingUser.setEmail(user.getEmail());
+            if (user.getGender() != null)
+                existingUser.setGender(user.getGender());
+            if (user.getPhoneNumber() != null)
+                existingUser.setPhoneNumber(user.getPhoneNumber());
+            if (user.getDateOfBirth() != null)
+                existingUser.setDateOfBirth(user.getDateOfBirth());
+            if (user.getAddress() != null)
+                existingUser.setDateOfBirth(user.getAddress());
+
+            return _userRepository.save(existingUser);
         }
         return null;
     }

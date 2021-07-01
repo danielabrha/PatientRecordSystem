@@ -80,7 +80,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role create(Role role) {
-        return _roleRepository.save(toRole(role));
+        return _roleRepository.save(role);
     }
 
     @Override

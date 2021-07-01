@@ -7,6 +7,7 @@ import com.example.patientrecordsystem.Domain.Entity.SystemAdmin;
 import com.example.patientrecordsystem.Repository.ILabTestTypeRepository;
 import com.example.patientrecordsystem.Service.Interface.ILabTestTypeService;
 import com.example.patientrecordsystem.Service.Interface.ISystemAdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ import java.util.List;
 @Service
 public class LabTestTypeService implements ILabTestTypeService {
     private LabTestType labTestType;
+    @Autowired
     private ILabTestTypeRepository _labTestTypeRepository;
-    private ISystemAdminService _systemAdminService;
+    @Autowired
+    private SystemAdminService _systemAdminService;
 
     private List<LabTestType> labTestTypeList;
 

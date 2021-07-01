@@ -1,7 +1,6 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ public class LabTestType {
     private String labTestName;
     @Column(name = "labTestCode")
     private String labTestCode;
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
     private SystemAdmin systemAdmin;

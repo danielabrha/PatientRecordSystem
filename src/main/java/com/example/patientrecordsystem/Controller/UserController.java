@@ -27,7 +27,7 @@ public class UserController {
     }
     @CrossOrigin(origins="http://localhost:4200")
     @PostMapping("User/post/data")
-    public User postDurg(@RequestBody User userVM){
+    public User postUser(@RequestBody User userVM){
         return _userService.create(userVM);
 
     }
@@ -43,7 +43,7 @@ public class UserController {
         return _userService.update(userVM,userId);
 
     }
-    @GetMapping("/User/get/data/{id}")
+    @GetMapping("User/get/data/{id}")
     public User getUser(@PathVariable(value = "id") int Id) {
         return _userService.findById(Id);
     }

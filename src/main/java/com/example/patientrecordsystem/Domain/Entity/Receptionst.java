@@ -2,6 +2,7 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Receptionst {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UserId", referencedColumnName = "Id")
     private User user;
+
     @OneToMany(mappedBy = "receptionst")
     private List<Visit> listVisit = new ArrayList<>();
 

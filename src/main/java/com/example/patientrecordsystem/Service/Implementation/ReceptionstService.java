@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ReceptionstService implements IReceptionsService {
     @Autowired
-    IReceptionstRepository _receptionstRepository;
+   private IReceptionstRepository _receptionstRepository;
 
     @Override
     public List<Receptionst> findAll() {

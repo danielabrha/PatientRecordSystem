@@ -9,9 +9,9 @@ import java.util.List;
 //@Component
 @Entity(name = "roles")
 public class Role {
-    @Column(name="Id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="Id")
     private int roleId;
     @Column(name = "roleName")
     private String roleName;

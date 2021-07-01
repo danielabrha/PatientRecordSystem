@@ -1,6 +1,7 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -26,17 +27,17 @@ public class User extends Person {
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "roleId"))
     private List<Role> roleList = new ArrayList<>();
-
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Doctor doctor;
-
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Receptionst receptionst;
 
-
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Laboratorist laboratorist;
-
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private SystemAdmin systemAdmin;
 

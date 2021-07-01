@@ -5,6 +5,7 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.LabTestType;
 import com.example.patientrecordsystem.Service.Implementation.LabTestTypeService;
 import com.example.patientrecordsystem.Service.Interface.ILabTestTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @RestController
 public class LabTestTypeController {
-    private ILabTestTypeService _labTestTypeService;
+    @Autowired
+    private LabTestTypeService _labTestTypeService;
     private LabTestType labTestType;
     private List<LabTestType> _labTestTypeList;
 
@@ -34,17 +36,19 @@ public class LabTestTypeController {
         return  _labTestTypeService.createAll(labTestTypeVMList,systemAdminId);
 
     }
-    @PutMapping("LabTestType/update/{systemAdminId}")
-    public LabTestType updateLabTestType(@RequestBody LabTestType labTestTypeVM,@PathVariable (value = "systemAdminId") int systemAdminId){
+    @PutMapping("LabTestType/update/{labTestTypeId}/{systemAdminId}")
+    public LabTestType updateLabTestType(@RequestBody LabTestType labTestTypeVM,
+                                         @PathVariable (value = "labTestTypeId") int labTestTypeId,
+                                         @PathVariable (value = "systemAdminId") int systemAdminId){
 
-        return _labTestTypeService.update(labTestTypeVM,systemAdminId);
+        return _labTestTypeService.update(labTestTypeVM,labTestTypeId,systemAdminId);
 
     }
-    @GetMapping("/LabTestType/get/data/{id}")
+    @GetMapping("LabTestType/get/data/{id}")
     public LabTestType getLabTestType(@PathVariable(value = "id") int Id) {
         return _labTestTypeService.findById(Id);
     }
-    @GetMapping("/LabTestType/get/All/data/")
+    @GetMapping("LabTestType/get/All/data")
     public List<LabTestType> getLabTestType() {
 
         return _labTestTypeService.findAll();

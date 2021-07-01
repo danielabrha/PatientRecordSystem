@@ -1,7 +1,6 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +19,13 @@ public class Visit {
 
     @Column(name = "visitDate")
     private Date visitDate;
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "receptionstId", referencedColumnName = "Id")
     private Receptionst receptionst;
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="patientId",referencedColumnName = "Id")
+    @JoinColumn(name = "patientId", referencedColumnName = "Id")
     private Patient patient;
 
     @JsonIgnore

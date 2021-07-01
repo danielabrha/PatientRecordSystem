@@ -17,6 +17,6 @@ public interface ILabTestTypeService {
     public void delete(LabTestType labTestType);
     public void deleteAll(Iterable<LabTestType> labTestTypes);
     public void deleteAll();
-    public LabTestType create(LabTestType labTestType,int systemAdminId);
+    public LabTestType create(LabTestType labTestType,int labTestTypeId,int systemAdminId);
     public List<LabTestType> createAll(List<LabTestType> listLabTestType,int systemAdminId);
 }

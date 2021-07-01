@@ -19,8 +19,10 @@ import java.util.List;
 public class VisitService implements IVisitService {
     @Autowired
     private IVisitRepository _visitRepository;
-    private IPatientService _patientService;
-    private IReceptionsService _receptionsService;
+    @Autowired
+    private PatientService _patientService;
+    @Autowired
+    private ReceptionstService _receptionsService;
     private List<Visit> visitList;
 
     public VisitService() {
@@ -70,8 +72,8 @@ public class VisitService implements IVisitService {
     }
 
     @Override
-    public Visit create(Visit visit, int patientId, int receptionId) {
-
+    public Visit create( int patientId, int receptionId) {
+        Visit visit=new Visit();
         visit.setVisitDate(new Date());
         return _visitRepository.save(toVisit(visit, patientId, receptionId));
     }

@@ -24,7 +24,7 @@ public class Patient extends Person {
     private int cardRecordNumber;
 
     // relations
-    @JsonIgnore
+
     @OneToMany(mappedBy = "patient")
     private List<Visit> visitList = new ArrayList<>();
 
