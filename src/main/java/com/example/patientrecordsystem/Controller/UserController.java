@@ -3,7 +3,6 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.User;
-import com.example.patientrecordsystem.Domain.ViewModel.UserViewModel;
 import com.example.patientrecordsystem.Service.Implementation.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +17,13 @@ public class UserController {
     private UserService _userService;
     private User user;
     private List<User> _userList;
-    private UserViewModel userViewModel;
-    private List<UserViewModel> _userViewModelList;
 
     public UserController() {
         this._userService = new UserService();
         this.user = new User();
         this._userList = new ArrayList<>();
-        this.userViewModel = new UserViewModel();
-        this._userViewModelList = new ArrayList<>();
+        this.user = new User();
+        this._userList = new ArrayList<>();
     }
     @CrossOrigin(origins="http://localhost:4200")
     @PostMapping("User/post/data")
@@ -36,12 +33,12 @@ public class UserController {
     }
 
     @PostMapping("User/post/All/data")
-    public List<User> postUser(@RequestBody List<UserViewModel> userVMList){
+    public List<User> postUser(@RequestBody List<User> userVMList){
         return  _userService.createAll(userVMList);
 
     }
     @PutMapping("User/update/{userId}")
-    public User updateUser(@RequestBody UserViewModel userVM,@PathVariable(value = "userId") int userId){
+    public User updateUser(@RequestBody User userVM,@PathVariable(value = "userId") int userId){
 
         return _userService.update(userVM,userId);
 

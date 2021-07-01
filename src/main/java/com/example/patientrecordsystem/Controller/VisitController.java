@@ -3,7 +3,6 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.Visit;
-import com.example.patientrecordsystem.Domain.ViewModel.VisitViewModel;
 import com.example.patientrecordsystem.Service.Implementation.VisitService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,19 +15,17 @@ public class VisitController {
     private VisitService _visitService;
     private Visit visit;
     private List<Visit> _visitList;
-    private VisitViewModel visitViewModel;
-    private List<VisitViewModel> _visitViewModelList;
 
     public VisitController() {
         this._visitService = new VisitService();
         this.visit = new Visit();
         this._visitList = new ArrayList<>();
-        this.visitViewModel = new VisitViewModel();
-        this._visitViewModelList = new ArrayList<>();
+        this.visit = new Visit();
+        this._visitList = new ArrayList<>();
     }
 
     @PostMapping("/Visit/post/data/{receptionistId}/{patientId}")
-    public Visit postVisit(@RequestBody VisitViewModel VisitVM,
+    public Visit postVisit(@RequestBody Visit VisitVM,
                            @PathVariable(value = "receptionistId") int receptionistId,
                            @PathVariable (value = "patientId") int patientId
 
@@ -38,10 +35,10 @@ public class VisitController {
     }
 
     @PostMapping("/Visit/post/All/data/{receptionistId}/{patientId}/{labTestTypeId}")
-    public List<Visit> postVisits(@RequestBody List<VisitViewModel> visitViewModelList,
+    public List<Visit> postVisits(@RequestBody List<Visit> visitList,
                                   @PathVariable (value = "receptionistId") int receptionistId,
                                   @PathVariable (value = "patientId") int patientId) {
-        return  _visitService.createAll(visitViewModelList, receptionistId, patientId);
+        return  _visitService.createAll(visitList, receptionistId, patientId);
     }
 
     @GetMapping("/Visit/get/data/{id}")
@@ -57,7 +54,7 @@ public class VisitController {
     }
 
     @PutMapping("/Visit/update/data")
-    private Visit updateVisit(@RequestBody VisitViewModel VisitCM) {
+    private Visit updateVisit(@RequestBody Visit VisitCM) {
         return _visitService.update(VisitCM);
     }
 
@@ -73,13 +70,13 @@ public class VisitController {
         return true;
     }
 
-    private VisitViewModel toVisitViewModel(Visit Visit2) {
+    private Visit toVisit(Visit Visit2) {
         // TODO Auto-generated method stub
 
         return null;
     }
 
-    private List<VisitViewModel> toSetVisitViewModel(List<Visit> setVisit) {
+    private List<Visit> toSetVisit(List<Visit> setVisit) {
         return null;
     }
 }
