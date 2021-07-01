@@ -2,7 +2,6 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.Symptom;
-import com.example.patientrecordsystem.Domain.ViewModel.SymptomViewModel;
 import com.example.patientrecordsystem.Service.Implementation.SymptomService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,33 +14,30 @@ public class SymptomController {
     private SymptomService _symptomService;
     private Symptom symptom;
     private List<Symptom> _symptomList;
-    private SymptomViewModel symptomViewModel;
-    private List<SymptomViewModel> _symptomViewModelList;
 
     public SymptomController() {
         this._symptomService = new SymptomService();
         this.symptom = new Symptom();
         this._symptomList = new ArrayList<>();
-        this.symptomViewModel = new SymptomViewModel();
-        this._symptomViewModelList = new ArrayList<>();
+        
     }
 
     @PostMapping("/Symptom/post/data/{visitId}/{doctorId}")
-    public Symptom postSymptom(@RequestBody SymptomViewModel SymptomVM,
+    public Symptom postSymptom(@RequestBody Symptom symptom,
                                @PathVariable(value = "visitId") int visitId,
                                @PathVariable (value = "doctorId") int doctorId
 
 
     ) {
-        return _symptomService.create(SymptomVM, visitId, doctorId);
+        return _symptomService.create(symptom, visitId, doctorId);
 
     }
 
     @PostMapping("/Symptom/post/All/data/{visitId}/{doctorId}/{labTestTypeId}")
-    public List<Symptom> postSymptoms(@RequestBody List<SymptomViewModel> symptomViewModelList,
+    public List<Symptom> postSymptoms(@RequestBody List<Symptom> symptomList,
                                       @PathVariable (value = "visitId") int visitId,
                                       @PathVariable (value = "doctorId") int doctorId) {
-        return  _symptomService.createAll(symptomViewModelList, visitId, doctorId);
+        return  _symptomService.createAll(symptomList, visitId, doctorId);
     }
 
     @GetMapping("/Symptom/get/data/{id}")
@@ -57,8 +53,8 @@ public class SymptomController {
     }
 
     @PutMapping("/Symptom/update/data")
-    private Symptom updateSymptom(@RequestBody SymptomViewModel SymptomCM) {
-        return _symptomService.update(SymptomCM);
+    private Symptom updateSymptom(@RequestBody Symptom symptom) {
+        return _symptomService.update(symptom);
     }
 
     @DeleteMapping("/Symptom/deleteById/data/{id}")
@@ -73,13 +69,5 @@ public class SymptomController {
         return true;
     }
 
-    private SymptomViewModel toSymptomViewModel(Symptom Symptom2) {
-        // TODO Auto-generated method stub
 
-        return null;
-    }
-
-    private List<SymptomViewModel> toSetSymptomViewModel(List<Symptom> setSymptom) {
-        return null;
-    }
 }

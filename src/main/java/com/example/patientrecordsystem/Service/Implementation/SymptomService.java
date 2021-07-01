@@ -3,7 +3,6 @@ package com.example.patientrecordsystem.Service.Implementation;
 
 
 import com.example.patientrecordsystem.Domain.Entity.Symptom;
-import com.example.patientrecordsystem.Domain.ViewModel.SymptomViewModel;
 import com.example.patientrecordsystem.Repository.ISymptomRepository;
 import com.example.patientrecordsystem.Service.Interface.IDoctorService;
 import com.example.patientrecordsystem.Service.Interface.ISymptomService;
@@ -21,10 +20,10 @@ public class SymptomService implements ISymptomService {
     private ISymptomRepository _symptomRepository;
 
     @Autowired
-    private IDoctorService _doctorService;
+    private DoctorService _doctorService;
 
     @Autowired
-    private IVisitService _visitService;
+    private VisitService _visitService;
 
     @Autowired
     private List<Symptom> symptomList;
@@ -52,7 +51,7 @@ public class SymptomService implements ISymptomService {
     }
 
     @Override
-    public Symptom update(SymptomViewModel symptomViewModel) {
+    public Symptom update(Symptom symptom) {
         return null;
     }
 
@@ -63,15 +62,15 @@ public class SymptomService implements ISymptomService {
     }
 
     @Override
-    public void delete(SymptomViewModel symptomViewModel) {
+    public void delete(Symptom symptom) {
 
-        _symptomRepository.deleteById(symptomViewModel.getSymptomId());
+        _symptomRepository.deleteById(symptom.getSymptomId());
     }
 
     @Override
-    public void deleteAll(Iterable<SymptomViewModel> symptomViewModels) {
-        symptomViewModels.forEach(symptomVM -> {
-            _symptomRepository.deleteById(symptomVM.getSymptomId());
+    public void deleteAll(Iterable<Symptom> symptoms) {
+        symptoms.forEach(symptom -> {
+            _symptomRepository.deleteById(symptom.getSymptomId());
 
         });
 
@@ -84,30 +83,30 @@ public class SymptomService implements ISymptomService {
     }
 
     @Override
-    public Symptom create(SymptomViewModel symptomViewModel, int doctorId, int visitId) {
+    public Symptom create(Symptom symptom1, int doctorId, int visitId) {
         Symptom symptom =new Symptom();
-        symptom.setSymptomName(symptomViewModel.getSymptomName());
+        symptom.setSymptomName(symptom1.getSymptomName());
         symptom.setDoctor(_doctorService.findById(doctorId));
         symptom.setVisit(_visitService.findById(visitId));
         return _symptomRepository.save(symptom);
     }
 
     @Override
-    public List<Symptom> createAll(List<SymptomViewModel> symptomViewModelList, int visitId,
+    public List<Symptom> createAll(List<Symptom> symptomList, int visitId,
                                    int doctorId) {
         Symptom symptom = new Symptom();
-        symptomViewModelList.forEach(symptomVM -> {
+        symptomList.forEach(symptom1 -> {
 
-            this.symptomList.add(toSymptom(symptomVM,visitId, doctorId));
+            this.symptomList.add(toSymptom(symptom1,visitId, doctorId));
         });
         return _symptomRepository.saveAll(this.symptomList);
     }
 
 
-    public Symptom toSymptom (SymptomViewModel symptomViewModel, int visitId,
+    public Symptom toSymptom (Symptom symptom1, int visitId,
                               int doctorId) {
         Symptom symptom = new Symptom();
-        symptom.setSymptomName(symptomViewModel.getSymptomName());
+        symptom.setSymptomName(symptom1.getSymptomName());
         symptom.setVisit(_visitService.findById(visitId));
         symptom.setDoctor(_doctorService.findById(doctorId));
         return symptom;

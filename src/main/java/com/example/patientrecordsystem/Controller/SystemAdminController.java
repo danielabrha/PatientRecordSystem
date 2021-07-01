@@ -3,8 +3,8 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.SystemAdmin;
-import com.example.patientrecordsystem.Domain.ViewModel.SystemAdminViewModel;
 import com.example.patientrecordsystem.Service.Interface.ISystemAdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,18 +14,17 @@ import java.util.List;
 
 @RestController
 public class SystemAdminController {
-
+    @Autowired
     private ISystemAdminService systemAdminService;
-    private SystemAdminViewModel systemAdminViewModel;
     private SystemAdmin systemAdmin;
 
     @RequestMapping("SystemAdmin/post/data")
-    public SystemAdminViewModel postSystemAdmin(@RequestBody SystemAdminViewModel systemAdminViewModel){
-        return toSystemAdminViewModel(systemAdminService.create(systemAdminViewModel));
+    public SystemAdmin postSystemAdmin(@RequestBody SystemAdmin systemAdmin){
+        return toSystemAdmin(systemAdminService.create(systemAdmin));
     }
     @RequestMapping("SystemAdmin/update/data")
-    public SystemAdminViewModel updateSystemAdmin(@RequestBody SystemAdminViewModel systemAdminViewModel){
-        return toSystemAdminViewModel(systemAdminService.update(systemAdminViewModel));
+    public SystemAdmin updateSystemAdmin(@RequestBody SystemAdmin systemAdmin){
+        return toSystemAdmin(systemAdminService.update(systemAdmin));
     }
     @RequestMapping("SystemAdmin/delete/data")
     public void deleteAllSystemAdmin(){
@@ -33,18 +32,18 @@ public class SystemAdminController {
     }
 
     @RequestMapping("SystemAdmin/get/data")
-    public List<SystemAdminViewModel> getSystemAdmin(){
+    public List<SystemAdmin> getSystemAdmin(){
         List<SystemAdmin> listSystemAdmin=systemAdminService.findAll();
-        List<SystemAdminViewModel> listSystemAdminVM=new ArrayList<>();
+        List<SystemAdmin> listSystemAdminVM=new ArrayList<>();
         listSystemAdmin.forEach(systemAdminVM->{
-            listSystemAdminVM.add( toSystemAdminViewModel(systemAdminVM));
+            listSystemAdminVM.add( toSystemAdmin(systemAdminVM));
         });
         return listSystemAdminVM;
     }
 
-    public SystemAdminViewModel toSystemAdminViewModel(SystemAdmin systemAdmin){
-        this.systemAdminViewModel=new SystemAdminViewModel();
-        this.systemAdminViewModel.setSystemAdminId(systemAdmin.getSystemAdminId());
-        return this.systemAdminViewModel;
+    public SystemAdmin toSystemAdmin(SystemAdmin systemAdmin){
+        this.systemAdmin=new SystemAdmin();
+        this.systemAdmin.setSystemAdminId(systemAdmin.getSystemAdminId());
+        return this.systemAdmin;
     }
 }

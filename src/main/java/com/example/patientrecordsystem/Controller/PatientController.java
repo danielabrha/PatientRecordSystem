@@ -3,9 +3,9 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.Patient;
-import com.example.patientrecordsystem.Domain..Patient;
 import com.example.patientrecordsystem.Service.Implementation.PatientService;
 import com.example.patientrecordsystem.Service.Interface.IPatientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import java.util.List;
 
 @RestController
 public class PatientController {
-
-    private IPatientService _patientService;
+    @Autowired
+    private PatientService _patientService;
     private Patient patientService;
     private List<Patient> _patientServiceList;
   
