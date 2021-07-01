@@ -1,0 +1,23 @@
+package com.example.patientrecordsystem.Service.Interface;
+
+
+import com.example.patientrecordsystem.Domain.Entity.LabTestType;
+import com.example.patientrecordsystem.Domain.ViewModel.LabTestTypeViewModel;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public interface ILabTestTypeService {
+    public List<LabTestType> findAll();
+    //	public List<LabTestTypeViewModel> findAll(int entryid);
+    public List<LabTestType> findAll(String status);
+    public LabTestType findById(int id);
+    public LabTestType update(LabTestTypeViewModel labTestTypeViewModel, int systemAdminId);
+    public void deleteById(int id);
+    public void delete(LabTestTypeViewModel labTestTypeViewModel);
+    public void deleteAll(Iterable<LabTestTypeViewModel> labTestTypeViewModels);
+    public void deleteAll();
+    public LabTestType create(LabTestTypeViewModel labTestTypeViewModel,int systemAdminId);
+    public List<LabTestType> createAll(List<LabTestTypeViewModel> listLabTestTypeViewModel,int systemAdminId);
+}
