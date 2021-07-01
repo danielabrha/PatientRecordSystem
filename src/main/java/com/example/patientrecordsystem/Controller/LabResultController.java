@@ -3,7 +3,6 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.LabResult;
-import com.example.patientrecordsystem.Domain.ViewModel.LabResultViewModel;
 import com.example.patientrecordsystem.Service.Implementation.LabResultService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,19 +15,17 @@ public class LabResultController {
     private LabResultService _labResultService;
     private LabResult labResult;
     private List<LabResult> _labResultList;
-    private LabResultViewModel labResultViewModel;
-    private List<LabResultViewModel> _labResultViewModelList;
 
     public LabResultController() {
         this._labResultService = new LabResultService();
         this.labResult = new LabResult();
         this._labResultList = new ArrayList<>();
-        this.labResultViewModel = new LabResultViewModel();
-        this._labResultViewModelList = new ArrayList<>();
+        this.labResult = new LabResult();
+        this._labResultList = new ArrayList<>();
     }
 
     @PostMapping("/LabResult/post/data/{labOrderId}/{laboratoristId}")
-    public LabResult postLabResult(@RequestBody LabResultViewModel LabResultVM,
+    public LabResult postLabResult(@RequestBody LabResult LabResultVM,
                                    @PathVariable(value = "labOrderId") int labOrderId,
                                    @PathVariable (value = "laboratoristId") int laboratoristId
 
@@ -39,10 +36,10 @@ public class LabResultController {
     }
 
     @PostMapping("/LabResult/post/All/data/{}/{laboratoristId}/{labTestTypeId}")
-    public List<LabResult> postLabResults(@RequestBody List<LabResultViewModel> labResultViewModelList,
+    public List<LabResult> postLabResults(@RequestBody List<LabResult> labResultList,
                                           @PathVariable (value = "labOrderId") int labOrderId,
                                           @PathVariable (value = "laboratoristId") int laboratoristId) {
-        return  _labResultService.createAll(labResultViewModelList, labOrderId, laboratoristId);
+        return  _labResultService.createAll(labResultList, labOrderId, laboratoristId);
     }
 
     @GetMapping("/LabResult/get/data/{id}")
@@ -58,7 +55,7 @@ public class LabResultController {
     }
 
     @PutMapping("/LabResult/update/data")
-    private LabResult updateLabResult(@RequestBody LabResultViewModel LabResultCM) {
+    private LabResult updateLabResult(@RequestBody LabResult LabResultCM) {
         return _labResultService.update(LabResultCM);
     }
 
@@ -74,13 +71,13 @@ public class LabResultController {
         return true;
     }
 
-    private LabResultViewModel toLabResultViewModel(LabResult LabResult2) {
+    private LabResult toLabResult(LabResult LabResult2) {
         // TODO Auto-generated method stub
 
         return null;
     }
 
-    private List<LabResultViewModel> toSetLabResultViewModel(List<LabResult> setLabResult) {
+    private List<LabResult> toSetLabResult(List<LabResult> setLabResult) {
         return null;
     }
 
