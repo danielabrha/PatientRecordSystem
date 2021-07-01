@@ -2,7 +2,6 @@ package com.example.patientrecordsystem.Service.Implementation;
 
 
 import com.example.patientrecordsystem.Domain.Entity.Receptionst;
-import com.example.patientrecordsystem.Domain.ViewModel.ReceptionstViewModel;
 import com.example.patientrecordsystem.Repository.IReceptionstRepository;
 import com.example.patientrecordsystem.Service.Interface.IReceptionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class ReceptionstService implements IReceptionsService {
     }
 
     @Override
-    public Receptionst update(ReceptionstViewModel receptionstViewModel) {
+    public Receptionst update(Receptionst receptionst) {
         return null;
     }
 
@@ -41,12 +40,12 @@ public class ReceptionstService implements IReceptionsService {
     }
 
     @Override
-    public void delete(ReceptionstViewModel receptionstViewModel) {
+    public void delete(Receptionst receptionst) {
 
     }
 
     @Override
-    public void deleteAll(Iterable<ReceptionstViewModel> receptionstViewModels) {
+    public void deleteAll(Iterable<Receptionst> receptionsts) {
 
     }
 
@@ -56,12 +55,12 @@ public class ReceptionstService implements IReceptionsService {
     }
 
     @Override
-    public Receptionst create(ReceptionstViewModel receptionstViewModel) {
+    public Receptionst create(Receptionst receptionst) {
         return null;
     }
 
     @Override
-    public List<Receptionst> createAll(List<ReceptionstViewModel> listReceptionstViewModel) {
+    public List<Receptionst> createAll(List<Receptionst> listReceptionst) {
         return null;
     }
 }

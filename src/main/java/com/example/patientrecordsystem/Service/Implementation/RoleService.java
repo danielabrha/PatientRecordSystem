@@ -1,9 +1,7 @@
 package com.example.patientrecordsystem.Service.Implementation;
 
 
-
 import com.example.patientrecordsystem.Domain.Entity.Role;
-import com.example.patientrecordsystem.Domain.ViewModel.RoleViewModel;
 import com.example.patientrecordsystem.Repository.IRoleRepository;
 import com.example.patientrecordsystem.Service.Interface.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +37,11 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public Role update(RoleViewModel roleViewModel, int roleId) {
+    public Role update(Role role, int roleId) {
         Role previousRole = _roleRepository.findById(roleId).orElse(null);
-        // Role previousRole = _roleRepository.findById(roleViewModel.getRoleId()).orElse(null);
+        // Role previousRole = _roleRepository.findById(role.getRoleId()).orElse(null);
         if (previousRole != null) {
-            previousRole.setRoleName(roleViewModel.getRoleName());
+            previousRole.setRoleName(role.getRoleName());
             return _roleRepository.save(previousRole);
         }
         return null;
@@ -55,48 +53,48 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public void delete(RoleViewModel roleViewModel) {
-        Role previousRole = _roleRepository.findById(roleViewModel.getRoleId()).orElse(null);
-        if (previousRole != null){
+    public void delete(Role role) {
+        Role previousRole = _roleRepository.findById(role.getRoleId()).orElse(null);
+        if (previousRole != null) {
             _roleRepository.deleteById(previousRole.getRoleId());
         }
 
     }
 
     @Override
-    public void deleteAll(Iterable<RoleViewModel> roleViewModels) {
+    public void deleteAll(Iterable<Role> roles) {
 
-        roleViewModels.forEach(roleViewModel -> {
-            Role role = _roleRepository.findById(roleViewModel.getRoleId()).orElse(null);
-            if (role!=null)
+        roles.forEach(role -> {
+            Role role1 = _roleRepository.findById(role.getRoleId()).orElse(null);
+            if (role != null)
                 _roleRepository.deleteById(role.getRoleId());
 
         });
 
     }
+
     @Override
     public void deleteAll() {
         _roleRepository.deleteAll();
     }
 
     @Override
-    public Role create(RoleViewModel roleViewModel) {
-        return _roleRepository.save(toRole(roleViewModel));
+    public Role create(Role role) {
+        return _roleRepository.save(toRole(role));
     }
 
     @Override
-    public List<Role> createAll(List<RoleViewModel> roleListViewModel) {
-
-        roleListViewModel.forEach(roleVM -> {
-            this.roleList.add(toRole(roleVM));
+    public List<Role> createAll(List<Role> roleList) {
+        List<Role> _listRole = new ArrayList<>();
+        roleList.forEach(roleVM -> {
+            _listRole.add(toRole(roleVM));
         });
-        return _roleRepository.saveAll(this.roleList);
+        return _roleRepository.saveAll(_listRole);
 
     }
 
-    public Role toRole(RoleViewModel roleViewModel) {
-        Role role = new Role();
-        role.setRoleName(roleViewModel.getRoleName());
+    public Role toRole(Role role) {
+        role.setRoleName(role.getRoleName());
         return role;
     }
 }
