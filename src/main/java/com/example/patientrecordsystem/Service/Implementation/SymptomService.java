@@ -19,8 +19,8 @@ public class SymptomService implements ISymptomService {
     @Autowired
     private ISymptomRepository _symptomRepository;
 
-    @Autowired
-    private DoctorService _doctorService;
+//    @Autowired
+//    private DoctorService _doctorService;
 
     @Autowired
     private VisitService _visitService;
@@ -29,7 +29,7 @@ public class SymptomService implements ISymptomService {
     private List<Symptom> symptomList;
 
     public SymptomService() {
-        _doctorService = new DoctorService();
+   //     _doctorService = new DoctorService();
         _visitService = new VisitService();
         symptomList=new ArrayList<>();
     }
@@ -83,34 +83,35 @@ public class SymptomService implements ISymptomService {
     }
 
     @Override
-    public Symptom create(Symptom symptom1, int doctorId, int visitId) {
+    public Symptom create(Symptom symptom1, int visitId) {
         Symptom symptom =new Symptom();
         symptom.setSymptomName(symptom1.getSymptomName());
-        symptom.setDoctor(_doctorService.findById(doctorId));
+      //  symptom.setDoctor(_doctorService.findById(doctorId));
         symptom.setVisit(_visitService.findById(visitId));
         return _symptomRepository.save(symptom);
     }
 
     @Override
-    public List<Symptom> createAll(List<Symptom> symptomList, int visitId,
-                                   int doctorId) {
-        Symptom symptom = new Symptom();
+    public List<Symptom> createAll(List<Symptom> symptomList, int visitId
+                                   ) {
+        //Symptom symptom = new Symptom();
         symptomList.forEach(symptom1 -> {
-
-            this.symptomList.add(toSymptom(symptom1,visitId, doctorId));
+            Symptom symptom = new Symptom();
+            symptom.setSymptomName(symptom1.getSymptomName());
+            symptom.setVisit(_visitService.findById(visitId));
+            this.symptomList.add(symptom);
         });
         return _symptomRepository.saveAll(this.symptomList);
     }
 
 
-    public Symptom toSymptom (Symptom symptom1, int visitId,
-                              int doctorId) {
-        Symptom symptom = new Symptom();
-        symptom.setSymptomName(symptom1.getSymptomName());
-        symptom.setVisit(_visitService.findById(visitId));
-        symptom.setDoctor(_doctorService.findById(doctorId));
-        return symptom;
-    }
+//    public Symptom toSymptom (Symptom symptom1, int visitId) {
+//        Symptom symptom = new Symptom();
+//        symptom.setSymptomName(symptom1.getSymptomName());
+//        symptom.setVisit(_visitService.findById(visitId));
+//      //  symptom.setDoctor(_doctorService.findById(doctorId));
+//        return symptom;
+//    }
 
 }
 

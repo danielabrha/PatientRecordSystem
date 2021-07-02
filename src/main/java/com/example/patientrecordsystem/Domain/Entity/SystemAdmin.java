@@ -2,6 +2,9 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -16,29 +19,31 @@ public class SystemAdmin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int systemAdminId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="userId",referencedColumnName = "Id")
-    private User user;
-    @JsonIgnore
-    @OneToMany(mappedBy = "systemAdmin")
-    private List<LabTestType> labTestTypeList;
+//    @JsonIgnoreProperties("systemAdmin")
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="userId",referencedColumnName = "Id")
+//    private User user;
+  //  @JsonManagedReference
+//    @JsonIgnoreProperties("systemAdmin")
+//    @OneToMany(mappedBy = "systemAdmin")
+//    private List<LabTestType> labTestTypeList;
+   // @JsonManagedReference
+//    @JsonIgnoreProperties("systemAdmin")
+//    @OneToMany(mappedBy = "systemAdmin")
+//    private List<Drug> drugList;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "systemAdmin")
-    private List<Drug> drugList;
-
-    public SystemAdmin(int systemAdminId, User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
+    public SystemAdmin(int systemAdminIdt) {
         this.systemAdminId = systemAdminId;
-        this.user = user;
-        this.labTestTypeList = labTestTypeList;
-        this.drugList = drugList;
+      //  this.user = user;
+//        this.labTestTypeList = labTestTypeList;
+//        this.drugList = drugList;
     }
 
-    public SystemAdmin(User user, List<LabTestType> labTestTypeList, List<Drug> drugList) {
-        this.user = user;
-        this.labTestTypeList = labTestTypeList;
-        this.drugList = drugList;
-    }
+//    public SystemAdmin( List<LabTestType> labTestTypeList, List<Drug> drugList) {
+//
+//        this.labTestTypeList = labTestTypeList;
+//        this.drugList = drugList;
+//    }
 
     public SystemAdmin() {
     }
@@ -51,28 +56,28 @@ public class SystemAdmin {
         this.systemAdminId = systemAdminId;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<LabTestType> getLabTestTypeList() {
-        return labTestTypeList;
-    }
-
-    public void setLabTestTypeList(List<LabTestType> labTestTypeList) {
-        this.labTestTypeList = labTestTypeList;
-    }
-
-    public List<Drug> getDrugList() {
-        return drugList;
-    }
-
-    public void setDrugList(List<Drug> drugList) {
-        this.drugList = drugList;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+    //@JsonManagedReference
+//    public List<LabTestType> getLabTestTypeList() {
+//        return labTestTypeList;
+//    }
+//
+//    public void setLabTestTypeList(List<LabTestType> labTestTypeList) {
+//        this.labTestTypeList = labTestTypeList;
+//    }
+//    // @JsonManagedReference
+//    public List<Drug> getDrugList() {
+//        return drugList;
+//    }
+//
+//    public void setDrugList(List<Drug> drugList) {
+//        this.drugList = drugList;
+//    }
 }
 

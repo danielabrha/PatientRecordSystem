@@ -1,6 +1,9 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -17,25 +20,25 @@ public class Symptom {
     @Column(name = "symptomName")
     private String symptomName;
 
+//    @JsonIgnoreProperties("symptomList")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "visitId", referencedColumnName = "Id")
     private Visit visit;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
-    private Doctor doctor;
+//    @JsonIgnoreProperties("symptomList")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
+//    private Doctor doctor;
 
-    public Symptom(int symptomId, String symptomName, Visit visit, Doctor doctor) {
+    public Symptom(int symptomId, String symptomName, Visit visit) {
         this.symptomId = symptomId;
         this.symptomName = symptomName;
         this.visit = visit;
-        this.doctor = doctor;
     }
 
-    public Symptom(String symptomName, Visit visit, Doctor doctor) {
+    public Symptom(String symptomName, Visit visit) {
         this.symptomName = symptomName;
         this.visit = visit;
-        this.doctor = doctor;
     }
 
     public Symptom() {
@@ -56,7 +59,7 @@ public class Symptom {
     public void setSymptomName(String symptomName) {
         this.symptomName = symptomName;
     }
-
+  //  @JsonIgnore
     public Visit getVisit() {
         return visit;
     }
@@ -64,12 +67,12 @@ public class Symptom {
     public void setVisit(Visit visit) {
         this.visit = visit;
     }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
+  //  @JsonIgnore
+//    public Doctor getDoctor() {
+//        return doctor;
+//    }
+//
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//    }
 }

@@ -1,7 +1,8 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -15,31 +16,33 @@ public class DrugOrder {
     @Column(name = "amount")
     private int amount;
 
+//    @JsonIdentityInfoProperties("drugOrderList")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "visitId", referencedColumnName = "Id")
     private Visit visit;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
-    private Doctor doctor;
+//    @JsonIdentityInfoProperties("drugOrderList")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
+//    private Doctor doctor;
 
-
+//    @JsonIdentityInfoProperties("drugOrderList")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "drugId", referencedColumnName = "Id")
     private Drug drug;
 
-    public DrugOrder(int drugOrderId, int amount, Visit visit, Doctor doctor, Drug drug) {
+    public DrugOrder(int drugOrderId, int amount, Visit visit, Drug drug) {
         this.drugOrderId = drugOrderId;
         this.amount = amount;
         this.visit = visit;
-        this.doctor = doctor;
+       // this.doctor = doctor;
         this.drug = drug;
     }
 
-    public DrugOrder(int amount, Visit visit, Doctor doctor, Drug drug) {
+    public DrugOrder(int amount, Visit visit, Drug drug) {
         this.amount = amount;
         this.visit = visit;
-        this.doctor = doctor;
+//        this.doctor = doctor;
         this.drug = drug;
     }
 
@@ -61,7 +64,7 @@ public class DrugOrder {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
+  //  @JsonIdentityInfo
     public Visit getVisit() {
         return visit;
     }
@@ -69,15 +72,15 @@ public class DrugOrder {
     public void setVisit(Visit visit) {
         this.visit = visit;
     }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
+   // @JsonIdentityInfo
+//    public Doctor getDoctor() {
+//        return doctor;
+//    }
+//
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//    }
+   // @JsonIdentityInfo
     public Drug getDrug() {
         return drug;
     }

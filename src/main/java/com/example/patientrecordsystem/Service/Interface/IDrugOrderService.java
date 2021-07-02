@@ -14,11 +14,11 @@ public interface IDrugOrderService {
     //	public List<DrugOrder> findAll(int entryid);
     public List<DrugOrder> findAll(String status);
     public DrugOrder findById(int id);
-    public DrugOrder update(DrugOrder drugOrder, int drugId, int doctorId, int visitId);
+    public DrugOrder update(DrugOrder drugOrder, int drugId,  int visitId);
     public void deleteById(int id);
     public void delete(DrugOrder drugOrder);
     public void deleteAll(Iterable<DrugOrder> drugOrders);
     public void deleteAll();
-    public DrugOrder create(DrugOrder drugOrder, int drugId, int doctorId, int visitId);
+    public DrugOrder create(DrugOrder drugOrder, int drugId, int visitId);
     public List<DrugOrder> createAll(List<DrugOrder> listDrugOrder);
 }

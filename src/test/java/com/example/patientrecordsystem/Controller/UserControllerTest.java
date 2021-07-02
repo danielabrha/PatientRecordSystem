@@ -48,12 +48,10 @@ class UserControllerTest {
     private IUserRepository userRepository;
 
     User user = new User("Weldmicheal","Berhanu", "Hailu", "male", "michock.mit@gmail.com",
-            "+12345",  "MIU", "12062001", "username", "password", roleList, doctor, receptionst, laboratorist,
-            systemAdmin);
+            "+12345",  "MIU", "12062001", "username", "password", roleList);
 
     User user1 = new User("Weld","Berh", "Hailu", "male", "michock.mit@gmail.com",
-            "+12345",  "MIU", "12062001", "username", "password", roleList, doctor, receptionst, laboratorist,
-            systemAdmin);
+            "+12345",  "MIU", "12062001", "username", "password", roleList);
 
     @BeforeEach
     void setUp() throws Exception{
@@ -81,7 +79,7 @@ class UserControllerTest {
 
     @Test
     public void updateUserTest(){
-        Mockito.when(userRepository.)
+        //Mockito.when(userRepository.)
     }
 
 }

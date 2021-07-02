@@ -1,7 +1,6 @@
 package com.example.patientrecordsystem.Service.Implementation;
 
 
-
 import com.example.patientrecordsystem.Domain.Entity.LabTestType;
 import com.example.patientrecordsystem.Domain.Entity.SystemAdmin;
 import com.example.patientrecordsystem.Repository.ILabTestTypeRepository;
@@ -18,14 +17,11 @@ public class LabTestTypeService implements ILabTestTypeService {
     private LabTestType labTestType;
     @Autowired
     private ILabTestTypeRepository _labTestTypeRepository;
-    @Autowired
-    private SystemAdminService _systemAdminService;
 
     private List<LabTestType> labTestTypeList;
 
     public LabTestTypeService() {
         labTestTypeList = new ArrayList<>();
-        _systemAdminService = new SystemAdminService();
     }
 
 
@@ -41,21 +37,25 @@ public class LabTestTypeService implements ILabTestTypeService {
     }
 
 
-
     @Override
     public LabTestType findById(int id) {
-        return _labTestTypeRepository.findById(id).orElse(null);
+        LabTestType labTesttype = _labTestTypeRepository.findById(id).orElse(null);
+        return labTesttype;
     }
 
     @Override
-    public LabTestType update(LabTestType labTestType, int systemAdminId) {
+    public LabTestType update(LabTestType labTestType) {
         LabTestType exisitinglabTestType = _labTestTypeRepository
                 .findById(labTestType.getLabTestTypeId())
                 .orElse(null);
         if (exisitinglabTestType != null) {
-            exisitinglabTestType= toLabTestType(labTestType);
-            exisitinglabTestType.setSystemAdmin(getSystemAdmin(systemAdminId));
-            exisitinglabTestType.setLabTestTypeId(labTestType.getLabTestTypeId());
+           // exisitinglabTestType = toLabTestType(labTestType);
+
+            exisitinglabTestType.setLabTestCode(labTestType.getLabTestCode());
+            exisitinglabTestType.setLabTestName(labTestType.getLabTestName());
+
+            //  exisitinglabTestType.setSystemAdmin(getSystemAdmin(systemAdminId));
+            //exisitinglabTestType.setLabTestTypeId(labTestType.getLabTestTypeId());
             return _labTestTypeRepository.save(exisitinglabTestType);
         }
         return null;
@@ -85,34 +85,38 @@ public class LabTestTypeService implements ILabTestTypeService {
 
 
     @Override
-    public LabTestType create(LabTestType labTestType, int systemAdminId) {
-        LabTestType labTestType1 = toLabTestType(labTestType);
-        labTestType1.setSystemAdmin(getSystemAdmin(systemAdminId));
-        return _labTestTypeRepository.save(labTestType1);
+    public LabTestType create(LabTestType labTestType) {
+//        LabTestType labTestType1 = toLabTestType(labTestType);
+//        labTestType.setLabTestCode(labTestType1.getLabTestCode());
+//        labTestType.setLabTestName(labTestType1.getLabTestName());
+        //labTestType1.setSystemAdmin(getSystemAdmin(systemAdminId));
+        return _labTestTypeRepository.save(labTestType);
     }
 
-    private SystemAdmin getSystemAdmin(int id) {
-        return _systemAdminService.findById(id);
-    }
+    // private SystemAdmin getSystemAdmin(int id) {
+//        return _systemAdminService.findById(id);
+//    }
 
     @Override
-    public List<LabTestType> createAll(List<LabTestType> listLabTestType, int systemAdminId) {
+    public List<LabTestType> createAll(List<LabTestType> listLabTestType) {
         List<LabTestType> labTestTypeList = new ArrayList<>();
 
         listLabTestType.forEach(labTestType1 -> {
             LabTestType labTestType = new LabTestType();
-            labTestType = toLabTestType(labTestType1);
-            labTestType.setSystemAdmin(getSystemAdmin(systemAdminId));
+            // labTestType = toLabTestType(labTestType1);
+            labTestType.setLabTestCode(labTestType1.getLabTestCode());
+            labTestType.setLabTestName(labTestType1.getLabTestName());
+            // labTestType.setSystemAdmin(getSystemAdmin(systemAdminId));
             labTestTypeList.add(labTestType);
         });
         return _labTestTypeRepository.saveAll(labTestTypeList);
     }
 
-    private LabTestType toLabTestType(LabTestType labTestType) {
-
-        labTestType.setLabTestCode(labTestType.getLabTestCode());
-        labTestType.setLabTestName(labTestType.getLabTestName());
-        return labTestType;
-    }
+//    private LabTestType toLabTestType(LabTestType labTestType) {
+//
+//        labTestType.setLabTestCode(labTestType.getLabTestCode());
+//        labTestType.setLabTestName(labTestType.getLabTestName());
+//        return labTestType;
+//    }
 }
 

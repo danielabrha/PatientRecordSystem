@@ -1,7 +1,9 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -19,25 +21,27 @@ public class LabTestType {
     @Column(name = "labTestCode")
     private String labTestCode;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
-    private SystemAdmin systemAdmin;
-    @JsonIgnore
+//    @JsonIgnoreProperties("labTestTypeList")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
+//    private SystemAdmin systemAdmin;
+  //  @JsonManagedReference
+//    @JsonIgnoreProperties("labTestType")
     @OneToMany(mappedBy = "labTestType")
     private List<LabOrder> labOrderList;
 
-    public LabTestType(int labTestTypeId, String labTestName, String labTestCode, SystemAdmin systemAdmin, List<LabOrder> labOrderList) {
+    public LabTestType(int labTestTypeId, String labTestName, String labTestCode, List<LabOrder> labOrderList) {
         this.labTestTypeId = labTestTypeId;
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
-        this.systemAdmin = systemAdmin;
+       // this.systemAdmin = systemAdmin;
         this.labOrderList = labOrderList;
     }
 
-    public LabTestType(String labTestName, String labTestCode, SystemAdmin systemAdmin, List<LabOrder> labOrderList) {
+    public LabTestType(String labTestName, String labTestCode, List<LabOrder> labOrderList) {
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
-        this.systemAdmin = systemAdmin;
+       // this.systemAdmin = systemAdmin;
         this.labOrderList = labOrderList;
     }
 
@@ -67,15 +71,15 @@ public class LabTestType {
     public void setLabTestCode(String labTestCode) {
         this.labTestCode = labTestCode;
     }
-
-    public SystemAdmin getSystemAdmin() {
-        return systemAdmin;
-    }
-
-    public void setSystemAdmin(SystemAdmin systemAdmin) {
-        this.systemAdmin = systemAdmin;
-    }
-
+  //  @JsonIgnore
+//    public SystemAdmin getSystemAdmin() {
+//        return systemAdmin;
+//    }
+//
+//    public void setSystemAdmin(SystemAdmin systemAdmin) {
+//        this.systemAdmin = systemAdmin;
+//    }
+    //@JsonManagedReference
     public List<LabOrder> getLabOrderList() {
         return labOrderList;
     }

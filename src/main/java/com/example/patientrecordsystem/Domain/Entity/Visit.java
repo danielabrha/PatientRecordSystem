@@ -1,8 +1,10 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -20,43 +22,44 @@ public class Visit {
 
     @Column(name = "visitDate")
     private Date visitDate;
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "receptionstId", referencedColumnName = "Id")
-    private Receptionst receptionst;
 
+//    @JsonIgnoreProperties("listVisit")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "receptionstId", referencedColumnName = "Id")
+//    private Receptionst receptionst;
+
+//    @JsonIgnoreProperties("visitList")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patientId", referencedColumnName = "Id")
     private Patient patient;
-
-    @JsonIgnore
+  //  @JsonManagedReference
+//    @JsonIgnoreProperties("visit")
     @OneToMany(mappedBy = "visit")
-    private List<Symptom> symptomList = new ArrayList<>();
-
-    @JsonIgnore
+    private List<Symptom> symptomList ;
+  //  @JsonManagedReference
+//    @JsonIgnoreProperties("visit")
     @OneToMany(mappedBy = "visit")
-    private List<LabOrder> labOrderList = new ArrayList<>();
-
-
-    @JsonIgnore
+    private List<LabOrder> labOrderList ;
+ //   @JsonManagedReference
+//    @JsonIgnoreProperties("visit")
     @OneToMany(mappedBy = "visit")
-    private List<DrugOrder> drugOrderList = new ArrayList<>();
+    private List<DrugOrder> drugOrderList;
 
-    public Visit(int visitId, Date visitDate, Receptionst receptionst, Patient patient,
+    public Visit(int visitId, Date visitDate, Patient patient,
                  List<Symptom> symptomList, List<LabOrder> labOrderList, List<DrugOrder> drugOrderList) {
         this.visitId = visitId;
         this.visitDate = visitDate;
-        this.receptionst = receptionst;
+     //   this.receptionst = receptionst;
         this.patient = patient;
         this.symptomList = symptomList;
         this.labOrderList = labOrderList;
         this.drugOrderList = drugOrderList;
     }
 
-    public Visit(Date visitDate, Receptionst receptionst, Patient patient,
+    public Visit(Date visitDate, Patient patient,
                  List<Symptom> symptomList, List<LabOrder> labOrderList, List<DrugOrder> drugOrderList) {
         this.visitDate = visitDate;
-        this.receptionst = receptionst;
+      //  this.receptionst = receptionst;
         this.patient = patient;
         this.symptomList = symptomList;
         this.labOrderList = labOrderList;
@@ -81,15 +84,15 @@ public class Visit {
     public void setVisitDate(Date visitDate) {
         this.visitDate = visitDate;
     }
-
-    public Receptionst getReceptionst() {
-        return receptionst;
-    }
-
-    public void setReceptionst(Receptionst receptionst) {
-        this.receptionst = receptionst;
-    }
-
+  //  @JsonIgnore
+//    public Receptionst getReceptionst() {
+//        return receptionst;
+//    }
+//
+//    public void setReceptionst(Receptionst receptionst) {
+//        this.receptionst = receptionst;
+//    }
+   // @JsonIgnore
     public Patient getPatient() {
         return patient;
     }
@@ -97,7 +100,7 @@ public class Visit {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
+    //@JsonManagedReference
     public List<Symptom> getSymptomList() {
         return symptomList;
     }
@@ -105,7 +108,7 @@ public class Visit {
     public void setSymptomList(List<Symptom> symptomList) {
         this.symptomList = symptomList;
     }
-
+   // @JsonManagedReference
     public List<LabOrder> getLabOrderList() {
         return labOrderList;
     }
@@ -113,7 +116,7 @@ public class Visit {
     public void setLabOrderList(List<LabOrder> labOrderList) {
         this.labOrderList = labOrderList;
     }
-
+  // @JsonManagedReference
     public List<DrugOrder> getDrugOrderList() {
         return drugOrderList;
     }

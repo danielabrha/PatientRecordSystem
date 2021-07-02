@@ -1,8 +1,8 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -18,23 +18,24 @@ public class Laboratorist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int laboratoristId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "Id")
-    private User user;
+    //    @JsonIdentityInfoProperties("laboratorist")
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "userId", referencedColumnName = "Id")
+//    private User user;
+   //@JsonManagedReference
+//    @JsonIdentityInfoProperties("laboratorist")
+//    @OneToMany(mappedBy = "laboratorist") // to be copied from LabResult class
+//    private List<LabResult> labResultList;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "laboratorist") // to be copied from LabResult class
-    private List<LabResult> labResultList = new ArrayList<>();
-
-    public Laboratorist(int laboratoristId, User user, List<LabResult> labResultList) {
+    public Laboratorist(int laboratoristId) {
         this.laboratoristId = laboratoristId;
-        this.user = user;
-        this.labResultList = labResultList;
+//        this.user = user;
+//        this.labResultList = labResultList;
     }
 
-    public Laboratorist(User user, List<LabResult> labResultList) {
-        this.user = user;
-        this.labResultList = labResultList;
+    public Laboratorist(User user) {
+//        this.user = user;
+//        this.labResultList = labResultList;
     }
 
     public Laboratorist() {
@@ -48,19 +49,21 @@ public class Laboratorist {
         this.laboratoristId = laboratoristId;
     }
 
-    public User getUser() {
-        return user;
-    }
+    //  @JsonIdentityInfo
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<LabResult> getLabResultList() {
-        return labResultList;
-    }
-
-    public void setLabResultList(List<LabResult> labResultList) {
-        this.labResultList = labResultList;
-    }
+    //  @JsonManagedReference
+//    public List<LabResult> getLabResultList() {
+//        return labResultList;
+//    }
+//
+//    public void setLabResultList(List<LabResult> labResultList) {
+//        this.labResultList = labResultList;
+//    }
 }

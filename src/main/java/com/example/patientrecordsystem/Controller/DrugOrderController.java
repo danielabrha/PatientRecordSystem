@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class DrugOrderController {
 
@@ -42,9 +43,8 @@ public class DrugOrderController {
         this._drugOrderList = new ArrayList<>();
     
     }
-    @PostMapping("DrugOrder/post/data/{visitId}/{doctorId}/{drugId}")
+    @PostMapping("DrugOrder/post/data/{visitId}/{drugId}")
     public DrugOrder postDurg(@PathVariable(value = "visitId") int visitId,
-                              @PathVariable(value = "doctorId") int doctorId,
                               @PathVariable(value = "drugId") int drugId,
                               @RequestBody DrugOrder drugOrder){
         // send email notification to patient;
@@ -82,20 +82,19 @@ public class DrugOrderController {
         message.setText(body);
         mailSender.send(message);
 
-        return _drugOrderService.create(drugOrder,drugId,doctorId,visitId);    }
+        return _drugOrderService.create(drugOrder,drugId,visitId);    }
 
     @PostMapping("DrugOrder/post/All/data/")
     public List<DrugOrder> postDrugOrder(@RequestBody List<DrugOrder> drugOrderList){
         return  _drugOrderService.createAll(drugOrderList);
 
     }
-    @PutMapping("DrugOrder/update/{visitId}/{doctorId}/{drugId}")
+    @PutMapping("DrugOrder/update/{visitId}/{drugId}")
     public DrugOrder updateDrugOrder(@RequestBody DrugOrder drugOrder,
                                      @PathVariable(value = "visitId") int visitId,
-                                     @PathVariable(value = "doctorId") int doctorId,
                                      @PathVariable(value = "drugId") int drugId){
 
-        return _drugOrderService.update(drugOrder,drugId,doctorId,visitId);
+        return _drugOrderService.update(drugOrder,drugId,visitId);
 
     }
     @GetMapping("/DrugOrder/get/data/{id}")

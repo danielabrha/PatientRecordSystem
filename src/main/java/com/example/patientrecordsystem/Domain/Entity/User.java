@@ -1,7 +1,9 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -22,58 +24,67 @@ public class User extends Person {
     private String userName;
     @Column(name = "password")
     private String password;
+
+//    @JsonIgnoreProperties("userList")
     @ManyToMany
     @JoinTable(name = "userRoles",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "roleId"))
-    private List<Role> roleList = new ArrayList<>();
-    @JsonIgnore
-    @OneToOne(mappedBy = "user")
-    private Doctor doctor;
+    private List<Role> roleList;
+ //   @JsonIgnore
+   // @JsonIgnoreProperties("user")
+//    @OneToOne(mappedBy = "user")
+//    private Doctor doctor;
+//   // @JsonIgnore
+////    @JsonIgnoreProperties("user")
+//    @OneToOne(mappedBy = "user")
+//    private Receptionst receptionst;
+//  //  @JsonIgnore
+////    @JsonIgnoreProperties("user")
+//    @OneToOne(mappedBy = "user")
+//    private Laboratorist laboratorist;
+//
+////    @JsonIgnoreProperties("user")
+//   // @JsonIgnore
+//    @OneToOne(mappedBy = "user")
+//    private SystemAdmin systemAdmin;
 
-    @OneToOne(mappedBy = "user")
-    private Receptionst receptionst;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "user")
-    private Laboratorist laboratorist;
-    @JsonIgnore
-    @OneToOne(mappedBy = "user")
-    private SystemAdmin systemAdmin;
-
-    public User(String fName, String lName, String mName, String gender, String email, String phoneNumber, String address, String dateOfBirth, int userId, String userName,String password, List<Role> roleList, Doctor doctor, Receptionst receptionst, Laboratorist laboratorist, SystemAdmin systemAdmin) {
+    public User(String fName, String lName, String mName, String gender, String email,
+                String phoneNumber, String address, String dateOfBirth, int userId,
+                String userName,String password, List<Role> roleList
+               ) {
         super(fName, lName, mName, gender, email, phoneNumber, address, dateOfBirth);
         this.userId = userId;
         this.userName = userName;
         this.password=password;
         this.roleList = roleList;
-        this.doctor = doctor;
-        this.receptionst = receptionst;
-        this.laboratorist = laboratorist;
-        this.systemAdmin = systemAdmin;
+//        this.doctor = doctor;
+//        this.receptionst = receptionst;
+//        this.laboratorist = laboratorist;
+//        this.systemAdmin = systemAdmin;
     }
 
-    public User(int userId, String userName,String password, List<Role> roleList, Doctor doctor, Receptionst receptionst, Laboratorist laboratorist, SystemAdmin systemAdmin) {
+    public User(int userId, String userName,String password, List<Role> roleList) {
         this.userId = userId;
         this.userName = userName;
         this.password=password;
         this.roleList = roleList;
-        this.doctor = doctor;
-        this.receptionst = receptionst;
-        this.laboratorist = laboratorist;
-        this.systemAdmin = systemAdmin;
+//        this.doctor = doctor;
+//        this.receptionst = receptionst;
+//        this.laboratorist = laboratorist;
+//        this.systemAdmin = systemAdmin;
     }
 
     public User(String fName, String lName, String mName, String gender, String email,
-                String phoneNumber, String address, String dateOfBirth, String userName,String password, List<Role> roleList, Doctor doctor, Receptionst receptionst, Laboratorist laboratorist, SystemAdmin systemAdmin) {
+                String phoneNumber, String address, String dateOfBirth, String userName,String password, List<Role> roleList) {
         super(fName, lName, mName, gender, email, phoneNumber, address, dateOfBirth);
         this.userName = userName;
         this.password=password;
         this.roleList = roleList;
-        this.doctor = doctor;
-        this.receptionst = receptionst;
-        this.laboratorist = laboratorist;
-        this.systemAdmin = systemAdmin;
+//        this.doctor = doctor;
+//        this.receptionst = receptionst;
+//        this.laboratorist = laboratorist;
+//        this.systemAdmin = systemAdmin;
     }
 
     public User(String userName,String password, List<Role> roleList,
@@ -81,10 +92,7 @@ public class User extends Person {
         this.userName = userName;
         this.password=password;
         this.roleList = roleList;
-        this.doctor = doctor;
-        this.receptionst = receptionst;
-        this.laboratorist = laboratorist;
-        this.systemAdmin = systemAdmin;
+
     }
 
 //    public User(String fName, String lName, String mName, String gender, String email, String phoneNumber,
@@ -121,7 +129,7 @@ public class User extends Person {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    //@JsonManagedReference
     public List<Role> getRoleList() {
         return roleList;
     }
@@ -129,36 +137,36 @@ public class User extends Person {
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
-    public Receptionst getReceptionst() {
-        return receptionst;
-    }
-
-    public void setReceptionst(Receptionst receptionst) {
-        this.receptionst = receptionst;
-    }
-
-    public Laboratorist getLaboratorist() {
-        return laboratorist;
-    }
-
-    public void setLaboratorist(Laboratorist laboratorist) {
-        this.laboratorist = laboratorist;
-    }
-
-    public SystemAdmin getSystemAdmin() {
-        return systemAdmin;
-    }
-
-    public void setSystemAdmin(SystemAdmin systemAdmin) {
-        this.systemAdmin = systemAdmin;
-    }
+  //  @JsonIgnore
+//    public Doctor getDoctor() {
+//        return doctor;
+//    }
+//
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//    }
+//   // @JsonIgnore
+//    public Receptionst getReceptionst() {
+//        return receptionst;
+//    }
+//
+//    public void setReceptionst(Receptionst receptionst) {
+//        this.receptionst = receptionst;
+//    }
+//  // @JsonIgnore
+//    public Laboratorist getLaboratorist() {
+//        return laboratorist;
+//    }
+//
+//    public void setLaboratorist(Laboratorist laboratorist) {
+//        this.laboratorist = laboratorist;
+//    }
+//   // @JsonIgnore
+//    public SystemAdmin getSystemAdmin() {
+//        return systemAdmin;
+//    }
+//
+//    public void setSystemAdmin(SystemAdmin systemAdmin) {
+//        this.systemAdmin = systemAdmin;
+//    }
 }

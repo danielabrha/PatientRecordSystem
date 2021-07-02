@@ -17,6 +17,6 @@ public interface IVisitService {
     public void delete(Visit visit);
     public void deleteAll(Iterable<Visit> visits);
     public void deleteAll();
-    public Visit create(int patientId, int receptionId);
-    public List<Visit> createAll(List<Visit> listVisit, int receptionistId, int patientId);
+    public Visit create(int patientId);
+    public List<Visit> createAll(List<Visit> listVisit, int patientId);
 }

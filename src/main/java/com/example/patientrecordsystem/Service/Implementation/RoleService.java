@@ -85,16 +85,16 @@ public class RoleService implements IRoleService {
 
     @Override
     public List<Role> createAll(List<Role> roleList) {
-        List<Role> _listRole = new ArrayList<>();
-        roleList.forEach(roleVM -> {
-            _listRole.add(toRole(roleVM));
-        });
-        return _roleRepository.saveAll(_listRole);
+//        List<Role> _listRole = new ArrayList<>();
+//        roleList.forEach(roleVM -> {
+//            _listRole.add(r);
+//        });
+        return _roleRepository.saveAll(roleList);
 
     }
 
-    public Role toRole(Role role) {
-        role.setRoleName(role.getRoleName());
-        return role;
-    }
+//    public Role toRole(Role role) {
+//        role.setRoleName(role.getRoleName());
+//        return role;
+//    }
 }

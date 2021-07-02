@@ -25,21 +25,19 @@ public class VisitController {
         this._visitList = new ArrayList<>();
     }
 
-    @PostMapping("Visit/post/data/{receptionistId}/{patientId}")
+    @PostMapping("Visit/post/data/{patientId}")
     public Visit postVisit(@RequestBody Visit visit,
-                           @PathVariable(value = "receptionistId") int receptionistId,
                            @PathVariable (value = "patientId") int patientId
 
     ) {
-        return _visitService.create( receptionistId, patientId);
+        return _visitService.create(  patientId);
 
     }
 
-    @PostMapping("Visit/post/All/data/{receptionistId}/{patientId}")
+    @PostMapping("Visit/post/All/data/{patientId}")
     public List<Visit> postVisits(@RequestBody List<Visit> visitList,
-                                  @PathVariable (value = "receptionistId") int receptionistId,
                                   @PathVariable (value = "patientId") int patientId) {
-        return  _visitService.createAll(visitList, receptionistId, patientId);
+        return  _visitService.createAll(visitList, patientId);
     }
 
     @GetMapping("Visit/get/data/{id}")

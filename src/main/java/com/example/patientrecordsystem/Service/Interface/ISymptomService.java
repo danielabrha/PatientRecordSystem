@@ -17,7 +17,6 @@ public interface ISymptomService {
     public void delete(Symptom symptom);
     public void deleteAll(Iterable<Symptom> symptoms);
     public void deleteAll();
-    public Symptom create(Symptom symptom, int doctorId, int visitId);
-    public List<Symptom> createAll(List<Symptom> listSymptom, int visitId,
-                                   int doctorId);
+    public Symptom create(Symptom symptom, int visitId);
+    public List<Symptom> createAll(List<Symptom> listSymptom, int visitId);
 }

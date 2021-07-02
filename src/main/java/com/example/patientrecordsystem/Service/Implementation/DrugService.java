@@ -20,12 +20,9 @@ public class DrugService implements IDrugService {
 
 
     List<Drug> drugList;
-    @Autowired
-    private SystemAdminService _systemAdminService;
 
     public DrugService() {
         drugList = new ArrayList<>();
-        _systemAdminService = new SystemAdminService();
     }
 
 
@@ -45,10 +42,10 @@ public class DrugService implements IDrugService {
     }
 
     @Override
-    public Drug update(Drug drug, int systemAdminId) {
+    public Drug update(Drug drug) {
         Drug previousDrug = _drugRepository.findById(drug.getDrugId()).orElse(null);
         if (previousDrug != null) {
-            previousDrug = toDrug(drug,systemAdminId);
+
             previousDrug.setDrugId(drug.getDrugId());
 
         }
@@ -83,27 +80,27 @@ public class DrugService implements IDrugService {
     }
 
     @Override
-    public Drug create(Drug drug1, int systemAdminId) {
-        Drug drug = toDrug(drug1,systemAdminId);
+    public Drug create(Drug drug) {
+
         return _drugRepository.save(drug);
     }
 
 
 
     @Override
-    public List<Drug> createAll(List<Drug> listDrug, int systemAdminId) {
+    public List<Drug> createAll(List<Drug> listDrug) {
         Drug drug = new Drug();
         listDrug.forEach(roleVM -> {
 
-            this.drugList.add(toDrug(roleVM,systemAdminId));
+            this.drugList.add(roleVM);
         });
         return _drugRepository.saveAll(this.drugList);
 
     }
 
-    public Drug toDrug(Drug drug,int systemAdminId) {
-        drug.setSystemAdmin(_systemAdminService.findById(systemAdminId));
-        return drug;
-    }
+//    public Drug toDrug(Drug drug) {
+//       // drug.setSystemAdmin(_systemAdminService.findById(systemAdminId));
+//        return drug;
+//    }
 }
 

@@ -2,7 +2,9 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,10 +19,10 @@ public class Role {
     private int roleId;
     @Column(name = "roleName")
     private String roleName;
-
-    @JsonIgnore
+   // @JsonManagedReference
+//    @JsonIgnoreProperties("roleList")
     @ManyToMany(mappedBy ="roleList" )
-    private List<User> userList =new ArrayList<>();
+    private List<User> userList;
 
     public Role(int roleId, String roleName, List<User> userList) {
         this.roleId = roleId;
@@ -50,7 +52,7 @@ public class Role {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-
+   // @JsonManagedReference
     public List<User> getUserList() {
         return userList;
     }

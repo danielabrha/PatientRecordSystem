@@ -63,12 +63,11 @@ class PatientRecordSystemApplicationTests {
     private IUserRepository userRepository;
 
     User user = new User("Weldmicheal","Berhanu", "Hailu", "male", "michock.mit@gmail.com",
-            "+12345",  "MIU", "12062001", "username", "password", roleList, doctor, receptionst, laboratorist,
-            systemAdmin);
+            "+12345",  "MIU", "12062001", "username", "password", roleList);
 
     User user1 = new User("Weld","Berh", "Hailu", "male", "michock.mit@gmail.com",
-            "+12345",  "MIU", "12062001", "username", "password", roleList, doctor, receptionst, laboratorist,
-            systemAdmin);
+            "+12345",  "MIU", "12062001", "username", "password", roleList
+            );
 
 
     //User/post/data

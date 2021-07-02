@@ -51,8 +51,7 @@ public class IUserRepositoryTest {
     }
 
     User user = new User("Weldmicheal", "Berhanu", "Hailu", "male", "michock.mit@gmail.com",
-            "+12345", "MIU", "12062001", "username", "password", roleList, doctor, receptionst, laboratorist,
-            systemAdmin);
+            "+12345", "MIU", "12062001", "username", "password", roleList);
 
     @Test
     final void getUserTest() {

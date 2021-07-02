@@ -5,6 +5,7 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.User;
 import com.example.patientrecordsystem.Service.Implementation.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,13 +27,15 @@ public class UserController {
     }
 
 
-    @PostMapping("User/post/data")
+    @PostMapping(value="/User/post/data",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public User postUser(@RequestBody User userVM){
         return _userService.create(userVM);
 
     }
 
-    @PostMapping("User/post/All/data")
+    @PostMapping("/User/post/All/data")
     public List<User> postUser(@RequestBody List<User> userVMList){
         return  _userService.createAll(userVMList);
 

@@ -2,6 +2,9 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -17,25 +20,27 @@ public class LabResult {
     @Column(name = "labResultName")
     private String labResultName;
 
+//    @JsonIgnoreProperties("labResult")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "labOrderId", referencedColumnName = "Id")
     private LabOrder labOrder;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "laboratoristId", referencedColumnName = "Id")
-    private Laboratorist laboratorist;
+//    @JsonIgnoreProperties("labResultList")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "laboratoristId", referencedColumnName = "Id")
+//    private Laboratorist laboratorist;
 
-    public LabResult(int labResultId, String labResultName, LabOrder labOrder, Laboratorist laboratorist) {
+    public LabResult(int labResultId, String labResultName, LabOrder labOrder) {
         this.labResultId = labResultId;
         this.labResultName = labResultName;
         this.labOrder = labOrder;
-        this.laboratorist = laboratorist;
+       // this.laboratorist = laboratorist;
     }
 
-    public LabResult(String labResultName, LabOrder labOrder, Laboratorist laboratorist) {
+    public LabResult(String labResultName, LabOrder labOrder) {
         this.labResultName = labResultName;
         this.labOrder = labOrder;
-        this.laboratorist = laboratorist;
+      // this.laboratorist = laboratorist;
     }
 
     public LabResult() {
@@ -56,7 +61,7 @@ public class LabResult {
     public void setLabResultName(String labResultName) {
         this.labResultName = labResultName;
     }
-
+  //  @JsonIgnore
     public LabOrder getLabOrder() {
         return labOrder;
     }
@@ -64,12 +69,12 @@ public class LabResult {
     public void setLabOrder(LabOrder labOrder) {
         this.labOrder = labOrder;
     }
-
-    public Laboratorist getLaboratorist() {
-        return laboratorist;
-    }
-
-    public void setLaboratorist(Laboratorist laboratorist) {
-        this.laboratorist = laboratorist;
-    }
+   // @JsonIgnore
+//    public Laboratorist getLaboratorist() {
+//        return laboratorist;
+//    }
+//
+//    public void setLaboratorist(Laboratorist laboratorist) {
+//        this.laboratorist = laboratorist;
+//    }
 }

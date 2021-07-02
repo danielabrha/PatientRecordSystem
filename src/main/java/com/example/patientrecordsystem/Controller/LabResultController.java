@@ -24,22 +24,20 @@ public class LabResultController {
         this._labResultList = new ArrayList<>();
     }
 
-    @PostMapping("/LabResult/post/data/{labOrderId}/{laboratoristId}")
+    @PostMapping("/LabResult/post/data/{labOrderId}")
     public LabResult postLabResult(@RequestBody LabResult LabResultVM,
-                                   @PathVariable(value = "labOrderId") int labOrderId,
-                                   @PathVariable (value = "laboratoristId") int laboratoristId
+                                   @PathVariable(value = "labOrderId") int labOrderId
 
 
     ) {
-        return _labResultService.create(LabResultVM, labOrderId, laboratoristId);
+        return _labResultService.create(LabResultVM, labOrderId);
 
     }
 
-    @PostMapping("/LabResult/post/All/data/{}/{laboratoristId}/{labTestTypeId}")
+    @PostMapping("/LabResult/post/All/data/{}/{labTestTypeId}")
     public List<LabResult> postLabResults(@RequestBody List<LabResult> labResultList,
-                                          @PathVariable (value = "labOrderId") int labOrderId,
-                                          @PathVariable (value = "laboratoristId") int laboratoristId) {
-        return  _labResultService.createAll(labResultList, labOrderId, laboratoristId);
+                                          @PathVariable (value = "labOrderId") int labOrderId) {
+        return  _labResultService.createAll(labResultList, labOrderId);
     }
 
     @GetMapping("/LabResult/get/data/{id}")

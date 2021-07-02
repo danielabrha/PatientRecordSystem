@@ -17,8 +17,7 @@ public interface ILabResultService {
     public void delete(LabResult labResult);
     public void deleteAll(Iterable<LabResult> labResults);
     public void deleteAll();
-    public LabResult create(LabResult labResult, int labOrderId, int laboratoristId);
-    public List<LabResult> createAll(List<LabResult> listLabResult, int labOrderId,
-                                     int laboratoristId);
+    public LabResult create(LabResult labResult, int labOrderId);
+    public List<LabResult> createAll(List<LabResult> listLabResult, int labOrderId);
 }
 

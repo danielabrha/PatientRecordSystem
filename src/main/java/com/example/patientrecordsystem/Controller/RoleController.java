@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class RoleController {
     @Autowired
@@ -24,14 +24,14 @@ public class RoleController {
         this._roleServiceList = new ArrayList<>();
         
     }
-    @CrossOrigin(origins="http://localhost:4200")
+
     @PostMapping("Role/post/data")
     public Role postRole(@RequestBody Role role){
         return _roleService.create(role);
 
     }
 
-    @PostMapping("Role/post/All/data/")
+    @PostMapping("Role/post/All/data")
     public List<Role> postRole(@RequestBody List<Role> roleList){
         return  _roleService.createAll(roleList);
 

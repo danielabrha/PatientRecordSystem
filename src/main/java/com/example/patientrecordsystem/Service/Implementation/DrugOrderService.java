@@ -26,13 +26,10 @@ public class DrugOrderService implements IDrugOrderService {
     @Autowired
     private VisitService _visitService;
     @Autowired
-    private DoctorService _doctorService;
-    @Autowired
     private DrugService _drugService;
 
     public DrugOrderService() {
         _visitService = new VisitService();
-        _doctorService = new DoctorService();
         _drugService = new DrugService();
     }
 
@@ -52,10 +49,14 @@ public class DrugOrderService implements IDrugOrderService {
     }
 
     @Override
-    public DrugOrder update(DrugOrder drugOrder1, int drugId, int doctorId, int visitId) {
+    public DrugOrder update(DrugOrder drugOrder1, int drugId, int visitId) {
         DrugOrder drugOrder = _drugOrderRepository.findById(drugOrder1.getDrugOrderId()).orElse(null);
         if (drugOrder != null) {
-            drugOrder = toDrugOrder(drugOrder, drugId, doctorId, visitId);
+            Visit visit = _visitService.findById(visitId);
+            Drug drug = _drugService.findById(drugId);
+            drugOrder.setDrug(drug);
+            //  drugOrder1.setDoctor(doctor);
+            drugOrder.setVisit(visit);
             return _drugOrderRepository.save(drugOrder);
         }
         return null;
@@ -89,20 +90,20 @@ public class DrugOrderService implements IDrugOrderService {
     }
 
     @Override
-    public DrugOrder create(DrugOrder drugOrder, int drugId, int doctorId, int visitId) {
-
-        return _drugOrderRepository.save(toDrugOrder(drugOrder, drugId, doctorId, visitId));
-    }
-
-    private DrugOrder toDrugOrder(DrugOrder drugOrder1, int drugId, int doctorId, int visitId) {
-        Doctor doctor = _doctorService.findById(doctorId);
+    public DrugOrder create(DrugOrder drugOrder1, int drugId, int visitId) {
         Visit visit = _visitService.findById(visitId);
         Drug drug = _drugService.findById(drugId);
         drugOrder1.setDrug(drug);
-        drugOrder1.setDoctor(doctor);
+        //  drugOrder1.setDoctor(doctor);
         drugOrder1.setVisit(visit);
-        return drugOrder1;
+        return _drugOrderRepository.save(drugOrder1);
     }
+
+//    private DrugOrder toDrugOrder(DrugOrder drugOrder1, int drugId, int visitId) {
+//     //   Doctor doctor = _doctorService.findById(doctorId);
+//
+//        return drugOrder1;
+//    }
 
     @Override
     public List<DrugOrder> createAll(List<DrugOrder> listDrugOrder) {

@@ -21,13 +21,13 @@ public class VisitService implements IVisitService {
     private IVisitRepository _visitRepository;
     @Autowired
     private PatientService _patientService;
-    @Autowired
-    private ReceptionstService _receptionsService;
+//    @Autowired
+//    private ReceptionstService _receptionsService;
     private List<Visit> visitList;
 
     public VisitService() {
         _patientService = new PatientService();
-        _receptionsService = new ReceptionstService();
+       // _receptionsService = new ReceptionstService();
         visitList = new ArrayList<>();
     }
 
@@ -72,18 +72,20 @@ public class VisitService implements IVisitService {
     }
 
     @Override
-    public Visit create( int patientId, int receptionId) {
+    public Visit create( int patientId) {
         Visit visit=new Visit();
+        visit.setPatient(_patientService.findById(patientId));
         visit.setVisitDate(new Date());
-        return _visitRepository.save(toVisit(visit, patientId, receptionId));
+        return _visitRepository.save(visit);
     }
 
     @Override
-    public List<Visit> createAll(List<Visit> visitList, int receptionistId, int patientId) {
+    public List<Visit> createAll(List<Visit> visitList, int patientId) {
         List<Visit> visitList1 = new ArrayList<>();
         visitList.forEach(visitVM -> {
             Visit visit = new Visit();
-            visit = toVisit(visitVM, receptionistId, patientId);
+            visit.setPatient(_patientService.findById(patientId));
+          //  visit = toVisit(visitVM, patientId);
             visit.setVisitDate(new Date());
             visitList1.add(visit);
         });
@@ -91,11 +93,11 @@ public class VisitService implements IVisitService {
     }
 
 
-    public Visit toVisit(Visit visit, int receptionistId,
-                         int patientId) {
-        visit.setReceptionst(_receptionsService.findById(receptionistId));
-        visit.setPatient(_patientService.findById(patientId));
-        return visit;
-    }
+//    public Visit toVisit(Visit visit,
+//                         int patientId) {
+//       // visit.setReceptionst(_receptionsService.findById(receptionistId));
+//        visit.setPatient(_patientService.findById(patientId));
+//        return visit;
+//    }
 
 }

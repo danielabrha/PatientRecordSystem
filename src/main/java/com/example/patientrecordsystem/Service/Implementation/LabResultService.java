@@ -23,28 +23,27 @@ public class LabResultService implements ILabResultService {
 
     @Autowired
     private LabOrderService _labOrderService;
-    @Autowired
-    private LaboratoristService _laboratoristService;
 
     public LabResultService() {
         _labOrderService = new LabOrderService();
-        _laboratoristService = new LaboratoristService();
         labResultList = new ArrayList<>();
     }
 
     @Override
-    public LabResult create(LabResult labResult1, int labOrderId, int laboratoristId) {
-        LabResult labResult=toLabResult(labResult1,labOrderId, laboratoristId);
+    public LabResult create(LabResult labResult, int labOrderId) {
+      // LabResult labResult=toLabResult(labResult1,labOrderId);
+       // labResult.setLabResultName(labResult1.getLabResultName());
+        labResult.setLabOrder(_labOrderService.findById(labOrderId));
         return _labResultRepository.save(labResult);
     }
 
     @Override
-    public List<LabResult> createAll(List<LabResult> labResultList, int labOrderId,
-                                     int laboratoristId) {
+    public List<LabResult> createAll(List<LabResult> labResultList, int labOrderId) {
         LabResult labResult = new LabResult();
         labResultList.forEach(labResultVM -> {
-
-            this.labResultList.add(toLabResult(labResultVM,labOrderId, laboratoristId));
+            labResult.setLabResultName(labResultVM.getLabResultName());
+            labResult.setLabOrder(_labOrderService.findById(labOrderId));
+            this.labResultList.add(labResult);
         });
         return _labResultRepository.saveAll(this.labResultList);
     }
@@ -94,12 +93,12 @@ public class LabResultService implements ILabResultService {
     }
 
 
-    public LabResult toLabResult(LabResult labResult, int labOrderId, int laboratoristId) {
-
-        labResult.setLabResultName(labResult.getLabResultName());
-        labResult.setLabOrder(_labOrderService.findById(labOrderId));
-        labResult.setLaboratorist(_laboratoristService.findById(laboratoristId));
-        return labResult;
-    }
+//    public LabResult toLabResult(LabResult labResult, int labOrderId) {
+//
+//        labResult.setLabResultName(labResult.getLabResultName());
+//        labResult.setLabOrder(_labOrderService.findById(labOrderId));
+//       // labResult.setLaboratorist(_laboratoristService.findById(laboratoristId));
+//        return labResult;
+//    }
 
 }

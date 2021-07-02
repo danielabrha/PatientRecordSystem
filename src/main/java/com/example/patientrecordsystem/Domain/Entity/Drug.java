@@ -2,7 +2,8 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -19,28 +20,29 @@ public class Drug {
     private String drugName;
     @Column(name = "drugCode")
     private String drugCode;
-
-    @JsonIgnore
+ //   @JsonManagedReference
+//    @JsonIdentityInfoProperties("drug")
     @OneToMany(mappedBy = "drug")
     private List<DrugOrder> drugOrderList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
-    private SystemAdmin systemAdmin;
+//    @JsonIdentityInfoProperties("drugList")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
+//    private SystemAdmin systemAdmin;
 
-    public Drug(int drugId, String drugName, String drugCode, List<DrugOrder> drugOrderList, SystemAdmin systemAdmin) {
+    public Drug(int drugId, String drugName, String drugCode, List<DrugOrder> drugOrderList) {
         this.drugId = drugId;
         this.drugName = drugName;
         this.drugCode = drugCode;
         this.drugOrderList = drugOrderList;
-        this.systemAdmin = systemAdmin;
+      //  this.systemAdmin = systemAdmin;
     }
 
-    public Drug(String drugName, String drugCode, List<DrugOrder> drugOrderList, SystemAdmin systemAdmin) {
+    public Drug(String drugName, String drugCode, List<DrugOrder> drugOrderList) {
         this.drugName = drugName;
         this.drugCode = drugCode;
         this.drugOrderList = drugOrderList;
-        this.systemAdmin = systemAdmin;
+//        this.systemAdmin = systemAdmin;
     }
 
     public Drug() {
@@ -70,6 +72,7 @@ public class Drug {
         this.drugCode = drugCode;
     }
 
+   // @JsonManagedReference
     public List<DrugOrder> getDrugOrderList() {
         return drugOrderList;
     }
@@ -77,12 +80,12 @@ public class Drug {
     public void setDrugOrderList(List<DrugOrder> drugOrderList) {
         this.drugOrderList = drugOrderList;
     }
-
-    public SystemAdmin getSystemAdmin() {
-        return systemAdmin;
-    }
-
-    public void setSystemAdmin(SystemAdmin systemAdmin) {
-        this.systemAdmin = systemAdmin;
-    }
+  //  @JsonIdentityInfo
+//    public SystemAdmin getSystemAdmin() {
+//        return systemAdmin;
+//    }
+//
+//    public void setSystemAdmin(SystemAdmin systemAdmin) {
+//        this.systemAdmin = systemAdmin;
+//    }
 }

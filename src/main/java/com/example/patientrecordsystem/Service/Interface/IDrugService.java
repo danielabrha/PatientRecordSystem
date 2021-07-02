@@ -12,12 +12,12 @@ public interface IDrugService {
     //	public List<Drug> findAll(int entryid);
     public List<Drug> findAll(String status);
     public Drug findById(int id);
-    public Drug update(Drug drug, int systemAdminId);
+    public Drug update(Drug drug);
     public void deleteById(int id);
     public void delete(Drug drug);
     public void deleteAll(Iterable<Drug> drugs);
     public void deleteAll();
-    public Drug create(Drug drug,int systemAdminId);
-    public List<Drug> createAll(List<Drug> listDrug,int systemAdminId);
+    public Drug create(Drug drug);
+    public List<Drug> createAll(List<Drug> listDrug);
 }
 

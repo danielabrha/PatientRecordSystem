@@ -5,15 +5,16 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.Drug;
 import com.example.patientrecordsystem.Service.Implementation.DrugService;
 import com.example.patientrecordsystem.Service.Interface.IDrugService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class DrugController {
-
-    private IDrugService _drugService;
+@Autowired
+    private DrugService _drugService;
     private Drug drug;
     private List<Drug> _drugList;
 
@@ -24,28 +25,28 @@ public class DrugController {
         this.drug = new Drug();
         this._drugList = new ArrayList<>();
     }
-    @PostMapping("Drug/post/data/{systemAdminId}")
-    public Drug postDurg(@RequestBody Drug drugVM, @PathVariable(value = "systemAdminId") int systemAdminId){
-        return _drugService.create(drugVM,systemAdminId);
+    @PostMapping("Drug/post/data")
+    public Drug postDurg(@RequestBody Drug drugVM){
+        return _drugService.create(drugVM);
 
     }
 
-    @PostMapping("Drug/post/All/data/{systemAdminId}")
-    public List<Drug> postDrug(@RequestBody List<Drug> drugVMList,@PathVariable (value = "systemAdminId") int systemAdminId){
-        return  _drugService.createAll(drugVMList,systemAdminId);
+    @PostMapping("Drug/post/All/data")
+    public List<Drug> postDrug(@RequestBody List<Drug> drugVMList){
+        return  _drugService.createAll(drugVMList);
 
     }
-    @PutMapping("Drug/update/{systemAdminId}")
-    public Drug updateDrug(@RequestBody Drug drugVM,@PathVariable (value = "systemAdminId") int systemAdminId){
+    @PutMapping("Drug/update")
+    public Drug updateDrug(@RequestBody Drug drugVM){
 
-        return _drugService.update(drugVM,systemAdminId);
+        return _drugService.update(drugVM);
 
     }
-    @GetMapping("/Drug/get/data/{id}")
+    @GetMapping("Drug/get/data/{id}")
     public Drug getDrug(@PathVariable(value = "id") int Id) {
         return _drugService.findById(Id);
     }
-    @GetMapping("/Drug/get/All/data/")
+    @GetMapping("Drug/get/All/data")
     public List<Drug> getDrug() {
 
         return _drugService.findAll();

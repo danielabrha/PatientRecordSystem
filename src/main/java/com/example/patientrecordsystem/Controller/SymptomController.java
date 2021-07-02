@@ -22,22 +22,20 @@ public class SymptomController {
         
     }
 
-    @PostMapping("/Symptom/post/data/{visitId}/{doctorId}")
+    @PostMapping("/Symptom/post/data/{visitId}")
     public Symptom postSymptom(@RequestBody Symptom symptom,
-                               @PathVariable(value = "visitId") int visitId,
-                               @PathVariable (value = "doctorId") int doctorId
+                               @PathVariable(value = "visitId") int visitId
 
 
     ) {
-        return _symptomService.create(symptom, visitId, doctorId);
+        return _symptomService.create(symptom, visitId);
 
     }
 
-    @PostMapping("/Symptom/post/All/data/{visitId}/{doctorId}/{labTestTypeId}")
+    @PostMapping("/Symptom/post/All/data/{visitId}/{labTestTypeId}")
     public List<Symptom> postSymptoms(@RequestBody List<Symptom> symptomList,
-                                      @PathVariable (value = "visitId") int visitId,
-                                      @PathVariable (value = "doctorId") int doctorId) {
-        return  _symptomService.createAll(symptomList, visitId, doctorId);
+                                      @PathVariable (value = "visitId") int visitId) {
+        return  _symptomService.createAll(symptomList, visitId);
     }
 
     @GetMapping("/Symptom/get/data/{id}")

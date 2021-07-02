@@ -2,7 +2,9 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -24,9 +26,10 @@ public class Patient extends Person {
     private int cardRecordNumber;
 
     // relations
-    @JsonIgnore
+//    @JsonIgnoreProperties("patient")
+  //  @JsonManagedReference
     @OneToMany(mappedBy = "patient")
-    private List<Visit> visitList = new ArrayList<>();
+    private List<Visit> visitList;
 
     public Patient(String fName, String lName, String mName, String gender, String email, String phoneNumber,
                    String address, String dateOfBirth, int patientId,
@@ -78,7 +81,7 @@ public class Patient extends Person {
     public void setCardRecordNumber(int cardRecordNumber) {
         this.cardRecordNumber = cardRecordNumber;
     }
-
+   // @JsonManagedReference
     public List<Visit> getVisitList() {
         return visitList;
     }

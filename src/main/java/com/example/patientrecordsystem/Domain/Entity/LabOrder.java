@@ -1,8 +1,10 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -16,34 +18,36 @@ public class LabOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int labOrderId;
 
+    //    @JsonIgnoreProperties("labOrderList")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "visitId", referencedColumnName = "Id")
     private Visit visit;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
-    private Doctor doctor;
-
-    @JsonIgnore
+    //    @JsonIgnoreProperties("labOrderList")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "doctorId", referencedColumnName = "Id")
+//    private Doctor doctor;
+  //  @JsonIgnore
+//    @JsonIgnoreProperties("labOrder")
     @OneToOne(mappedBy = "labOrder")
     private LabResult labResult;
 
-
+    //    @JsonIgnoreProperties("labOrderList")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "labTestTypeId", referencedColumnName = "Id")
     private LabTestType labTestType;
 
-    public LabOrder(int labOrderId, Visit visit, Doctor doctor, LabResult labResult, LabTestType labTestType) {
+    public LabOrder(int labOrderId, Visit visit,LabResult labResult, LabTestType labTestType) {
         this.labOrderId = labOrderId;
         this.visit = visit;
-        this.doctor = doctor;
+      //  this.doctor = doctor;
         this.labResult = labResult;
         this.labTestType = labTestType;
     }
 
-    public LabOrder(Visit visit, Doctor doctor, LabResult labResult, LabTestType labTestType) {
+    public LabOrder(Visit visit, LabResult labResult, LabTestType labTestType) {
         this.visit = visit;
-        this.doctor = doctor;
+      //  this.doctor = doctor;
         this.labResult = labResult;
         this.labTestType = labTestType;
     }
@@ -59,6 +63,7 @@ public class LabOrder {
         this.labOrderId = labOrderId;
     }
 
+    //  @JsonIgnore
     public Visit getVisit() {
         return visit;
     }
@@ -67,14 +72,16 @@ public class LabOrder {
         this.visit = visit;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
+    // @JsonIgnore
+//    public Doctor getDoctor() {
+//        return doctor;
+//    }
+//
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//    }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
+    //  @JsonIgnore
     public LabResult getLabResult() {
         return labResult;
     }
@@ -83,6 +90,7 @@ public class LabOrder {
         this.labResult = labResult;
     }
 
+    // @JsonIgnore
     public LabTestType getLabTestType() {
         return labTestType;
     }

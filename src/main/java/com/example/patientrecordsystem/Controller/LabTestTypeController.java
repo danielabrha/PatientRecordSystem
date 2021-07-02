@@ -6,11 +6,12 @@ import com.example.patientrecordsystem.Domain.Entity.LabTestType;
 import com.example.patientrecordsystem.Service.Implementation.LabTestTypeService;
 import com.example.patientrecordsystem.Service.Interface.ILabTestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class LabTestTypeController {
     @Autowired
@@ -25,23 +26,26 @@ public class LabTestTypeController {
         this.labTestType = new LabTestType();
         this._labTestTypeList = new ArrayList<>();
     }
-    @PostMapping("LabTestType/post/data/{systemAdminId}")
-    public LabTestType postDurg(@RequestBody LabTestType labTestTypeVM, @PathVariable(value = "systemAdminId") int systemAdminId){
-        return _labTestTypeService.create(labTestTypeVM,systemAdminId);
+
+    @PostMapping("LabTestType/post/data")
+//    ,
+//            consumes = MediaType.APPLICATION_JSON_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+    public LabTestType postLabTestType( @RequestBody LabTestType labTestTypeVM){
+        return _labTestTypeService.create(labTestTypeVM);
 
     }
 
-    @PostMapping("LabTestType/post/All/data/{systemAdminId}")
-    public List<LabTestType> postLabTestType(@RequestBody List<LabTestType> labTestTypeVMList,@PathVariable (value = "systemAdminId") int systemAdminId){
-        return  _labTestTypeService.createAll(labTestTypeVMList,systemAdminId);
+    @PostMapping("LabTestType/post/All/data")
+    public List<LabTestType> postLabTestType(@RequestBody List<LabTestType> labTestTypeVMList){
+        return  _labTestTypeService.createAll(labTestTypeVMList);
 
     }
-    @PutMapping("LabTestType/update/{labTestTypeId}/{systemAdminId}")
+    @PutMapping("LabTestType/update/{labTestTypeId}")
     public LabTestType updateLabTestType(@RequestBody LabTestType labTestTypeVM,
-                                         @PathVariable (value = "labTestTypeId") int labTestTypeId,
-                                         @PathVariable (value = "systemAdminId") int systemAdminId){
+                                         @PathVariable (value = "labTestTypeId") int labTestTypeId){
 
-        return _labTestTypeService.update(labTestTypeVM,systemAdminId);
+        return _labTestTypeService.update(labTestTypeVM);
 
     }
     @GetMapping("LabTestType/get/data/{id}")

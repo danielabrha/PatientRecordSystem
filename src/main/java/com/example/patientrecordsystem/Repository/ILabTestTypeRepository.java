@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ILabTestTypeRepository extends JpaRepository<LabTestType,Integer> {
 
-    public List<LabTestType> findByLabTestTypeId(int labOrderId);
+   // public List<LabTestType> findByLabTestTypeId(int labOrderId);
 }
 
