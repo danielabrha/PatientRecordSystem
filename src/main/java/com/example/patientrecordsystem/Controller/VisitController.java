@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins="http://localhost:4200")
 public class VisitController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class VisitController {
     }
 
     @PostMapping("Visit/post/data/{receptionistId}/{patientId}")
-    public Visit postVisit(
+    public Visit postVisit(@RequestBody Visit visit,
                            @PathVariable(value = "receptionistId") int receptionistId,
                            @PathVariable (value = "patientId") int patientId
 
