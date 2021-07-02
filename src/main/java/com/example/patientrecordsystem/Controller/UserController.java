@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
-
 public class UserController {
     @Autowired
     private UserService _userService;
@@ -25,7 +24,8 @@ public class UserController {
         this.user = new User();
         this._userList = new ArrayList<>();
     }
-    @CrossOrigin(origins="http://localhost:4200")
+
+
     @PostMapping("User/post/data")
     public User postUser(@RequestBody User userVM){
         return _userService.create(userVM);

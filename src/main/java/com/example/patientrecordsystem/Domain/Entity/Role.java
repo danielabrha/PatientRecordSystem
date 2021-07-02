@@ -2,6 +2,8 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 
 
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Role {
     @Column(name = "roleName")
     private String roleName;
 
+    @JsonIgnore
     @ManyToMany(mappedBy ="roleList" )
     private List<User> userList =new ArrayList<>();
 

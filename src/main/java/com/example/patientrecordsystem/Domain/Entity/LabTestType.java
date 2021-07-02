@@ -18,7 +18,7 @@ public class LabTestType {
     private String labTestName;
     @Column(name = "labTestCode")
     private String labTestCode;
-    @JsonIgnore
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
     private SystemAdmin systemAdmin;

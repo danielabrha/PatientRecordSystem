@@ -1,12 +1,9 @@
 package com.example.patientrecordsystem.Service.Implementation;
-
-
 import com.example.patientrecordsystem.Domain.Entity.User;
 import com.example.patientrecordsystem.Repository.IUserRepository;
 import com.example.patientrecordsystem.Service.Interface.IRoleService;
 import com.example.patientrecordsystem.Service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.ArrayList;
 import java.util.List;
 

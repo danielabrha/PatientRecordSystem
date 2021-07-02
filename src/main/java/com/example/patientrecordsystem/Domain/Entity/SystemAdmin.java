@@ -15,7 +15,7 @@ public class SystemAdmin {
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int systemAdminId;
-    @JsonIgnore
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="userId",referencedColumnName = "Id")
     private User user;
