@@ -87,6 +87,12 @@ public class User extends Person {
         this.systemAdmin = systemAdmin;
     }
 
+//    public User(String fName, String lName, String mName, String gender, String email, String phoneNumber,
+//                String address, String dateOfBirth, String userName, String password) {
+//        super(fName, lName, mName, gender, email, phoneNumber, address, dateOfBirth);
+//        this.userName = userName;
+//        this.password = password;
+//    }
 
     public User() {
         super();

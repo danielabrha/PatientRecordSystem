@@ -66,6 +66,7 @@ public class UserService implements IUserService {
 
             return _userRepository.save(existingUser);
         }
+
         return null;
     }
 
