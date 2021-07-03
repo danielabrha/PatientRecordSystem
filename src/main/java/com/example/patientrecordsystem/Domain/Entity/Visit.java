@@ -34,6 +34,7 @@ public class Visit {
     private Patient patient;
   //  @JsonManagedReference
 //    @JsonIgnoreProperties("visit")
+    @JsonIgnore
     @OneToMany(mappedBy = "visit")
     private List<Symptom> symptomList ;
   //  @JsonManagedReference

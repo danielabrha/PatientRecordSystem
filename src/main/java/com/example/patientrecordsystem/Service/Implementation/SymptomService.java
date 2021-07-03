@@ -51,7 +51,9 @@ public class SymptomService implements ISymptomService {
     }
 
     @Override
-    public Symptom update(Symptom symptom) {
+    public Symptom update(Symptom symptom,int symptomId) {
+        Symptom existingSymptom=_symptomRepository.findById(symptomId).orElse(null);
+        existingSymptom.setSymptomName(symptom.getSymptomName());
         return null;
     }
 

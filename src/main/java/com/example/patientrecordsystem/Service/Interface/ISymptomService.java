@@ -12,7 +12,7 @@ public interface ISymptomService {
     //	public List<Symptom> findAll(int entryid);
     public List<Symptom> findAll(String status);
     public Symptom findById(int id);
-    public Symptom update(Symptom symptom);
+    public Symptom update(Symptom symptom,int symptomId);
     public void deleteById(int id);
     public void delete(Symptom symptom);
     public void deleteAll(Iterable<Symptom> symptoms);

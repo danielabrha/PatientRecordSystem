@@ -28,6 +28,7 @@ public class Patient extends Person {
     // relations
 //    @JsonIgnoreProperties("patient")
   //  @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "patient")
     private List<Visit> visitList;
 

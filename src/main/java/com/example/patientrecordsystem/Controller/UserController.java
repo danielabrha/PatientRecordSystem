@@ -27,9 +27,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value="/User/post/data",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/User/post/data")
     public User postUser(@RequestBody User userVM){
         return _userService.create(userVM);
 
