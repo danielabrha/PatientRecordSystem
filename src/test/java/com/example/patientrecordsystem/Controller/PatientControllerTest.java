@@ -30,59 +30,6 @@ import static org.mockito.Mockito.*;
 @RunWith(SpringRunner.class)
 class PatientControllerTest {
 
-    @MockBean
-    private List<Visit> visitList;
 
-    @InjectMocks
-    private PatientService patientService;
-
-    @Mock
-    private IPatientRepository patientRepository;
-
-
-    Patient patient = new Patient("Weldmicheal","Berhanu", "Hailu", "male", "michock.mit@gmail.com",
-            "+12345",  "MIU", "12062001", 10000, visitList);
-
-    Patient patient1 = new Patient("Weldm","Berhanu", "Hailu", "male", "michock.mit@gmail.com",
-            "+12345",  "MIU", "12062001", 10000, visitList);
-
-
-    @BeforeEach
-    void setUp() throws Exception{
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void postPatientTest() {
-        Mockito.when(patientRepository.save(patient)).thenReturn(patient);
-        assertEquals(patient, patientService.create(patient));
-    }
-
-    @Test
-    public void postPatientsTest() {
-        Mockito.when(patientRepository.saveAll(Arrays.asList(patient, patient1))).thenReturn(Arrays.asList(patient,
-                patient1));
-        assertEquals(2, patientService.findAll().size());
-    }
-
-    @Test
-    public void deletePatientTest(){
-        patientService.deleteById(patient.getPatientId());
-        //assertEquals(null, patientService.findById(patient.getPatientId()));
-        verify(patientRepository, times(1)).deleteById(patient.getPatientId());
-    }
-
-    @Test
-    public void deletePatientsTest(){
-        patientService.deleteById(patient.getPatientId());
-        //assertEquals(null, patientService.findById(patient.getPatientId()));
-        verify(patientRepository, times(1)).deleteById(patient.getPatientId());
-    }
-
-    @Test
-    public void getPatient(){
-        when(patientRepository.findAll()).thenReturn(Arrays.asList(patient, patient1));
-        assertEquals(2, patientService.findAll().size());
-    }
 
 }
