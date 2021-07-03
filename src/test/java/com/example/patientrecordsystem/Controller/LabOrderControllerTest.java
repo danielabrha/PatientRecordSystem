@@ -1,25 +1,20 @@
 package com.example.patientrecordsystem.Controller;
 
-import com.example.patientrecordsystem.Domain.Entity.*;
-import com.example.patientrecordsystem.Repository.IUserRepository;
-import com.example.patientrecordsystem.Service.Implementation.UserService;
+import com.example.patientrecordsystem.Domain.Entity.LabOrder;
+import com.example.patientrecordsystem.Domain.Entity.User;
+import com.example.patientrecordsystem.Service.Implementation.LabOrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -27,47 +22,50 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-
-class UserControllerTest {
+@WebMvcTest(LabOrderController.class)
+class LabOrderControllerTest {
 
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private UserService userService;
+    private LabOrderService labOrderService;
+
+    @BeforeEach
+    void setUp() throws Exception{
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
-    public void createUserTest() throws Exception {
-        User user = new User();
-        user.setfName("Weldmicheal");
-        given(userService.create(Mockito.any())).willReturn(user);
-        mockMvc.perform(post("/User/post/data")
+    public void createLabOrderTest() throws Exception {
+        LabOrder labOrder = new LabOrder();
+
+        given(labOrderService.create(Mockito.any(), Mockito.any(), Mockito.any())).willReturn(labOrder);
+        mockMvc.perform(post("/LabOrder/post/data/" + Mockito.any() + "/" + Mockito.any() + "/" + Mockito.any())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.toJson(user)))
+                .content(JsonUtil.toJson(labOrder)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fName", is("Wldmicheal")));
-        verify(userService, VerificationModeFactory.times(1))
-                .create(Mockito.any());
-        reset(userService);
+        verify(labOrderService, VerificationModeFactory.times(1))
+                .create(Mockito.any(), Mockito.any(), Mockito.any());
+        reset(labOrderService);
     }
     @Test
-    public void getUsersTest() throws Exception {
-        User user1 = new User();
-        user1.setfName("Weldmicheal");
-        User user2 = new User();
-        user2.setfName("Berhanu");
-        List<User> userList = Arrays.asList(user1, user2);
-        given(userService.findAll()).willReturn(userList);
-        mockMvc.perform(get("/User/get/All/data")
+    public void getLabOrderTest() throws Exception {
+        LabOrder  labOrder = new LabOrder();
+        labOrder.setLabOrderId(1);
+        given(labOrderService.findById(labOrder.getLabOrderId())).willReturn(labOrder);
+        mockMvc.perform(get("/LabOrder/get/data/" + labOrder.getLabOrderId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].fName", is(user1.getfName())));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].labOrderId", is(labOrder.getLabOrderId())));
     }
 
     @Test
@@ -75,7 +73,7 @@ class UserControllerTest {
         User user = new User();
         user.setfName("Weldmicheal");
         user.setUserId(1);
-        doNothing().when(userService).deleteById(user.getUserId());
+        doNothing().when(labOrderService).deleteById(user.getUserId());
         mockMvc.perform(delete("/User/delete/" + Integer.toString(user.getUserId()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -87,27 +85,10 @@ class UserControllerTest {
         User user = new User();
         user.setfName("Weldmicheal");
         user.setUserId(1);
-        given(userService.findById(user.getUserId())).willReturn(user);
+        //given(labOrderService.findById(user.getUserId())).willReturn();
         mockMvc.perform(get("/User/get/data/" + Integer.toString(user.getUserId()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fName", is(user.getfName())));
     }
-
-    @Test
-    public void updateUserTest() throws Exception{
-        User user = new User();
-        user.setfName("Weldmieal");
-        user.setUserId(2);
-        //User updatedUser = new User();
-        //updatedUser = user;
-        //updatedUser.setfName("Weldmicheal");
-        given(userService.update(user, user.getUserId())).willReturn(user);
-        mockMvc.perform(put("/User/update/" + user.getUserId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.toJson(user)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fName", is(user.getfName())));
-    }
-
 }
