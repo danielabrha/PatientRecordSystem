@@ -46,14 +46,14 @@ class LabOrderControllerTest {
     public void createLabOrderTest() throws Exception {
         LabOrder labOrder = new LabOrder();
 
-        given(labOrderService.create(Mockito.any(), Mockito.any(), Mockito.any())).willReturn(labOrder);
+        given(labOrderService.create(Mockito.any(), Mockito.any())).willReturn(labOrder);
         mockMvc.perform(post("/LabOrder/post/data/" + Mockito.any() + "/" + Mockito.any() + "/" + Mockito.any())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(labOrder)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fName", is("Wldmicheal")));
         verify(labOrderService, VerificationModeFactory.times(1))
-                .create(Mockito.any(), Mockito.any(), Mockito.any());
+                .create(Mockito.any(), Mockito.any());
         reset(labOrderService);
     }
     @Test

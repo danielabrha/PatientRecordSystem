@@ -13,21 +13,19 @@ import org.mockito.*;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 
 class LabResultServiceTest {
-
-
-    @BeforeEach
-    void setUp() throws Exception{
-        MockitoAnnotations.initMocks(this);
-    }
 
     @InjectMocks
     private LabResultService labResultService;
@@ -46,19 +44,24 @@ class LabResultServiceTest {
     @Mock
     private ILaboratoristRepository laboratoristRepository;
 
-
+    @BeforeEach
+    void setUp() throws Exception{
+        MockitoAnnotations.initMocks(this);
+    }
     //LabResult/post/data
-   /*
+
     @Test
     public void postLabResultTest() {
         LabResult labResult = new LabResult();
-        labResult.setLabTestType(labTestType);
-        labResult.setVisit(visit);
-        labResult.setDoctor(doctor);
+        labResult.setLabResultName("Negative");
+        LabOrder labOrder = new LabOrder();
+        labOrder.setLabOrderId(anyInt());
+        labResult.setLabOrder(labOrder);
+        //when(labOrderRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(labOrder));
         Mockito.when(labResultRepository.save(labResult)).thenReturn(labResult);
-        assertEquals(labResult, labResultService.create(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()));
+        assertEquals(labResult, labResultService.create(labResult, Mockito.anyInt()));
     }
-    */
+
 /*
     @Test
     public void postLabResultTest() {
@@ -94,19 +97,22 @@ class LabResultServiceTest {
         labResult1.setLabResultName("negative");
         Mockito.when(labResultRepository.findAll()).thenReturn(Arrays.asList(labResult1, labResult));
         assertEquals(2, labResultService.findAll().size());
-    }
-///*
-//    @Test
-//    public void getLabResultsTest() {
-//        List<LabResult> labResults = new ArrayList<>();
-//        labResults.add(labResult);
-//        labResults.add(labResult1);
-//        given(labResultRepository.findAll()).willReturn(labResults);
-//        List<LabResult> expected = labResultService.findAll();
-//        assertEquals(expected, labResults);
-//        Mockito.verify(labResultRepository).findAll();
-//    }
+        Mockito.verify(labResultRepository).findAll();
 
+    }
+/*
+    @Test
+    public void getLabResultsTest() {
+        LabResult labResult = new LabResult();
+        LabResult labResult1 = new LabResult();
+        List<LabResult> labResultList = new ArrayList<>();
+        labResultList.add(labResult);
+        labResultList.add(labResult1);
+        given(labResultRepository.findAll()).willReturn(labResultList);
+        List<LabResult> expected = labResultService.findAll();
+        assertEquals(expected, labResultList);
+    }
+*/
 
     @Test
     public void deleteLabResultTest(){

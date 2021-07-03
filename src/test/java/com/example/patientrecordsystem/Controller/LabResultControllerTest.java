@@ -1,11 +1,16 @@
 package com.example.patientrecordsystem.Controller;
 
+import com.example.patientrecordsystem.Domain.Entity.LabOrder;
 import com.example.patientrecordsystem.Domain.Entity.LabResult;
 import com.example.patientrecordsystem.Domain.Entity.User;
+import com.example.patientrecordsystem.Repository.ILabOrderRepository;
+import com.example.patientrecordsystem.Repository.ILabResultRepository;
+import com.example.patientrecordsystem.Service.Implementation.LabOrderService;
 import com.example.patientrecordsystem.Service.Implementation.LabResultService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.internal.verification.VerificationModeFactory;
@@ -15,6 +20,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -36,30 +43,42 @@ class LabResultControllerTest {
     @MockBean
     private LabResultService labResultService;
 
+    @MockBean
+    private ILabResultRepository labResultRepository;
+    @Mock
+    private LabOrder labOrder;
+    @MockBean
+    private LabOrderService labOrderService;
+    @Mock
+    private ILabOrderRepository labOrderRepository;
     @BeforeEach
     void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
     }
-
+/*
     @Test
     public void createLabResultTest() throws Exception {
         LabResult labResult = new LabResult();
+        LabOrder labOrder = new LabOrder();
+        labOrder.setLabOrderId(1);
         labResult.setLabResultName("positive");
-        given(labResultService.create(Mockito.any(), Mockito.anyInt(), Mockito.anyInt())).willReturn(labResult);
-        mockMvc.perform(post("/LabResult/post/data/" + Mockito.anyInt() + "/" + Mockito.anyInt())
+        given(labOrderRepository.findById(labOrder.getLabOrderId())).willReturn(Optional.of(labOrder));
+        doReturn(labResult).when(labResultService.create(labResult, labOrder.getLabOrderId()));
+        mockMvc.perform(post("/LabResult/post/data/" + labOrder.getLabOrderId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(labResult)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fName", is("Wldmicheal")));
         verify(labResultService, VerificationModeFactory.times(1))
-                .create(Mockito.any(), Mockito.any(), Mockito.any());
+                .create(Mockito.any(), Mockito.any());
         reset(labResultService);
     }
+    */
     @Test
     public void getLabResultTest() throws Exception {
         LabResult  labResult = new LabResult();
         labResult.setLabResultId(1);
-        given(labResultService.findById(labResult.getLabResultId())).willReturn(labResult);
+       // given(labResultService.findById(labResult.getLabResultId())).willReturn(labResult);
         mockMvc.perform(get("/LabResult/get/data/" + labResult.getLabResultId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
