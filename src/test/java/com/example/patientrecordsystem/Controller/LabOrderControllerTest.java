@@ -94,14 +94,5 @@ class LabOrderControllerTest {
                 .andExpect(jsonPath("$", is(true)));
     }
 
-    @Test
-    public void getLabOrderTest() throws Exception{
-        LabOrder  labOrder = new LabOrder();
-        labOrder.setLabOrderId(1);
-        //given(labOrderService.findById(user.getUserId())).willReturn();
-        mockMvc.perform(get("/User/get/data/" + Integer.toString(user.getUserId()))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fName", is(user.getfName())));
-    }
+
 }

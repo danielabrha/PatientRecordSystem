@@ -1,8 +1,6 @@
 package com.example.patientrecordsystem.Controller;
 
-import com.example.patientrecordsystem.Domain.Entity.LabOrder;
-import com.example.patientrecordsystem.Domain.Entity.LabResult;
-import com.example.patientrecordsystem.Domain.Entity.User;
+import com.example.patientrecordsystem.Domain.Entity.*;
 import com.example.patientrecordsystem.Repository.ILabOrderRepository;
 import com.example.patientrecordsystem.Repository.ILabResultRepository;
 import com.example.patientrecordsystem.Service.Implementation.LabOrderService;
@@ -43,70 +41,56 @@ class LabResultControllerTest {
     @MockBean
     private LabResultService labResultService;
 
-    @MockBean
-    private ILabResultRepository labResultRepository;
-    @Mock
-    private LabOrder labOrder;
-    @MockBean
-    private LabOrderService labOrderService;
-    @Mock
-    private ILabOrderRepository labOrderRepository;
+
     @BeforeEach
     void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
     }
-/*
+
+
     @Test
     public void createLabResultTest() throws Exception {
         LabResult labResult = new LabResult();
+        labResult.setLabResultName("positive");
         LabOrder labOrder = new LabOrder();
         labOrder.setLabOrderId(1);
-        labResult.setLabResultName("positive");
-        given(labOrderRepository.findById(labOrder.getLabOrderId())).willReturn(Optional.of(labOrder));
-        doReturn(labResult).when(labResultService.create(labResult, labOrder.getLabOrderId()));
+        labResult.setLabOrder(labOrder);
+        given(labResultService.create(labResult, labOrder.getLabOrderId())).willReturn(labResult);
         mockMvc.perform(post("/LabResult/post/data/" + labOrder.getLabOrderId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(labResult)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fName", is("Wldmicheal")));
+                .andExpect(jsonPath("$", is(1)));
         verify(labResultService, VerificationModeFactory.times(1))
-                .create(Mockito.any(), Mockito.any());
+                .create(labResult, labOrder.getLabOrderId());
         reset(labResultService);
     }
-    */
+
     @Test
     public void getLabResultTest() throws Exception {
         LabResult  labResult = new LabResult();
         labResult.setLabResultId(1);
-       // given(labResultService.findById(labResult.getLabResultId())).willReturn(labResult);
+
+        LabOrder labOrder = new LabOrder();
+        labOrder.setLabOrderId(2);
+        labResult.setLabOrder(labOrder);
+        given(labResultService.findById(labResult.getLabResultId())).willReturn(labResult);
         mockMvc.perform(get("/LabResult/get/data/" + labResult.getLabResultId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].labResultId", is(labResult.getLabResultId())));
+                .andExpect(jsonPath("$.labOrder.labOrderId", is(labOrder.getLabOrderId())));
     }
 
+
     @Test
-    public void deleteUserTest() throws Exception {
-        User user = new User();
-        user.setfName("Weldmicheal");
-        user.setUserId(1);
-        doNothing().when(labResultService).deleteById(user.getUserId());
-        mockMvc.perform(delete("/User/delete/" + Integer.toString(user.getUserId()))
+    public void deleteLabResultTest() throws Exception {
+        LabResult  labResult = new LabResult();
+        labResult.setLabResultId(1);
+        doNothing().when(labResultService).deleteById(labResult.getLabResultId());
+        mockMvc.perform(delete("/LabResult/deleteById/data/" + labResult.getLabResultId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(true)));
     }
 
-    @Test
-    public void getUserTest() throws Exception{
-        User user = new User();
-        user.setfName("Weldmicheal");
-        user.setUserId(1);
-        //given(labResultService.findById(user.getUserId())).willReturn();
-        mockMvc.perform(get("/User/get/data/" + Integer.toString(user.getUserId()))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fName", is(user.getfName())));
-    }
 }
