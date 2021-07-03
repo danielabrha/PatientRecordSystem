@@ -1,8 +1,11 @@
 package com.example.patientrecordsystem.Controller;
 
 import com.example.patientrecordsystem.Domain.Entity.LabOrder;
+import com.example.patientrecordsystem.Domain.Entity.LabTestType;
 import com.example.patientrecordsystem.Domain.Entity.User;
+import com.example.patientrecordsystem.Domain.Entity.Visit;
 import com.example.patientrecordsystem.Service.Implementation.LabOrderService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.LinkedHashMap;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -45,46 +50,54 @@ class LabOrderControllerTest {
     @Test
     public void createLabOrderTest() throws Exception {
         LabOrder labOrder = new LabOrder();
-
-        given(labOrderService.create(Mockito.any(), Mockito.any())).willReturn(labOrder);
-        mockMvc.perform(post("/LabOrder/post/data/" + Mockito.any() + "/" + Mockito.any() + "/" + Mockito.any())
+        LabTestType labTestType = new LabTestType();
+        labTestType.setLabTestTypeId(1);
+        Visit visit = new Visit();
+        visit.setVisitId(1);
+        labOrder.setVisit(visit);
+        labOrder.setLabTestType(labTestType);
+        given(labOrderService.create(visit.getVisitId(), labTestType.getLabTestTypeId())).willReturn(labOrder);
+        mockMvc.perform(post("/LabOrder/post/data/" + visit.getVisitId() + "/" + labTestType.getLabTestTypeId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(labOrder)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fName", is("Wldmicheal")));
+                .andExpect(jsonPath("$.visit.visitId", is(1)));
         verify(labOrderService, VerificationModeFactory.times(1))
-                .create(Mockito.any(), Mockito.any());
+                .create(visit.getVisitId(), labTestType.getLabTestTypeId());
         reset(labOrderService);
     }
     @Test
     public void getLabOrderTest() throws Exception {
         LabOrder  labOrder = new LabOrder();
         labOrder.setLabOrderId(1);
+        LabTestType labTestType = new LabTestType();
+        labTestType.setLabTestTypeId(1);
+        Visit visit = new Visit();
+        visit.setVisitId(1);
+        labOrder.setVisit(visit);
+        labOrder.setLabTestType(labTestType);
         given(labOrderService.findById(labOrder.getLabOrderId())).willReturn(labOrder);
         mockMvc.perform(get("/LabOrder/get/data/" + labOrder.getLabOrderId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].labOrderId", is(labOrder.getLabOrderId())));
+                .andExpect(jsonPath("$.labOrderId", is(labOrder.getLabOrderId())));
     }
 
     @Test
-    public void deleteUserTest() throws Exception {
-        User user = new User();
-        user.setfName("Weldmicheal");
-        user.setUserId(1);
-        doNothing().when(labOrderService).deleteById(user.getUserId());
-        mockMvc.perform(delete("/User/delete/" + Integer.toString(user.getUserId()))
+    public void deleteLabOrderTest() throws Exception {
+        LabOrder  labOrder = new LabOrder();
+        labOrder.setLabOrderId(1);
+        doNothing().when(labOrderService).deleteById(labOrder.getLabOrderId());
+        mockMvc.perform(delete("/LabOrder/deleteById/data/" + labOrder.getLabOrderId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(true)));
     }
 
     @Test
-    public void getUserTest() throws Exception{
-        User user = new User();
-        user.setfName("Weldmicheal");
-        user.setUserId(1);
+    public void getLabOrderTest() throws Exception{
+        LabOrder  labOrder = new LabOrder();
+        labOrder.setLabOrderId(1);
         //given(labOrderService.findById(user.getUserId())).willReturn();
         mockMvc.perform(get("/User/get/data/" + Integer.toString(user.getUserId()))
                 .contentType(MediaType.APPLICATION_JSON))

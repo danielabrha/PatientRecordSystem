@@ -55,29 +55,14 @@ class LabResultServiceTest {
         LabResult labResult = new LabResult();
         labResult.setLabResultName("Negative");
         LabOrder labOrder = new LabOrder();
-        labOrder.setLabOrderId(anyInt());
+        labOrder.setLabOrderId(1);
         labResult.setLabOrder(labOrder);
-        //when(labOrderRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(labOrder));
         Mockito.when(labResultRepository.save(labResult)).thenReturn(labResult);
-        assertEquals(labResult, labResultService.create(labResult, Mockito.anyInt()));
-    }
-
-/*
-    @Test
-    public void postLabResultTest() {
-        LabResult labResult = new LabResult();
-        labResult.setLabResultName("BloodP");
-        LabOrder labOrder = new LabOrder();
-        Laboratorist laboratorist = new Laboratorist();
-        Mockito.when(labResultRepository.save(ArgumentMatchers.any(LabResult.class))).thenReturn(labResult);
-        //Mockito.when(labResultService.toLabResult(labResult, eq(Mockito.anyInt()), eq(Mockito.anyInt())))
-        // .thenReturn(labResult);
-        System.out.println("Hello");
-
-        given(labResultService.create(Mockito.any(), Mockito.anyInt(), Mockito.anyInt())).willReturn(labResult);
+        assertEquals(labResult, labResultService.create(labResult, labOrder.getLabOrderId()));
         Mockito.verify(labResultRepository).save(labResult);
+
     }
-*/
+
 
     @Test
     public void getLabResultTest() {

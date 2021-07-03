@@ -77,20 +77,6 @@ class LabOrderServiceTest {
     }
 
 
-    @Test
-    public void getLabOrdersTest() {
-        LabOrder labOrder = new LabOrder();
-        LabOrder labOrder1 = new LabOrder();
-        labOrder.setLabOrderId(1);
-        labOrder1.setLabOrderId(2);
-        Mockito.when(labOrderRepository.findAll()).thenReturn(Arrays.asList(labOrder, labOrder1));
-        assertEquals(2, labOrderService.findAll().size());
-        List<LabOrder> expected = labOrderService.findAll();
-
-        assertEquals(expected, Arrays.asList(labOrder, labOrder1));
-        Mockito.verify(labOrderRepository).findAll();
-
-    }
 
     @Test
     public void deleteLabOrderTest(){
