@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="http://localhost:4200")
 public class SymptomController {
 @Autowired
     private SymptomService _symptomService;
