@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
-//@EnableConfigurationProperties
-//@EntityScan(basePackages = {"Domain.Entity"})
-//@ComponentScan(basePackages = { "Controller"} )
-//@EnableJpaRepositories(basePackages={"Repository"})
+// @EnableConfigurationProperties
+// @EntityScan(basePackages = {"Domain.Entity"})
+// @ComponentScan(basePackages = { "Controller"} )
+// @EnableJpaRepositories(basePackages={"Repository"})
 public class PatientRecordSystemApplication {
 
     public static void main(String[] args) {
