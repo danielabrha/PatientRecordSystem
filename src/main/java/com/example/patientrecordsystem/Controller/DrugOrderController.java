@@ -9,10 +9,13 @@ import com.example.patientrecordsystem.Service.Implementation.DrugService;
 import com.example.patientrecordsystem.Service.Implementation.VisitService;
 import com.example.patientrecordsystem.Service.Interface.IDrugOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +47,12 @@ public class DrugOrderController {
         this._drugOrderList = new ArrayList<>();
     
     }
+
     @PostMapping("post/data/{visitId}/{drugId}")
-    public DrugOrder postDurg(@PathVariable(value = "visitId") int visitId,
-                              @PathVariable(value = "drugId") int drugId,
-                              @RequestBody DrugOrder drugOrder){
+    public ResponseEntity<DrugOrder> postDurg(@PathVariable(value = "visitId") int visitId,
+                                             @PathVariable(value = "drugId") int drugId,
+                                             @Valid @RequestBody DrugOrder drugOrder){
+
         // send email notification to patient;
 
         Visit visit = _visitService.findById(visitId);
@@ -83,7 +88,9 @@ public class DrugOrderController {
         message.setText(body);
         mailSender.send(message);
 
-        return _drugOrderService.create(drugOrder,drugId,visitId);    }
+        DrugOrder createdDrugOrder =  _drugOrderService.create(drugOrder,drugId,visitId);
+        return new ResponseEntity<DrugOrder>(createdDrugOrder, HttpStatus.OK);
+    }
 
     @PostMapping("post/All/data")
     public List<DrugOrder> postDrugOrder(@RequestBody List<DrugOrder> drugOrderList){

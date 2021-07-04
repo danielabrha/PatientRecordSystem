@@ -4,9 +4,13 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.LabResult;
 import com.example.patientrecordsystem.Service.Implementation.LabResultService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Access;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +31,15 @@ public class LabResultController {
         this._labResultList = new ArrayList<>();
     }
 
-    @PostMapping("post/data/{labOrderId}")
-    public LabResult postLabResult(@RequestBody LabResult LabResultVM,
-                                   @PathVariable(value = "labOrderId") int labOrderId
 
+    @PostMapping("post/data/{labOrderId}")
+
+    public ResponseEntity<LabResult> postLabResult(@Valid @RequestBody LabResult LabResultVM,
+                                                  @PathVariable(value = "labOrderId") int labOrderId
 
     ) {
-        return _labResultService.create(LabResultVM, labOrderId);
-
+        LabResult createdLabResult = _labResultService.create(LabResultVM, labOrderId);
+        return new ResponseEntity<LabResult>(createdLabResult, HttpStatus.OK);
     }
 
     @PostMapping("post/All/data/{labTestTypeId}")

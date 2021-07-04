@@ -16,7 +16,7 @@ import java.util.List;
 public class LabResultService implements ILabResultService {
 
     @Autowired
-    ILabResultRepository _labResultRepository;
+    private ILabResultRepository _labResultRepository;
 
     @Autowired
     private List<LabResult> labResultList;

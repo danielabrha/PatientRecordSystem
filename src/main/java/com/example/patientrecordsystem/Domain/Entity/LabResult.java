@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Component
 @Entity(name = "labResults")
@@ -17,6 +19,8 @@ public class LabResult {
     @Column(name = "Id")
     private int labResultId;
 
+    @NotEmpty
+    @Size(min = 2, message = "Lab Result should be a minimum of 2 characters")
     @Column(name = "labResultName")
     private String labResultName;
 

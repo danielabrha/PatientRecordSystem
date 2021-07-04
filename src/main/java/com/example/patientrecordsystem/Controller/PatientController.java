@@ -6,8 +6,11 @@ import com.example.patientrecordsystem.Domain.Entity.Patient;
 import com.example.patientrecordsystem.Service.Implementation.PatientService;
 import com.example.patientrecordsystem.Service.Interface.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +29,13 @@ public class PatientController {
         this._patientServiceList = new ArrayList<>();
         
     }
-    @PostMapping("post/data")
-    public Patient postPatient(@RequestBody Patient patient)
-    {
-        return _patientService.create(patient);
 
+    @PostMapping("post/data")
+
+    public ResponseEntity<Patient> postPatient(@Valid @RequestBody Patient patient)
+    {
+        Patient createdPatient = _patientService.create(patient);
+        return new ResponseEntity<Patient>(createdPatient, HttpStatus.OK);
     }
 
     @PostMapping("post/All/data")

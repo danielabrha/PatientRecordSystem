@@ -62,11 +62,5 @@ public class IUserRepositoryTest {
         assertEquals("Weldmicheal", user1.getfName());
     }
 
-    @Test
-    final void getUserNotFound() {
-        //user.setUserName("gg");
-        Mockito.when(userRepository.findById(Mockito.anyInt())).thenReturn(null);
-        userService.findById(Mockito.anyInt());
 
-    }
 }

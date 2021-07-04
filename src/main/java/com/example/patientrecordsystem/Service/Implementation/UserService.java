@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-@org.springframework.stereotype.Repository
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService implements IUserService {
     @Autowired
     private IUserRepository _userRepository;
@@ -92,10 +95,13 @@ public class UserService implements IUserService {
 
     @Override
     public User create(User user) {
-        user.setDateOfBirth("");
-        user.setUserName(user.getEmail());
+
+        user.setDateOfBirth(user.getDateOfBirth());
+        if (user.getUserName() == null)
+            user.setUserName(user.getEmail());
 //        String _pwd= new BCryptPasswordEncoder().encode("123@123");
-        user.setPassword("123@123");
+        if (user.getPassword() == null)
+            user.setPassword("123@123");
         return _userRepository.save(user);
     }
 
@@ -115,12 +121,12 @@ public class UserService implements IUserService {
     public User assignRoleToUser(User user, int roleId) {
         // get role by role id
         Role role = _roleService.findById(roleId);
-        User existingUser=_userRepository.findById(user.getUserId()).orElse(null);
-        List<Role> roleList=new ArrayList<>();
+        User existingUser = _userRepository.findById(user.getUserId()).orElse(null);
+        List<Role> roleList = new ArrayList<>();
         roleList.add(role);
         roleList.addAll(existingUser.getRoleList());
         existingUser.setRoleList(roleList);
-      return  _userRepository.save(existingUser);
+        return _userRepository.save(existingUser);
     }
 
 }

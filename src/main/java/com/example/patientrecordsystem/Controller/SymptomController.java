@@ -4,8 +4,11 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.Symptom;
 import com.example.patientrecordsystem.Service.Implementation.SymptomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +29,12 @@ public class SymptomController {
     }
 
     @PostMapping("post/data/{visitId}")
-    public Symptom postSymptom(@RequestBody Symptom symptom,
-                               @PathVariable(value = "visitId") int visitId
-
+    public ResponseEntity<Symptom> postSymptom(@Valid @RequestBody Symptom symptom,
+                                              @PathVariable(value = "visitId") int visitId
 
     ) {
-        return _symptomService.create(symptom, visitId);
-
+        Symptom createdSymptom = _symptomService.create(symptom, visitId);
+        return new ResponseEntity<Symptom>(createdSymptom, HttpStatus.OK);
     }
 
     @PostMapping("post/All/data/{visitId}/{labTestTypeId}")

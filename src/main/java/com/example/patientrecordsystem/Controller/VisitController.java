@@ -31,7 +31,7 @@ public class VisitController {
                            @PathVariable (value = "patientId") int patientId
 
     ) {
-        return _visitService.create(  patientId);
+        return _visitService.create(patientId);
 
     }
 

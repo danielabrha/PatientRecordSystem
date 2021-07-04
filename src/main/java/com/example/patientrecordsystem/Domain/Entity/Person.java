@@ -2,18 +2,42 @@ package com.example.patientrecordsystem.Domain.Entity;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.*;
 
 @Component
 @MappedSuperclass
 public class Person {
+
+    @NotEmpty
+    @Size(min = 2, max = 30, message = "first Name should be between 2 and 30 chars")
     private String fName;
+
+    @NotEmpty
+    @Size(min = 2, max = 30, message = "first Name should be between 2 and 30 chars")
     private String lName;
+
     private String mName;
+
+    @NotNull
+    @Pattern(regexp = "(Male|Female|male|female|m|f)", message = "please put gender")
     private String gender;
+
+    @NotEmpty
+    @NotNull
+    @Email(message = "Email must be a well formed email")
+    @Column(unique = true)
     private String email;
+
+    @Pattern(regexp="(^$|[0-9]{10})", message = "phone must be either empty or be 10 digits only")
     private String phoneNumber;
+
     private String address;
+
+
+   @Pattern(regexp = "(^$|\\d{4}-\\d{2}-\\d{2})", message = "date of Birth should be YYYY-MM-DD")
     private String dateOfBirth;
 
     public Person(String fName, String lName, String mName, String gender, String email,

@@ -5,8 +5,11 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.Role;
 import com.example.patientrecordsystem.Service.Implementation.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins="http://localhost:4200")
@@ -27,8 +30,10 @@ public class RoleController {
     }
 
     @PostMapping("post/data")
-    public Role postRole(@RequestBody Role role){
-        return _roleService.create(role);
+
+    public ResponseEntity<Role> postRole(@Valid @RequestBody Role role){
+        Role createdRole = _roleService.create(role);
+        return new ResponseEntity<Role>(createdRole, HttpStatus.CREATED);
 
     }
 

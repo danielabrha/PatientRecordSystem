@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Component
@@ -16,9 +19,16 @@ public class LabTestType {
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int labTestTypeId;
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, message = "Lab Test name should be at least one character")
     @Column(name = "labTestName")
     private String labTestName;
     @Column(name = "labTestCode")
+
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, message = "Lab Test code should be at least one character")
     private String labTestCode;
 
     //    @JsonIgnoreProperties("labTestTypeList")
