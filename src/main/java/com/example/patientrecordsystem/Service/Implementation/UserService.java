@@ -1,9 +1,12 @@
 package com.example.patientrecordsystem.Service.Implementation;
+
+import com.example.patientrecordsystem.Domain.Entity.Role;
 import com.example.patientrecordsystem.Domain.Entity.User;
 import com.example.patientrecordsystem.Repository.IUserRepository;
 import com.example.patientrecordsystem.Service.Interface.IRoleService;
 import com.example.patientrecordsystem.Service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +16,8 @@ public class UserService implements IUserService {
     private IUserRepository _userRepository;
     @Autowired
     private List<User> listUser;
-    //    @Autowired
-    private IRoleService _roleService;
+    @Autowired
+    private RoleService _roleService;
     User user;
 
     public UserService() {
@@ -91,6 +94,7 @@ public class UserService implements IUserService {
     public User create(User user) {
         user.setDateOfBirth("");
         user.setUserName(user.getEmail());
+//        String _pwd= new BCryptPasswordEncoder().encode("123@123");
         user.setPassword("123@123");
         return _userRepository.save(user);
     }
@@ -108,6 +112,16 @@ public class UserService implements IUserService {
 
     }
 
+    public User assignRoleToUser(User user, int roleId) {
+        // get role by role id
+        Role role = _roleService.findById(roleId);
+        User existingUser=_userRepository.findById(user.getUserId()).orElse(null);
+        List<Role> roleList=new ArrayList<>();
+        roleList.add(role);
+        roleList.addAll(existingUser.getRoleList());
+        existingUser.setRoleList(roleList);
+      return  _userRepository.save(existingUser);
+    }
 
 }
 

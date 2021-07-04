@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
+@RequestMapping("/LabOrder")
 public class LabOrderController {
     @Autowired
     private LabOrderService _labOrderService;
@@ -25,24 +27,22 @@ public class LabOrderController {
         this._labOrderList = new ArrayList<>();
     }
 
-    @PostMapping("LabOrder/post/data/{visitId}/{labTestTypeId}")
-    public LabOrder postLabOrder(
+    @PostMapping("post/data/{visitId}/{labTestTypeId}")
+    public LabOrder postLabOrder(@RequestBody LabOrder labOrder,
             @PathVariable(value = "visitId") int visitId,
-            @PathVariable(value = "labTestTypeId") int labTestTypeId
-
-    ) {
+            @PathVariable(value = "labTestTypeId") int labTestTypeId) {
         return _labOrderService.create(visitId, labTestTypeId);
 
     }
 
-    @PostMapping("LabOrder/post/All/data/{visitId}/{labTestTypeId}")
+    @PostMapping("post/All/data/{visitId}/{labTestTypeId}")
     public List<LabOrder> postLabOrders(@RequestBody List<LabOrder> labOrderList,
                                         @PathVariable(value = "visitId") int visitId,
                                         @PathVariable(value = "labTestTypeId") int labTestTypeId) {
         return _labOrderService.createAll(labOrderList, visitId, labTestTypeId);
     }
 
-    @GetMapping("LabOrder/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public LabOrder getLabOrder(@PathVariable(value = "id") int Id) {
         return _labOrderService.findById(Id);
 
@@ -54,20 +54,20 @@ public class LabOrderController {
 
     }
 
-    @PutMapping("LabOrder/update/data")
+    @PutMapping("update/data/{visitId}/{labTestTypeId}")
     private LabOrder updateLabOrder(@RequestBody LabOrder LabOrderCM,
                                     @PathVariable(value = "visitId") int visitId,
                                     @PathVariable(value = "labTestTypeId") int labTestTypeId) {
         return _labOrderService.update(LabOrderCM, visitId, labTestTypeId);
     }
 
-    @DeleteMapping("LabOrder/deleteById/data/{id}")
+    @DeleteMapping("deleteById/data/{id}")
     private Boolean deleteLabOrderById(@PathVariable int id) {
         _labOrderService.deleteById(id);
         return true;
     }
 
-    @DeleteMapping("LabOrder/deleteAll/data")
+    @DeleteMapping("deleteAll/data")
     private Boolean deleteAllLabOrder() {
         _labOrderService.deleteAll();
         return true;

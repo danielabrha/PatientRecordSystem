@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
+@RequestMapping("/Symptom")
 public class SymptomController {
 @Autowired
     private SymptomService _symptomService;
@@ -24,7 +25,7 @@ public class SymptomController {
         
     }
 
-    @PostMapping("Symptom/post/data/{visitId}")
+    @PostMapping("post/data/{visitId}")
     public Symptom postSymptom(@RequestBody Symptom symptom,
                                @PathVariable(value = "visitId") int visitId
 
@@ -34,13 +35,13 @@ public class SymptomController {
 
     }
 
-    @PostMapping("Symptom/post/All/data/{visitId}/{labTestTypeId}")
+    @PostMapping("post/All/data/{visitId}/{labTestTypeId}")
     public List<Symptom> postSymptoms(@RequestBody List<Symptom> symptomList,
                                       @PathVariable (value = "visitId") int visitId) {
         return  _symptomService.createAll(symptomList, visitId);
     }
 
-    @GetMapping("Symptom/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public Symptom getSymptom(@PathVariable(value = "id") int Id) {
         return _symptomService.findById(Id);
 
@@ -52,18 +53,18 @@ public class SymptomController {
 
     }
 
-    @PutMapping("Symptom/update/data/symptomId")
+    @PutMapping("update/data/symptomId")
     private Symptom updateSymptom(@RequestBody Symptom symptom,@PathVariable(value = "symptomId") int symptomId) {
         return _symptomService.update(symptom,symptomId);
     }
 
-    @DeleteMapping("Symptom/deleteById/data/{symptomId}")
+    @DeleteMapping("deleteById/data/{symptomId}")
     private Boolean deleteSymptomById(@PathVariable(value = "symptomId") int symptomId) {
         _symptomService.deleteById(symptomId);
         return true;
     }
 
-    @DeleteMapping("Symptom/deleteAll/data")
+    @DeleteMapping("deleteAll/data")
     private Boolean deleteAllSymptom() {
         _symptomService.deleteAll();
         return true;

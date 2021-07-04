@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
+@RequestMapping("/Drug")
 public class DrugController {
 @Autowired
     private DrugService _drugService;
@@ -25,41 +26,41 @@ public class DrugController {
         this.drug = new Drug();
         this._drugList = new ArrayList<>();
     }
-    @PostMapping("Drug/post/data")
+    @PostMapping("post/data")
     public Drug postDurg(@RequestBody Drug drugVM){
         return _drugService.create(drugVM);
 
     }
 
-    @PostMapping("Drug/post/All/data")
+    @PostMapping("post/All/data")
     public List<Drug> postDrug(@RequestBody List<Drug> drugVMList){
         return  _drugService.createAll(drugVMList);
 
     }
-    @PutMapping("Drug/update")
+    @PutMapping("update")
     public Drug updateDrug(@RequestBody Drug drugVM){
 
         return _drugService.update(drugVM);
 
     }
-    @GetMapping("Drug/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public Drug getDrug(@PathVariable(value = "id") int Id) {
         return _drugService.findById(Id);
     }
-    @GetMapping("Drug/get/All/data")
+    @GetMapping("get/All/data")
     public List<Drug> getDrug() {
 
         return _drugService.findAll();
     }
 
-    @DeleteMapping("Drug/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public Boolean deleteDrug(@PathVariable int id){
         _drugService.deleteById(id);
         return true;
 
     }
 
-    @DeleteMapping("Drug/delete/all")
+    @DeleteMapping("delete/all")
     public Boolean deleteAllDrug(){
         _drugService.deleteAll();
         return true;

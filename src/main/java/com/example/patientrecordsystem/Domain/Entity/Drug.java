@@ -1,8 +1,8 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +20,9 @@ public class Drug {
     private String drugName;
     @Column(name = "drugCode")
     private String drugCode;
- //   @JsonManagedReference
+    //   @JsonManagedReference
 //    @JsonIdentityInfoProperties("drug")
+    @JsonIgnore
     @OneToMany(mappedBy = "drug")
     private List<DrugOrder> drugOrderList;
 
@@ -35,7 +36,7 @@ public class Drug {
         this.drugName = drugName;
         this.drugCode = drugCode;
         this.drugOrderList = drugOrderList;
-      //  this.systemAdmin = systemAdmin;
+        //  this.systemAdmin = systemAdmin;
     }
 
     public Drug(String drugName, String drugCode, List<DrugOrder> drugOrderList) {
@@ -72,7 +73,7 @@ public class Drug {
         this.drugCode = drugCode;
     }
 
-   // @JsonManagedReference
+    // @JsonManagedReference
     public List<DrugOrder> getDrugOrderList() {
         return drugOrderList;
     }
@@ -80,7 +81,7 @@ public class Drug {
     public void setDrugOrderList(List<DrugOrder> drugOrderList) {
         this.drugOrderList = drugOrderList;
     }
-  //  @JsonIdentityInfo
+    //  @JsonIdentityInfo
 //    public SystemAdmin getSystemAdmin() {
 //        return systemAdmin;
 //    }

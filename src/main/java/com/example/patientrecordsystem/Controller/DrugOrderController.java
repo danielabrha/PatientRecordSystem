@@ -18,6 +18,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
+@RequestMapping("/DrugOrder")
 public class DrugOrderController {
 
     @Autowired
@@ -43,7 +44,7 @@ public class DrugOrderController {
         this._drugOrderList = new ArrayList<>();
     
     }
-    @PostMapping("DrugOrder/post/data/{visitId}/{drugId}")
+    @PostMapping("post/data/{visitId}/{drugId}")
     public DrugOrder postDurg(@PathVariable(value = "visitId") int visitId,
                               @PathVariable(value = "drugId") int drugId,
                               @RequestBody DrugOrder drugOrder){
@@ -84,12 +85,12 @@ public class DrugOrderController {
 
         return _drugOrderService.create(drugOrder,drugId,visitId);    }
 
-    @PostMapping("DrugOrder/post/All/data/")
+    @PostMapping("post/All/data")
     public List<DrugOrder> postDrugOrder(@RequestBody List<DrugOrder> drugOrderList){
         return  _drugOrderService.createAll(drugOrderList);
 
     }
-    @PutMapping("DrugOrder/update/{visitId}/{drugId}")
+    @PutMapping("update/{visitId}/{drugId}")
     public DrugOrder updateDrugOrder(@RequestBody DrugOrder drugOrder,
                                      @PathVariable(value = "visitId") int visitId,
                                      @PathVariable(value = "drugId") int drugId){
@@ -97,11 +98,11 @@ public class DrugOrderController {
         return _drugOrderService.update(drugOrder,drugId,visitId);
 
     }
-    @GetMapping("/DrugOrder/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public DrugOrder getDrugOrder(@PathVariable(value = "id") int Id) {
         return _drugOrderService.findById(Id);
     }
-    @GetMapping("/DrugOrder/get/All/data/")
+    @GetMapping("get/All/data")
     public List<DrugOrder> getDrugOrder() {
 
 
@@ -109,14 +110,14 @@ public class DrugOrderController {
         return _drugOrderService.findAll();
     }
 
-    @DeleteMapping("DrugOrder/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public Boolean deleteDrugOrder(@PathVariable int id){
         _drugOrderService.deleteById(id);
         return true;
 
     }
 
-    @DeleteMapping("DrugOrder/delete/all")
+    @DeleteMapping("delete/all")
     public Boolean deleteAllDrugOrder(){
         _drugOrderService.deleteAll();
         return true;

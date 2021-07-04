@@ -21,12 +21,13 @@ public class LabTestType {
     @Column(name = "labTestCode")
     private String labTestCode;
 
-//    @JsonIgnoreProperties("labTestTypeList")
+    //    @JsonIgnoreProperties("labTestTypeList")
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "systemAdminId", referencedColumnName = "Id")
 //    private SystemAdmin systemAdmin;
-  //  @JsonManagedReference
+    //  @JsonManagedReference
 //    @JsonIgnoreProperties("labTestType")
+    @JsonIgnore
     @OneToMany(mappedBy = "labTestType")
     private List<LabOrder> labOrderList;
 
@@ -34,14 +35,14 @@ public class LabTestType {
         this.labTestTypeId = labTestTypeId;
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
-       // this.systemAdmin = systemAdmin;
+        // this.systemAdmin = systemAdmin;
         this.labOrderList = labOrderList;
     }
 
     public LabTestType(String labTestName, String labTestCode, List<LabOrder> labOrderList) {
         this.labTestName = labTestName;
         this.labTestCode = labTestCode;
-       // this.systemAdmin = systemAdmin;
+        // this.systemAdmin = systemAdmin;
         this.labOrderList = labOrderList;
     }
 
@@ -71,7 +72,8 @@ public class LabTestType {
     public void setLabTestCode(String labTestCode) {
         this.labTestCode = labTestCode;
     }
-  //  @JsonIgnore
+
+    //  @JsonIgnore
 //    public SystemAdmin getSystemAdmin() {
 //        return systemAdmin;
 //    }

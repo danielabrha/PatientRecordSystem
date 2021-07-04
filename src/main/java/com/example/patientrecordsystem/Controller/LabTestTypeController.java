@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
+@RequestMapping("/LabTestType")
 public class LabTestTypeController {
     @Autowired
     private LabTestTypeService _labTestTypeService;
@@ -27,7 +28,7 @@ public class LabTestTypeController {
         this._labTestTypeList = new ArrayList<>();
     }
 
-    @PostMapping("LabTestType/post/data")
+    @PostMapping("post/data")
 //    ,
 //            consumes = MediaType.APPLICATION_JSON_VALUE,
 //            produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,36 +37,36 @@ public class LabTestTypeController {
 
     }
 
-    @PostMapping("LabTestType/post/All/data")
+    @PostMapping("post/All/data")
     public List<LabTestType> postLabTestType(@RequestBody List<LabTestType> labTestTypeVMList){
         return  _labTestTypeService.createAll(labTestTypeVMList);
 
     }
-    @PutMapping("LabTestType/update/{labTestTypeId}")
+    @PutMapping("update/{labTestTypeId}")
     public LabTestType updateLabTestType(@RequestBody LabTestType labTestTypeVM,
                                          @PathVariable (value = "labTestTypeId") int labTestTypeId){
 
         return _labTestTypeService.update(labTestTypeVM);
 
     }
-    @GetMapping("LabTestType/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public LabTestType getLabTestType(@PathVariable(value = "id") int Id) {
         return _labTestTypeService.findById(Id);
     }
-    @GetMapping("LabTestType/get/All/data")
+    @GetMapping("get/All/data")
     public List<LabTestType> getLabTestType() {
 
         return _labTestTypeService.findAll();
     }
 
-    @DeleteMapping("LabTestType/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public Boolean deleteLabTestType(@PathVariable int id){
         _labTestTypeService.deleteById(id);
         return true;
 
     }
 
-    @DeleteMapping("LabTestType/delete/all")
+    @DeleteMapping("delete/all")
     public Boolean deleteAllLabTestType(){
         _labTestTypeService.deleteAll();
         return true;

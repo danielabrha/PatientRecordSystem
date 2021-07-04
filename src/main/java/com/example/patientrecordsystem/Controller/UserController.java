@@ -1,7 +1,6 @@
 package com.example.patientrecordsystem.Controller;
 
 
-
 import com.example.patientrecordsystem.Domain.Entity.User;
 import com.example.patientrecordsystem.Service.Implementation.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-@CrossOrigin(origins="http://localhost:4200")
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@RequestMapping("/User")
 public class UserController {
     @Autowired
     private UserService _userService;
@@ -27,46 +28,55 @@ public class UserController {
     }
 
 
-    @PostMapping(value="/User/post/data")
-    public User postUser(@RequestBody User userVM){
+    @PostMapping(value = "post/data")
+    public User postUser(@RequestBody User userVM) {
         return _userService.create(userVM);
 
     }
 
-    @PostMapping("/User/post/All/data")
-    public List<User> postUser(@RequestBody List<User> userVMList){
-        return  _userService.createAll(userVMList);
+    @PostMapping("post/All/data")
+    public List<User> postUser(@RequestBody List<User> userVMList) {
+        return _userService.createAll(userVMList);
 
     }
-    @PutMapping("User/update/{userId}")
-    public User updateUser(@RequestBody User userVM,@PathVariable(value = "userId") int userId){
 
-        return _userService.update(userVM,userId);
+    @PutMapping("update/{userId}")
+    public User updateUser(@RequestBody User userVM, @PathVariable(value = "userId") int userId) {
+
+        return _userService.update(userVM, userId);
 
     }
-    @GetMapping("User/get/data/{id}")
+
+    @GetMapping("get/data/{id}")
     public User getUser(@PathVariable(value = "id") int Id) {
         return _userService.findById(Id);
     }
 
-    @GetMapping("User/get/All/data")
+    @GetMapping("get/All/data")
     public List<User> getUser() {
 
         return _userService.findAll();
     }
 
-    @DeleteMapping("User/delete/{id}")
-    public Boolean deleteUser(@PathVariable int id){
+    @DeleteMapping("delete/{id}")
+    public Boolean deleteUser(@PathVariable int id) {
         _userService.deleteById(id);
         return true;
 
     }
 
-    @DeleteMapping("User/delete/all")
-    public Boolean deleteAllUser(){
+    @DeleteMapping("delete/all")
+    public Boolean deleteAllUser() {
         _userService.deleteAll();
         return true;
 
+    }
+
+    // user and role
+    @PostMapping("userrole/{roleId}")
+    public User assignRoleToUser(@RequestBody User user,
+                                 @PathVariable(value = "roleId") int roleId) {
+        return _userService.assignRoleToUser(user, roleId);
     }
 
 }

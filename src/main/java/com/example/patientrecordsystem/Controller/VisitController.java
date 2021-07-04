@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
+@RequestMapping("/Visit")
 public class VisitController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class VisitController {
         this._visitList = new ArrayList<>();
     }
 
-    @PostMapping("Visit/post/data/{patientId}")
+    @PostMapping("post/data/{patientId}")
     public Visit postVisit(@RequestBody Visit visit,
                            @PathVariable (value = "patientId") int patientId
 
@@ -34,13 +35,13 @@ public class VisitController {
 
     }
 
-    @PostMapping("Visit/post/All/data/{patientId}")
+    @PostMapping("post/All/data/{patientId}")
     public List<Visit> postVisits(@RequestBody List<Visit> visitList,
                                   @PathVariable (value = "patientId") int patientId) {
         return  _visitService.createAll(visitList, patientId);
     }
 
-    @GetMapping("Visit/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public Visit getVisit(@PathVariable(value = "id") int Id) {
         return _visitService.findById(Id);
 
@@ -52,18 +53,18 @@ public class VisitController {
 
     }
 
-    @PutMapping("Visit/update/data")
+    @PutMapping("update/data")
     private Visit updateVisit(@RequestBody Visit VisitCM) {
         return _visitService.update(VisitCM);
     }
 
-    @DeleteMapping("Visit/deleteById/data/{id}")
+    @DeleteMapping("deleteById/data/{id}")
     private Boolean deleteVisitById(@PathVariable int id) {
         _visitService.deleteById(id);
         return true;
     }
 
-    @DeleteMapping("/Visit/deleteAll/data")
+    @DeleteMapping("deleteAll/data")
     private Boolean deleteAllVisit() {
         _visitService.deleteAll();
         return true;

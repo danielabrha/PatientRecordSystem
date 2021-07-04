@@ -1,7 +1,6 @@
 package com.example.patientrecordsystem.Domain.Entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -15,13 +14,14 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
+    @Column(name = "Id")
     private int roleId;
     @Column(name = "roleName")
     private String roleName;
-   // @JsonManagedReference
+    // @JsonManagedReference
 //    @JsonIgnoreProperties("roleList")
-    @ManyToMany(mappedBy ="roleList" )
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roleList")
     private List<User> userList;
 
     public Role(int roleId, String roleName, List<User> userList) {
@@ -29,11 +29,13 @@ public class Role {
         this.roleName = roleName;
         this.userList = userList;
     }
+
     public Role(String roleName, List<User> userList) {
 
         this.roleName = roleName;
         this.userList = userList;
     }
+
     public Role() {
     }
 
@@ -52,7 +54,8 @@ public class Role {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-   // @JsonManagedReference
+
+    // @JsonManagedReference
     public List<User> getUserList() {
         return userList;
     }

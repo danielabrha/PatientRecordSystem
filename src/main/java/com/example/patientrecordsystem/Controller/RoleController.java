@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
+@RequestMapping("/Role")
 public class RoleController {
     @Autowired
     private RoleService _roleService;
@@ -25,40 +26,40 @@ public class RoleController {
         
     }
 
-    @PostMapping("Role/post/data")
+    @PostMapping("post/data")
     public Role postRole(@RequestBody Role role){
         return _roleService.create(role);
 
     }
 
-    @PostMapping("Role/post/All/data")
+    @PostMapping("post/All/data")
     public List<Role> postRole(@RequestBody List<Role> roleList){
         return  _roleService.createAll(roleList);
 
     }
-    @PutMapping("Role/update/{roleId}")
+    @PutMapping("update/{roleId}")
     public Role updateRole(@RequestBody Role role,@PathVariable (value = "roleId") int roleId){
         return _roleService.update(role,roleId);
 
     }
-    @GetMapping("Role/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public Role getRole(@PathVariable(value = "id") int Id) {
         return _roleService.findById(Id);
     }
-    @GetMapping("Role/get/All/data")
+    @GetMapping("get/All/data")
     public List<Role> getRole() {
 
         return _roleService.findAll();
     }
 
-    @DeleteMapping("Role/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public Boolean deleteRole(@PathVariable int id){
         _roleService.deleteById(id);
         return true;
 
     }
 
-    @DeleteMapping("Role/delete/all")
+    @DeleteMapping("delete/all")
     public Boolean deleteAllRole(){
         _roleService.deleteAll();
         return true;

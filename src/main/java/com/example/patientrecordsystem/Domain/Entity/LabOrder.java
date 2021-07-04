@@ -29,6 +29,7 @@ public class LabOrder {
 //    private Doctor doctor;
   //  @JsonIgnore
 //    @JsonIgnoreProperties("labOrder")
+    @JsonIgnore
     @OneToOne(mappedBy = "labOrder")
     private LabResult labResult;
 

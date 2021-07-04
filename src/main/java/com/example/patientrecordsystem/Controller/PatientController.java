@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
+@RequestMapping("/Patient")
 public class PatientController {
     @Autowired
     private PatientService _patientService;
@@ -25,42 +26,42 @@ public class PatientController {
         this._patientServiceList = new ArrayList<>();
         
     }
-    @PostMapping("Patient/post/data")
+    @PostMapping("post/data")
     public Patient postPatient(@RequestBody Patient patient)
     {
         return _patientService.create(patient);
 
     }
 
-    @PostMapping("Patient/post/All/data")
+    @PostMapping("post/All/data")
     public List<Patient> postPatient(@RequestBody List<Patient> patientList){
         return  _patientService.createAll(patientList);
 
     }
-    @PutMapping("Patient/update/{patientId}")
+    @PutMapping("update/{patientId}")
     public Patient updatePatient(@RequestBody Patient patient,@PathVariable(value = "patientId") int patientId){
 
         return _patientService.update(patient,patientId);
 
     }
-    @GetMapping("Patient/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public Patient getPatient(@PathVariable(value = "id") int Id) {
         return _patientService.findById(Id);
     }
-    @GetMapping("Patient/get/All/data")
+    @GetMapping("get/All/data")
     public List<Patient> getPatient() {
 
         return _patientService.findAll();
     }
 
-    @DeleteMapping("Patient/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public Boolean deletePatient(@PathVariable int id){
         _patientService.deleteById(id);
         return true;
 
     }
 
-    @DeleteMapping("Patient/delete/all")
+    @DeleteMapping("delete/all")
     public Boolean deleteAllPatient(){
         _patientService.deleteAll();
         return true;

@@ -1,17 +1,20 @@
 package com.example.patientrecordsystem.Controller;
 
 
-
 import com.example.patientrecordsystem.Domain.Entity.LabResult;
 import com.example.patientrecordsystem.Service.Implementation.LabResultService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Access;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@RequestMapping("/LabResult")
 public class LabResultController {
-
+    @Autowired
     private LabResultService _labResultService;
     private LabResult labResult;
     private List<LabResult> _labResultList;
@@ -24,7 +27,7 @@ public class LabResultController {
         this._labResultList = new ArrayList<>();
     }
 
-    @PostMapping("/LabResult/post/data/{labOrderId}")
+    @PostMapping("post/data/{labOrderId}")
     public LabResult postLabResult(@RequestBody LabResult LabResultVM,
                                    @PathVariable(value = "labOrderId") int labOrderId
 
@@ -34,36 +37,37 @@ public class LabResultController {
 
     }
 
-    @PostMapping("/LabResult/post/All/data/{}/{labTestTypeId}")
+    @PostMapping("post/All/data/{labTestTypeId}")
     public List<LabResult> postLabResults(@RequestBody List<LabResult> labResultList,
-                                          @PathVariable (value = "labOrderId") int labOrderId) {
-        return  _labResultService.createAll(labResultList, labOrderId);
+                                          @PathVariable(value = "labOrderId") int labOrderId) {
+        return _labResultService.createAll(labResultList, labOrderId);
     }
 
-    @GetMapping("/LabResult/get/data/{id}")
+    @GetMapping("get/data/{id}")
     public LabResult getLabResult(@PathVariable(value = "id") int Id) {
         return _labResultService.findById(Id);
 
     }
 
-    @GetMapping("/LabResults/get/All/data")
+    @GetMapping("LabResults/get/All/data")
     public List<LabResult> getAllLabResult() {
-        return  _labResultService.findAll();
+        return _labResultService.findAll();
 
     }
 
-    @PutMapping("/LabResult/update/data")
-    private LabResult updateLabResult(@RequestBody LabResult LabResultCM) {
+    @PutMapping("update/data/{labOrderId}")
+    private LabResult updateLabResult(@PathVariable(value="labOrderId") int labOrderId ,
+                                      @RequestBody LabResult LabResultCM) {
         return _labResultService.update(LabResultCM);
     }
 
-    @DeleteMapping("/LabResult/deleteById/data/{id}")
+    @DeleteMapping("deleteById/data/{id}")
     private Boolean deleteLabResultById(@PathVariable int id) {
         _labResultService.deleteById(id);
         return true;
     }
 
-    @DeleteMapping("/LabResult/deleteAll/data")
+    @DeleteMapping("deleteAll/data")
     private Boolean deleteAllLabResult() {
         _labResultService.deleteAll();
         return true;

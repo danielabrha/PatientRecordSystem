@@ -28,21 +28,23 @@ public class Visit {
 //    @JoinColumn(name = "receptionstId", referencedColumnName = "Id")
 //    private Receptionst receptionst;
 
-//    @JsonIgnoreProperties("visitList")
+    //    @JsonIgnoreProperties("visitList")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patientId", referencedColumnName = "Id")
     private Patient patient;
-  //  @JsonManagedReference
+    //  @JsonManagedReference
 //    @JsonIgnoreProperties("visit")
     @JsonIgnore
     @OneToMany(mappedBy = "visit")
-    private List<Symptom> symptomList ;
-  //  @JsonManagedReference
+    private List<Symptom> symptomList;
+    //  @JsonManagedReference
 //    @JsonIgnoreProperties("visit")
+    @JsonIgnore
     @OneToMany(mappedBy = "visit")
-    private List<LabOrder> labOrderList ;
- //   @JsonManagedReference
+    private List<LabOrder> labOrderList;
+    //   @JsonManagedReference
 //    @JsonIgnoreProperties("visit")
+    @JsonIgnore
     @OneToMany(mappedBy = "visit")
     private List<DrugOrder> drugOrderList;
 
@@ -50,7 +52,7 @@ public class Visit {
                  List<Symptom> symptomList, List<LabOrder> labOrderList, List<DrugOrder> drugOrderList) {
         this.visitId = visitId;
         this.visitDate = visitDate;
-     //   this.receptionst = receptionst;
+        //   this.receptionst = receptionst;
         this.patient = patient;
         this.symptomList = symptomList;
         this.labOrderList = labOrderList;
@@ -60,7 +62,7 @@ public class Visit {
     public Visit(Date visitDate, Patient patient,
                  List<Symptom> symptomList, List<LabOrder> labOrderList, List<DrugOrder> drugOrderList) {
         this.visitDate = visitDate;
-      //  this.receptionst = receptionst;
+        //  this.receptionst = receptionst;
         this.patient = patient;
         this.symptomList = symptomList;
         this.labOrderList = labOrderList;
@@ -85,7 +87,8 @@ public class Visit {
     public void setVisitDate(Date visitDate) {
         this.visitDate = visitDate;
     }
-  //  @JsonIgnore
+
+    //  @JsonIgnore
 //    public Receptionst getReceptionst() {
 //        return receptionst;
 //    }
@@ -93,7 +96,7 @@ public class Visit {
 //    public void setReceptionst(Receptionst receptionst) {
 //        this.receptionst = receptionst;
 //    }
-   // @JsonIgnore
+    // @JsonIgnore
     public Patient getPatient() {
         return patient;
     }
@@ -101,6 +104,7 @@ public class Visit {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
     //@JsonManagedReference
     public List<Symptom> getSymptomList() {
         return symptomList;
@@ -109,7 +113,8 @@ public class Visit {
     public void setSymptomList(List<Symptom> symptomList) {
         this.symptomList = symptomList;
     }
-   // @JsonManagedReference
+
+    // @JsonManagedReference
     public List<LabOrder> getLabOrderList() {
         return labOrderList;
     }
@@ -117,7 +122,8 @@ public class Visit {
     public void setLabOrderList(List<LabOrder> labOrderList) {
         this.labOrderList = labOrderList;
     }
-  // @JsonManagedReference
+
+    // @JsonManagedReference
     public List<DrugOrder> getDrugOrderList() {
         return drugOrderList;
     }
