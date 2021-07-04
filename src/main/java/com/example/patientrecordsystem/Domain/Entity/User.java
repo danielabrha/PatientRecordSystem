@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +25,19 @@ public class User extends Person {
     private int userId;
 
     @Column(name = "userName")
+
+    @NotEmpty
+    @Size(min = 1, max = 30, message = "Username should be at least one character")
     private String userName;
+
+    @NotEmpty
+    @Pattern(regexp ="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$",
+    message = "Password must have: " +
+            "1. At least one digit, "+
+    "2. At least one lower case character, "+
+    "3. At least one upper case character, "+
+    "4. At least one special character, "+
+    "5. A length of min 8 and max 20")
     @Column(name = "password")
     private String password;
 

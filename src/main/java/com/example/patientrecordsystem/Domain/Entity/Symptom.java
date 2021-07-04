@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Component
 @Entity(name = "symptoms")
@@ -17,6 +20,9 @@ public class Symptom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int symptomId;
 
+    @NotEmpty
+    @NotNull
+    @Size(min = 2, message = "Symptom should be a minimum of 2 characters")
     @Column(name = "symptomName")
     private String symptomName;
 

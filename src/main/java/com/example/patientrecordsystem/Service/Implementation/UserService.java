@@ -92,9 +92,9 @@ public class UserService implements IUserService {
 
     @Override
     public User create(User user) {
-        user.setDateOfBirth("");
+        user.setDateOfBirth(user.getDateOfBirth());
         user.setUserName(user.getEmail());
-        user.setPassword("123@123");
+        user.setPassword(user.getPassword());
         return _userRepository.save(user);
     }
 

@@ -6,13 +6,16 @@ import com.example.patientrecordsystem.Domain.Entity.Patient;
 import com.example.patientrecordsystem.Service.Implementation.PatientService;
 import com.example.patientrecordsystem.Service.Interface.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+//@CrossOrigin(origins="http://localhost:4200")
 public class PatientController {
     @Autowired
     private PatientService _patientService;
@@ -26,10 +29,10 @@ public class PatientController {
         
     }
     @PostMapping("Patient/post/data")
-    public Patient postPatient(@RequestBody Patient patient)
+    public ResponseEntity<Patient> postPatient(@Valid @RequestBody Patient patient)
     {
-        return _patientService.create(patient);
-
+        Patient createdPatient = _patientService.create(patient);
+        return new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
     }
 
     @PostMapping("Patient/post/All/data")

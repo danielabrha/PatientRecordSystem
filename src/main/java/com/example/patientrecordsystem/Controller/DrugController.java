@@ -6,11 +6,14 @@ import com.example.patientrecordsystem.Domain.Entity.Drug;
 import com.example.patientrecordsystem.Service.Implementation.DrugService;
 import com.example.patientrecordsystem.Service.Interface.IDrugService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-@CrossOrigin(origins="http://localhost:4200")
+//@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class DrugController {
 @Autowired
@@ -26,9 +29,9 @@ public class DrugController {
         this._drugList = new ArrayList<>();
     }
     @PostMapping("Drug/post/data")
-    public Drug postDurg(@RequestBody Drug drugVM){
-        return _drugService.create(drugVM);
-
+    public ResponseEntity<Drug> postDurg(@Valid @RequestBody Drug drugVM){
+        Drug createdDrug = _drugService.create(drugVM);
+        return new ResponseEntity<Drug> (createdDrug, HttpStatus.CREATED);
     }
 
     @PostMapping("Drug/post/All/data")

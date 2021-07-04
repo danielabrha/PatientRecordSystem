@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Component
 @Entity(name = "drugOrders")
@@ -13,6 +17,8 @@ public class DrugOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int drugOrderId;
+
+    @PositiveOrZero(message = "amount should zero or positive number")
     @Column(name = "amount")
     private int amount;
 

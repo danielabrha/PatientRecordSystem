@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Component
@@ -16,9 +18,14 @@ public class Drug {
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int drugId;
+    @NotNull
+    @NotEmpty(message = "drug name should not be empty")
     @Column(name = "drugName")
     private String drugName;
+
     @Column(name = "drugCode")
+    @NotNull
+    @NotEmpty(message = "drug code should not be empty")
     private String drugCode;
  //   @JsonManagedReference
 //    @JsonIdentityInfoProperties("drug")

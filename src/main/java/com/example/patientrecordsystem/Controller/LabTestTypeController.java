@@ -6,12 +6,15 @@ import com.example.patientrecordsystem.Domain.Entity.LabTestType;
 import com.example.patientrecordsystem.Service.Implementation.LabTestTypeService;
 import com.example.patientrecordsystem.Service.Interface.ILabTestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-@CrossOrigin(origins="http://localhost:4200")
+//@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class LabTestTypeController {
     @Autowired
@@ -31,8 +34,10 @@ public class LabTestTypeController {
 //    ,
 //            consumes = MediaType.APPLICATION_JSON_VALUE,
 //            produces = MediaType.APPLICATION_JSON_VALUE)
-    public LabTestType postLabTestType( @RequestBody LabTestType labTestTypeVM){
-        return _labTestTypeService.create(labTestTypeVM);
+    public ResponseEntity<LabTestType> postLabTestType(@Valid @RequestBody LabTestType labTestTypeVM){
+
+        LabTestType createdLabTestType = _labTestTypeService.create(labTestTypeVM);
+        return new ResponseEntity<LabTestType>(createdLabTestType, HttpStatus.CREATED);
 
     }
 
