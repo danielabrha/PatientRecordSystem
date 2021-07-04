@@ -49,7 +49,7 @@ class SymptomControllerTest {
         symptom.setSymptomName("Amonia");
         Visit visit = new Visit();
         visit.setVisitId(1);
-
+        symptom.setVisit(visit);
         given(symptomService.create(symptom,visit.getVisitId())).willReturn(symptom);
         mockMvc.perform(post("/Symptom/post/data/"+Integer.toString(symptom.getSymptomId()))
 

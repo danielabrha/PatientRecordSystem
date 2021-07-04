@@ -86,7 +86,7 @@ public class DrugOrderController {
         mailSender.send(message);
 
         DrugOrder createdDrugOrder =  _drugOrderService.create(drugOrder,drugId,visitId);
-        return new ResponseEntity<DrugOrder>(createdDrugOrder, HttpStatus.CREATED);
+        return new ResponseEntity<DrugOrder>(createdDrugOrder, HttpStatus.OK);
     }
 
     @PostMapping("DrugOrder/post/All/data/")

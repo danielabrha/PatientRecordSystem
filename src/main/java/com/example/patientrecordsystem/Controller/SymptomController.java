@@ -32,7 +32,7 @@ public class SymptomController {
                                               @PathVariable(value = "visitId") int visitId
     ) {
         Symptom createdSymptom = _symptomService.create(symptom, visitId);
-        return new ResponseEntity<Symptom>(createdSymptom, HttpStatus.CREATED);
+        return new ResponseEntity<Symptom>(createdSymptom, HttpStatus.OK);
     }
 
     @PostMapping("Symptom/post/All/data/{visitId}/{labTestTypeId}")

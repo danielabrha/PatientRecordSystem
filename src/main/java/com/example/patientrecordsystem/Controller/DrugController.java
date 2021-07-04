@@ -31,7 +31,7 @@ public class DrugController {
     @PostMapping("Drug/post/data")
     public ResponseEntity<Drug> postDurg(@Valid @RequestBody Drug drugVM){
         Drug createdDrug = _drugService.create(drugVM);
-        return new ResponseEntity<Drug> (createdDrug, HttpStatus.CREATED);
+        return new ResponseEntity<Drug> (createdDrug, HttpStatus.OK);
     }
 
     @PostMapping("Drug/post/All/data")

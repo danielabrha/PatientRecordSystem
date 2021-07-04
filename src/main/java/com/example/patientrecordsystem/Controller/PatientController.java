@@ -32,7 +32,7 @@ public class PatientController {
     public ResponseEntity<Patient> postPatient(@Valid @RequestBody Patient patient)
     {
         Patient createdPatient = _patientService.create(patient);
-        return new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
+        return new ResponseEntity<Patient>(createdPatient, HttpStatus.OK);
     }
 
     @PostMapping("Patient/post/All/data")

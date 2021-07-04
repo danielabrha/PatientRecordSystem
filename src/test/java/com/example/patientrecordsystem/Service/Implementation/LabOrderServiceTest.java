@@ -2,6 +2,7 @@ package com.example.patientrecordsystem.Service.Implementation;
 
 import com.example.patientrecordsystem.Domain.Entity.LabOrder;
 import com.example.patientrecordsystem.Domain.Entity.LabTestType;
+import com.example.patientrecordsystem.Domain.Entity.User;
 import com.example.patientrecordsystem.Domain.Entity.Visit;
 import com.example.patientrecordsystem.Repository.IDoctorRepository;
 import com.example.patientrecordsystem.Repository.ILabOrderRepository;
@@ -12,11 +13,13 @@ import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 
 
 @RunWith(SpringRunner.class)
@@ -76,6 +79,20 @@ class LabOrderServiceTest {
         assertEquals(labOrder, labOrderService.findById(labOrder.getLabOrderId()));
     }
 
+    @Test
+    public void getLabOrdersTest() {
+        List<LabOrder> labOrderList = new ArrayList<>();
+
+        LabOrder labOrder1 = new LabOrder();
+        LabOrder labOrder2 = new LabOrder();
+
+        labOrderList.add(labOrder1);
+        labOrderList.add(labOrder2);
+        given(labOrderRepository.findAll()).willReturn(labOrderList);
+        List<LabOrder> expected = labOrderService.findAll();
+        assertEquals(expected, labOrderList);
+        Mockito.verify(labOrderRepository).findAll();
+    }
 
 
     @Test

@@ -48,8 +48,9 @@ class PatientControllerTest {
 
     @Test
     public void createPatientTest() throws Exception {
-        Patient patient = new Patient();
-        patient.setfName("Weldmicheal");
+        Patient patient = new Patient("Weldmicheal","Berhanu", "Hailu", "male", "michock.mit@gmail.com",
+                "1234567890",  "MIU", "2012-20-01", 10000,null);
+
 
         given(patientService.create(Mockito.any())).willReturn(patient);
         mockMvc.perform(post("/Patient/post/data")

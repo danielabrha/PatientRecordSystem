@@ -46,8 +46,9 @@ class UserControllerTest {
 
     @Test
     public void createUserTest() throws Exception {
-        User user = new User();
-        user.setfName("Weldmicheal");
+        User user = new User("Weldmicheal","Berhanu", "Hailu", "male", "michock.mit@gmail.com",
+                "1234567890",  "MIU", "2012-20-08", "username", "psd@12Abc", null);
+
         given(userService.create(Mockito.any())).willReturn(user);
         mockMvc.perform(post("/User/post/data")
                 .contentType(MediaType.APPLICATION_JSON)

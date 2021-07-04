@@ -34,7 +34,7 @@ public class UserController {
 
     public ResponseEntity<User> postUser(@Valid @RequestBody User userVM){
         User createdUser =  _userService.create(userVM);
-        return new ResponseEntity<User>(createdUser,HttpStatus.CREATED);
+        return new ResponseEntity<User>(createdUser,HttpStatus.OK);
 
     }
     /*

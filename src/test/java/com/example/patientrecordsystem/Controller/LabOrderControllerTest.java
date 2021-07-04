@@ -19,7 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -82,6 +84,22 @@ class LabOrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.labOrderId", is(labOrder.getLabOrderId())));
     }
+
+    @Test
+    public void getLabOrdersTest() throws Exception {
+        LabOrder labOrder1 = new LabOrder();
+        labOrder1.setLabOrderId(1);
+        LabOrder labOrder2 = new LabOrder();
+        labOrder2.setLabOrderId(2);
+        List<LabOrder> labOrderList = Arrays.asList(labOrder1, labOrder2);
+        given(labOrderService.findAll()).willReturn(labOrderList);
+        mockMvc.perform(get("/LabOrders/get/All/data")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].labOrderId", is(labOrder1.getLabOrderId())));
+    }
+
 
     @Test
     public void deleteLabOrderTest() throws Exception {

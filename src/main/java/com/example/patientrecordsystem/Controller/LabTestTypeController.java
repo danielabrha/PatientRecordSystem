@@ -37,7 +37,7 @@ public class LabTestTypeController {
     public ResponseEntity<LabTestType> postLabTestType(@Valid @RequestBody LabTestType labTestTypeVM){
 
         LabTestType createdLabTestType = _labTestTypeService.create(labTestTypeVM);
-        return new ResponseEntity<LabTestType>(createdLabTestType, HttpStatus.CREATED);
+        return new ResponseEntity<LabTestType>(createdLabTestType, HttpStatus.OK);
 
     }
 

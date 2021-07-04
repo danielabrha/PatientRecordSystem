@@ -33,7 +33,7 @@ public class LabResultController {
                                                   @PathVariable(value = "labOrderId") int labOrderId
     ) {
         LabResult createdLabResult = _labResultService.create(LabResultVM, labOrderId);
-        return new ResponseEntity<LabResult>(createdLabResult, HttpStatus.CREATED);
+        return new ResponseEntity<LabResult>(createdLabResult, HttpStatus.OK);
     }
 
     @PostMapping("/LabResult/post/All/data/{}/{labTestTypeId}")
