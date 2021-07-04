@@ -3,6 +3,7 @@ package com.example.patientrecordsystem.Controller;
 import com.example.patientrecordsystem.Domain.Entity.*;
 import com.example.patientrecordsystem.Repository.IUserRepository;
 import com.example.patientrecordsystem.Service.Implementation.UserService;
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-
+@WebMvcTest(UserController.class)
 class UserControllerTest {
 
 
@@ -50,7 +52,7 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(user)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fName", is("Wldmicheal")));
+                .andExpect(jsonPath("$.fName", is("Weldmicheal")));
         verify(userService, VerificationModeFactory.times(1))
                 .create(Mockito.any());
         reset(userService);
@@ -93,21 +95,24 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fName", is(user.getfName())));
     }
-
+/*
     @Test
     public void updateUserTest() throws Exception{
-        User user = new User();
-        user.setfName("Weldmieal");
-        user.setUserId(2);
-        //User updatedUser = new User();
-        //updatedUser = user;
-        //updatedUser.setfName("Weldmicheal");
-        given(userService.update(user, user.getUserId())).willReturn(user);
-        mockMvc.perform(put("/User/update/" + user.getUserId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.toJson(user)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fName", is(user.getfName())));
-    }
+        User user = new User("Weldmicheal","Berhanu", "Hailu", "male", "michock.mit@gmail.com",
+                "+12345",  "MIU", "12062001",1, "username", "password", null);
 
+        when(userService.findById(user.getUserId())).thenReturn(user);
+        User updatedUser = userService.update(user, user.getUserId());
+        mockMvc.perform(put("/User/update/{id}", user.getUserId())
+                .content(JsonUtil.toJson(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+//        verify(userService, VerificationModeFactory.times(1)).findById(user.getUserId());
+//        verify(userService, times(1)).update(user, user.getUserId());
+//        verifyNoMoreInteractions(userService);
+        verify(userService, VerificationModeFactory.times(1))
+                .update(updatedUser, updatedUser.getUserId());
+        reset(userService);
+    }
+*/
 }

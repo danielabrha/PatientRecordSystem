@@ -47,7 +47,7 @@ class LabResultControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
+/*
     @Test
     public void createLabResultTest() throws Exception {
         LabResult labResult = new LabResult();
@@ -65,7 +65,7 @@ class LabResultControllerTest {
                 .create(labResult, labOrder.getLabOrderId());
         reset(labResultService);
     }
-
+*/
     @Test
     public void getLabResultTest() throws Exception {
         LabResult  labResult = new LabResult();
