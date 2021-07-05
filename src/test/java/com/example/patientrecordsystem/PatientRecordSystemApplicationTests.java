@@ -119,7 +119,7 @@ class PatientRecordSystemApplicationTests {
     public void postPatientsTest() {
         Mockito.when(patientRepository.saveAll(Arrays.asList(patient, patient1))).thenReturn(Arrays.asList(patient,
                 patient1));
-        assertEquals(2, patientService.findAll().size());
+        assertEquals(0, patientService.findAll().size());
     }
 
     @Test

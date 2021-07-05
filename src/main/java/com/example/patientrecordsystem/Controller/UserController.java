@@ -2,6 +2,7 @@ package com.example.patientrecordsystem.Controller;
 
 
 import com.example.patientrecordsystem.Domain.Entity.User;
+import com.example.patientrecordsystem.Domain.ViewModel.UserViewModel;
 import com.example.patientrecordsystem.Service.Implementation.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,9 +46,10 @@ public class UserController {
     }
 
     @PutMapping("update/{userId}")
-    public User updateUser(@RequestBody User userVM, @PathVariable(value = "userId") int userId) {
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User userVM, @PathVariable(value = "userId") int userId) {
 
-        return _userService.update(userVM, userId);
+        return new ResponseEntity<User>(_userService.update(userVM, userId),HttpStatus.OK);
+
 
     }
 
@@ -78,7 +80,7 @@ public class UserController {
 
     // user and role
     @PostMapping("userrole/{roleId}")
-    public User assignRoleToUser(@RequestBody User user,
+    public User assignRoleToUser(@RequestBody UserViewModel user,
                                  @PathVariable(value = "roleId") int roleId) {
         return _userService.assignRoleToUser(user, roleId);
     }

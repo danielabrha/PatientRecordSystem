@@ -2,6 +2,7 @@ package com.example.patientrecordsystem.Service.Implementation;
 
 import com.example.patientrecordsystem.Domain.Entity.Role;
 import com.example.patientrecordsystem.Domain.Entity.User;
+import com.example.patientrecordsystem.Domain.ViewModel.UserViewModel;
 import com.example.patientrecordsystem.Repository.IUserRepository;
 import com.example.patientrecordsystem.Service.Interface.IRoleService;
 import com.example.patientrecordsystem.Service.Interface.IUserService;
@@ -65,7 +66,7 @@ public class UserService implements IUserService {
             if (user.getDateOfBirth() != null)
                 existingUser.setDateOfBirth(user.getDateOfBirth());
             if (user.getAddress() != null)
-                existingUser.setDateOfBirth(user.getAddress());
+                existingUser.setAddress(user.getAddress());
 
             return _userRepository.save(existingUser);
         }
@@ -101,7 +102,7 @@ public class UserService implements IUserService {
             user.setUserName(user.getEmail());
 //        String _pwd= new BCryptPasswordEncoder().encode("123@123");
         if (user.getPassword() == null)
-            user.setPassword("123@123");
+            user.setPassword("User123@123");
         return _userRepository.save(user);
     }
 
@@ -109,16 +110,21 @@ public class UserService implements IUserService {
     public List<User> createAll(List<User> listUser) {
         List<User> userList = new ArrayList<>();
         listUser.forEach(user -> {
-            user.setUserName(user.getEmail());
-            user.setPassword("123@123");
-            user.setDateOfBirth("");
+            if (user.getUserName() == null)
+                user.setUserName(user.getEmail());
+//        String _pwd= new BCryptPasswordEncoder().encode("123@123");
+            if (user.getPassword() == null)
+                user.setPassword("User123@123");
+        //    user.setUserName(user.getEmail());
+           // user.setPassword("123@123");
+          //  user.setDateOfBirth("");
             userList.add(user);
         });
         return _userRepository.saveAll(userList);
 
     }
 
-    public User assignRoleToUser(User user, int roleId) {
+    public User assignRoleToUser(UserViewModel user, int roleId) {
         // get role by role id
         Role role = _roleService.findById(roleId);
         User existingUser = _userRepository.findById(user.getUserId()).orElse(null);

@@ -47,6 +47,8 @@ public class DrugService implements IDrugService {
         if (previousDrug != null) {
 
             previousDrug.setDrugId(drug.getDrugId());
+            previousDrug.setDrugCode(drug.getDrugCode());
+            previousDrug.setDrugName(drug.getDrugName());
 
         }
         return _drugRepository.save(previousDrug);

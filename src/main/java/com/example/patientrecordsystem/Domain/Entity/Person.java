@@ -16,7 +16,7 @@ public class Person {
     private String fName;
 
     @NotEmpty
-    @Size(min = 2, max = 30, message = "first Name should be between 2 and 30 chars")
+    @Size(min = 2, max = 30, message = "last Name should be between 2 and 30 chars")
     private String lName;
 
     private String mName;

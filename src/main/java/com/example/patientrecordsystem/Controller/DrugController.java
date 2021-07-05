@@ -43,9 +43,8 @@ public class DrugController {
 
     }
     @PutMapping("update")
-    public Drug updateDrug(@RequestBody Drug drugVM){
-
-        return _drugService.update(drugVM);
+    public ResponseEntity<Drug> updateDrug(@RequestBody Drug drugVM){
+        return new ResponseEntity<Drug> (_drugService.update(drugVM), HttpStatus.OK);
 
     }
     @GetMapping("get/data/{id}")
